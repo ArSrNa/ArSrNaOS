@@ -181,14 +181,14 @@ function FuckingTrueProgress() {
 
     const mapValue = (input) => {
         if (input >= 0 && input <= 30) {
-            // 输入范围 [0, 10]
+            // 输入范围 [0, 30]
             const output = (input / 30) * 93;
             return output
         } else if (input > 30 && input < 100) {
-            // 输入范围 (10, 100]
+            // 输入 30
             return 93
         } else if (input >= 100) {
-            // 输入范围 (10, 100]
+            // 输入 100
             return 100
         }
     }
