@@ -11,7 +11,7 @@ import { uuid } from './plug';
 import Home from './Home';
 import './App.css';
 import Aegis from 'aegis-web-sdk';
-import { ReactGPDemo } from './demo/nodejs/index';
+import { ReactGPDemo } from './demo/nodejs/genshin-progress';
 const { Header, Content, Footer } = Layout;
 const { TextArea } = Input;
 const { Paragraph, Title } = Typography
@@ -38,13 +38,14 @@ function Main() {
           </Menu>
         </div>
         <Content style={{ padding: '80px 20px 0px 20px' }}>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path="*" element={<Error />} replace={true} />
-
-            {/* Demos */}
-            <Route path='demo/nodejs/react-genshin-progress' element={<ReactGPDemo />} />
-          </Routes>
+          <Watermark content="ArSrNa 开源中心">
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path="*" element={<Error />} replace={true} />
+              {/* Demos */}
+              <Route path='demo/nodejs/genshin-progress' element={<ReactGPDemo />} />
+            </Routes>
+          </Watermark>
         </Content>
         <Footer>
           <FooterContent />

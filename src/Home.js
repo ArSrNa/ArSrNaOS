@@ -10,8 +10,8 @@ export default function Home() {
         title: 'React 原神元素进度条',
         description: '使用React与svg，叠层的一个元素进度条',
         git: 'https://github.com/ArSrNa/React-GenshinProgress',
-        sourceLink: 'https://www.npmjs.com/package/react-genshin-progress',
-        demo: '/demo/nodejs/react-genshin-progress'
+        sourceLink: 'https://www.npmjs.com/package/genshin-progress',
+        demo: '/demo/nodejs/genshin-progress'
     }]
 
     return (
@@ -26,7 +26,7 @@ export default function Home() {
                 </div>
 
                 <section>
-                    <div style={{ position: 'sticky', top: 60, zIndex: 10, backdropFilter: 'blur(10px) saturate(1.8)' }}>
+                    <div className='anchor'>
                         <Anchor
                             direction="horizontal"
                             items={[{

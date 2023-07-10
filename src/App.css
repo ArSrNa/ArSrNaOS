@@ -195,3 +195,25 @@ body {
   flex-wrap: nowrap;
   justify-content: center;
 }
+
+.anchor {
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+  backdrop-filter: blur(10px) saturate(1.8);
+}
+
+.spark {
+  animation-name: spark;
+  animation-duration: .5s;
+}
+
+@keyframes spark {
+  0% {
+    color: palevioletred;
+  }
+
+  100% {
+    color: black;
+  }
+}
