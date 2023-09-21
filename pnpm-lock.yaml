@@ -23,15 +23,24 @@ dependencies:
   antd:
     specifier: ^5.6.4
     version: 5.6.4(react-dom@18.2.0)(react@18.2.0)
+  eslint:
+    specifier: ^8.44.0
+    version: 8.44.0
+  eslint-plugin-react:
+    specifier: ^7.32.2
+    version: 7.32.2(eslint@8.44.0)
+  genshin-progress:
+    specifier: ^1.0.0
+    version: 1.0.0(@babel/core@7.22.8)
+  highlight.js:
+    specifier: ^11.8.0
+    version: 11.8.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
-  react-genshin-progress:
-    specifier: ^1.1.0
-    version: 1.1.0(@babel/core@7.22.8)
   react-router-dom:
     specifier: ^6.14.1
     version: 6.14.1(react-dom@18.2.0)(react@18.2.0)
@@ -5625,6 +5634,15 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: false
 
+  /genshin-progress@1.0.0(@babel/core@7.22.8):
+    resolution: {integrity: sha512-We5KkUHTH8eSI26AvElL3/J1mMVz+rP7kfGORxZGYtm9Slm7OO1MleFwKfZjJcRBMlqaXZdC5UzAU1pIJuFUuw==}
+    dependencies:
+      '@babel/preset-react': 7.22.5(@babel/core@7.22.8)
+      react: 18.2.0
+    transitivePeerDependencies:
+      - '@babel/core'
+    dev: false
+
   /gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -5829,6 +5847,11 @@ packages:
   /he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
+    dev: false
+
+  /highlight.js@11.8.0:
+    resolution: {integrity: sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==}
+    engines: {node: '>=12.0.0'}
     dev: false
 
   /hoopy@0.1.4:
@@ -9306,16 +9329,6 @@ packages:
 
   /react-error-overlay@6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
-    dev: false
-
-  /react-genshin-progress@1.1.0(@babel/core@7.22.8):
-    resolution: {integrity: sha512-SScm5vY0aydDFowemCGdRxAGW1MuY1D+uKgPfoHNu74yK23nCDqtHNkJEAwVfzgrfAMh+FgyFDNYxfmCXlgOnw==}
-    dependencies:
-      '@babel/preset-env': 7.22.7(@babel/core@7.22.8)
-      '@babel/preset-react': 7.22.5(@babel/core@7.22.8)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
     dev: false
 
   /react-is@16.13.1:
