@@ -6,12 +6,19 @@ const { Title, Paragraph } = Typography;
 
 export default function Home() {
     const nodejsRes = [{
-        img: require('./covers/rgp.png'),
+        img: require('./covers/nodejs/rgp.png'),
         title: 'React 原神元素进度条',
         description: '使用React与svg，叠层的一个元素进度条',
         git: 'https://github.com/ArSrNa/React-GenshinProgress',
         sourceLink: 'https://www.npmjs.com/package/genshin-progress',
         demo: '/demo/nodejs/genshin-progress'
+    }, {
+        img: require('./covers/nodejs/player.png'),
+        title: 'React 带歌词简易播放器',
+        description: '实现标题副标题显示，封面展示，原生audio播放器，lrc歌词同步显示（需提前转换为json）',
+        git: 'https://github.com/ArSrNa/React-LRCPlayer',
+        sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
+        demo: '/demo/nodejs/lrcplayer'
     }]
 
     return (
