@@ -1,10 +1,12 @@
 import { Space, Card, Button, Image, Avatar, Typography, Anchor, Row, Col } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { GithubOutlined, GlobalOutlined } from '@ant-design/icons';
 const { Meta } = Card;
 const { Title, Paragraph } = Typography;
 
 
 export default function Home() {
+    const navigate = useNavigate();
     const nodejsRes = [{
         img: require('./covers/nodejs/rgp.png'),
         title: 'React 原神元素进度条',
@@ -60,7 +62,7 @@ export default function Home() {
                                             actions={[
                                                 git ? <a href={git} target='_blank'><GithubOutlined /> 源代码</a> : undefined,
                                                 sourceLink ? <a href={sourceLink} target='_blank'><GlobalOutlined /> npm资源</a> : undefined,
-                                                demo ? <a href={demo} target='_blank'><GlobalOutlined /> Demo</a> : undefined,
+                                                demo ? <a onClick={() => navigate(demo)}><GlobalOutlined /> Demo</a> : undefined,
                                             ]}
                                         >
                                             <Meta

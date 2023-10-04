@@ -31,6 +31,12 @@
       "react-app/jest"
     ]
   },
+  "reactSnapshot": {
+    "include": [
+      "/demo/nodejs",
+      "/demo/nodejs/lrcplayer"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",

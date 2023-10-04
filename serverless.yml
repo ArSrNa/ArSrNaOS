@@ -1,0 +1,32 @@
+# serverless.yml
+
+component: website # (必填) 引用 component 的名称，当前用到的是 tencent-website 组件
+name: ArSrNaOS # (必填) 该 website 组件创建的实例名称
+
+app: ArSrNaOS # (可选) 该 website 应用名称
+stage: master # (可选) 用于区分环境信息，默认值是 dev
+
+inputs:
+  src:
+    # src: ./build  # 部署项目的目录路径
+    dist: ./build # build 完成后输出目录，如果配置 hook， 此参数必填
+    hook: npm run build # hook 脚本
+    index: index.html
+    error: index.html
+    websitePath: ./
+  replace: true
+  autoSetupAcl: false
+  autoSetupPolicy: false
+  website: true
+  acl:
+    permissions: private
+  region: ap-guangzhou
+  bucketName: arsrna-os-website
+  protocol: https
+  # hosts:
+  #   - host: os.arsrna.cn
+  #     https:
+  #       switch: on
+  #       http2: on
+  #       certInfo:
+  #         certId: '8hWUTTLK'
