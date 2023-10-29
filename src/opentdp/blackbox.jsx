@@ -39,52 +39,64 @@ export default function BlackBox() {
             <h1>OpenTDP 开放拨测集群</h1>
             <div>以下为注册到 OpenTDP Blackbox 服务的节点状态。了解更多请前往<a href="https://blackbox.opentdp.org/status/" target="_blank">https://blackbox.opentdp.org/status/</a></div>
             <Spin spinning={load}>
-                <Table dataSource={dataSource} columns={[{
-                    title: '节点名',
-                    key: 'name',
-                    render: (num, record) => (
-                        <b>{record.name}</b>
-                    )
-                }, {
-                    title: '贡献者',
-                    dataIndex: 'owner',
-                    key: 'owner',
-                }, {
-                    title: '所在地',
-                    dataIndex: 'region',
-                    key: 'region',
-                }, {
-                    title: '运营商',
-                    dataIndex: 'isp',
-                    key: 'isp',
-                }, {
-                    title: '入/出流量',
-                    key: 'traffic',
-                    render: (num, record) => (
-                        <div>{record.todayTrafficIn} / {record.todayTrafficOut}</div>
-                    )
-                }, {
-                    title: '状态',
-                    key: 'status',
-                    render: (num, record) => {
-                        const online = record.status === 'online';
-                        return (<>
-                            <Tag
-                                icon={online ? <CheckCircleOutlined /> : <ExclamationCircleOutlined />}
-                                color={online ? 'green' : 'red'}>
-                                {online ? '在线' : '离线'}
-                            </Tag>
-                            <div>
-                                <small>上次启动时间：{record.lastStartTime}</small><br />
-                                <small>上次离线时间：{record.lastCloseTime || '暂无记录'}</small>
-                            </div>
-                        </>)
-                    }
-                }, {
-                    title: '备注',
-                    dataIndex: 'banner',
-                    key: 'banner',
-                },]} />
+                <Table dataSource={dataSource}
+                    scroll={{
+                        y: 500,
+                    }}
+                    columns={[{
+                        title: '节点名',
+                        key: 'name',
+                        render: (num, record) => (
+                            <b>{record.name}</b>
+                        ),
+                        fixed: 'left',
+                        width: 130
+                    }, {
+                        title: '贡献者',
+                        dataIndex: 'owner',
+                        key: 'owner',
+                        width: 130
+                    }, {
+                        title: '所在地',
+                        dataIndex: 'region',
+                        key: 'region',
+                        width: 150
+                    }, {
+                        title: '运营商',
+                        dataIndex: 'isp',
+                        key: 'isp',
+                        width: 130
+                    }, {
+                        title: '入/出流量',
+                        key: 'traffic',
+                        render: (num, record) => (
+                            <div>{record.todayTrafficIn} / {record.todayTrafficOut}</div>
+                        ),
+                        width: 130
+                    }, {
+                        title: '状态',
+                        key: 'status',
+                        render: (num, record) => {
+                            const online = record.status === 'online';
+                            return (<>
+                                <Tag
+                                    icon={online ? <CheckCircleOutlined /> : <ExclamationCircleOutlined />}
+                                    color={online ? 'green' : 'red'}>
+                                    {online ? '在线' : '离线'}
+                                </Tag>
+                                <div>
+                                    <small>上次启动时间：{record.lastStartTime}</small><br />
+                                    <small>上次离线时间：{record.lastCloseTime || '暂无记录'}</small>
+                                </div>
+                            </>)
+                        },
+                        width: 200
+                    }, {
+                        title: '备注',
+                        dataIndex: 'banner',
+                        key: 'banner',
+                        width: 200
+                    },]} />
             </Spin>
 
             <div>
