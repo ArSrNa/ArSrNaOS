@@ -1,4 +1,4 @@
-import { Table, Tag, message } from 'antd';
+import { Table, Tag, message, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
@@ -8,72 +8,84 @@ import {
 
 export default function BlackBox() {
     const [dataSource, setDatasource] = useState([]);
+    const [load, setLoad] = useState(true);
     let timer;
-    useEffect(() => {
-        timer = setInterval(() => {
-            axios({
-                url: 'https://blackbox.opentdp.org/api/nodes',
-                type: 'get'
-            }).then(msg => {
-                const lists = [];
-                for (let i in msg.data) {
-                    lists.push(msg.data[i]);
-                }
-                setDatasource(lists);
+
+    function fetchData() {
+        axios({
+            url: 'https://blackbox.opentdp.org/api/nodes',
+            type: 'get'
+        }).then(msg => {
+            const lists = [];
+            for (let i in msg.data) {
+                lists.push(msg.data[i]);
+            }
+            setDatasource(lists);
+        })
+            .finally(() => {
+                setLoad(false);
             })
-                .catch(err => message.error(err));
-        }, 10000)
+            .catch(err => { message.error(err) });
+    }
+
+    useEffect(() => {
+        fetchData()
+        timer = setInterval(() => {
+            fetchData();
+        }, 10000);
     }, [])
     return (
         <>
             <h1>OpenTDP 开放拨测集群</h1>
             <div>以下为注册到 OpenTDP Blackbox 服务的节点状态。了解更多请前往<a href="https://blackbox.opentdp.org/status/" target="_blank">https://blackbox.opentdp.org/status/</a></div>
-            <Table dataSource={dataSource} columns={[{
-                title: '节点名',
-                key: 'name',
-                render: (num, record) => (
-                    <b>{record.name}</b>
-                )
-            }, {
-                title: '贡献者',
-                dataIndex: 'owner',
-                key: 'owner',
-            }, {
-                title: '所在地',
-                dataIndex: 'region',
-                key: 'region',
-            }, {
-                title: '运营商',
-                dataIndex: 'isp',
-                key: 'isp',
-            }, {
-                title: '入/出流量',
-                key: 'traffic',
-                render: (num, record) => (
-                    <div>{record.todayTrafficIn} / {record.todayTrafficOut}</div>
-                )
-            }, {
-                title: '状态',
-                key: 'status',
-                render: (num, record) => {
-                    const online = record.status === 'online';
-                    return (<>
-                        <Tag
-                            icon={online ? <CheckCircleOutlined /> : <ExclamationCircleOutlined />}
-                            color={online ? 'green' : 'red'}>
-                            {online ? '在线' : '离线'}
-                        </Tag>
-                        <div>
-                            <small>上次启动时间：{record.lastStartTime}</small><br />
-                            <small>上次离线时间：{record.lastCloseTime || '暂无记录'}</small>
-                        </div>
-                    </>)
-                }
-            }, {
-                title: '备注',
-                dataIndex: 'banner',
-                key: 'banner',
-            },]} />
+            <Spin spinning={load}>
+                <Table dataSource={dataSource} columns={[{
+                    title: '节点名',
+                    key: 'name',
+                    render: (num, record) => (
+                        <b>{record.name}</b>
+                    )
+                }, {
+                    title: '贡献者',
+                    dataIndex: 'owner',
+                    key: 'owner',
+                }, {
+                    title: '所在地',
+                    dataIndex: 'region',
+                    key: 'region',
+                }, {
+                    title: '运营商',
+                    dataIndex: 'isp',
+                    key: 'isp',
+                }, {
+                    title: '入/出流量',
+                    key: 'traffic',
+                    render: (num, record) => (
+                        <div>{record.todayTrafficIn} / {record.todayTrafficOut}</div>
+                    )
+                }, {
+                    title: '状态',
+                    key: 'status',
+                    render: (num, record) => {
+                        const online = record.status === 'online';
+                        return (<>
+                            <Tag
+                                icon={online ? <CheckCircleOutlined /> : <ExclamationCircleOutlined />}
+                                color={online ? 'green' : 'red'}>
+                                {online ? '在线' : '离线'}
+                            </Tag>
+                            <div>
+                                <small>上次启动时间：{record.lastStartTime}</small><br />
+                                <small>上次离线时间：{record.lastCloseTime || '暂无记录'}</small>
+                            </div>
+                        </>)
+                    }
+                }, {
+                    title: '备注',
+                    dataIndex: 'banner',
+                    key: 'banner',
+                },]} />
+            </Spin>
 
             <div>
                 <h2>注册须知</h2>
