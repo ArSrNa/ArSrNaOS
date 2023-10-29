@@ -13,6 +13,7 @@ import './App.css';
 import Aegis from 'aegis-web-sdk';
 import { ReactGPDemo } from './demo/nodejs/genshin-progress';
 import { LrcPlayer } from './demo/nodejs/lrcplayer';
+import BlackBox from './opentdp/blackbox';
 const { Header, Content, Footer } = Layout;
 const { TextArea } = Input;
 const { Paragraph, Title } = Typography
@@ -44,8 +45,9 @@ function Main() {
               <Route path='/' element={<Home />} />
               <Route path="*" element={<Error />} replace={true} />
               {/* Demos */}
-              <Route path='demo/nodejs/genshin-progress' element={<ReactGPDemo />} />
-              <Route path='demo/nodejs/lrcplayer' element={<LrcPlayer />} />
+              <Route path='/demo/nodejs/genshin-progress' element={<ReactGPDemo />} />
+              <Route path='/demo/nodejs/lrcplayer' element={<LrcPlayer />} />
+              <Route path='/opentdp/blackbox' element={<BlackBox />} />
             </Routes>
           </Watermark>
         </Content>
