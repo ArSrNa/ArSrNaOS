@@ -62,6 +62,11 @@ export default function BlackBox() {
                         key: 'region',
                         width: 150
                     }, {
+                        title: '版本',
+                        key: 'version',
+                        render: (num, record) => ("V" + record.version),
+                        width: 60
+                    }, {
                         title: '运营商',
                         dataIndex: 'isp',
                         key: 'isp',
