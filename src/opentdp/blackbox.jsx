@@ -1,4 +1,4 @@
-import { Table, Tag, message, Spin } from 'antd';
+import { Table, Tag, message, Spin, Anchor } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
@@ -8,6 +8,7 @@ import {
 
 export default function BlackBox() {
     const [dataSource, setDatasource] = useState([]);
+    const [websites, setWebsites] = useState([]);
     const [load, setLoad] = useState(true);
     let timer;
 
@@ -21,6 +22,21 @@ export default function BlackBox() {
                 lists.push(msg.data[i]);
             }
             setDatasource(lists);
+        })
+            .finally(() => {
+                setLoad(false);
+            })
+            .catch(err => { message.error(err) });
+
+        axios({
+            url: 'https://blackbox.opentdp.org/api/sites',
+        }).then(msg => {
+            const lists = [];
+            for (let i in msg.data) {
+                lists.push(msg.data[i]);
+            }
+            // console.log(lists)
+            setWebsites(lists);
         })
             .finally(() => {
                 setLoad(false);
@@ -56,102 +72,120 @@ export default function BlackBox() {
     }, [])
     return (
         <>
-            <h1>OpenTDP 开放拨测集群</h1>
-            <div>以下为注册到 OpenTDP Blackbox 服务的节点状态。了解更多请前往<a href="https://blackbox.opentdp.org/status/" target="_blank">https://blackbox.opentdp.org/status/</a></div>
-            <Spin spinning={load}>
-                <Table dataSource={dataSource}
-                    scroll={{
-                        y: '80vh',
-                    }}
-                    columns={[{
-                        title: '节点名',
-                        key: 'name',
-                        render: (num, record) => (
-                            <b>{record.name}</b>
-                        ),
-                        fixed: 'left',
-                        width: 130
+            <div className='anchor'>
+                <Anchor
+                    direction="horizontal"
+                    items={[{
+                        key: '拨测节点',
+                        href: '#boceNodes',
+                        title: '拨测节点',
                     }, {
-                        title: '贡献者',
-                        dataIndex: 'owner',
-                        key: 'owner',
-                        width: 130
-                    }, {
-                        title: '所在地',
-                        dataIndex: 'region',
-                        key: 'region',
-                        width: 150
-                    }, {
-                        title: '版本',
-                        key: 'version',
-                        render: (num, record) => ("V" + record.version),
-                        width: 60
-                    }, {
-                        title: '运营商',
-                        dataIndex: 'isp',
-                        key: 'isp',
-                        width: 130
-                    }, {
-                        title: '入/出流量',
-                        key: 'traffic',
-                        render: (num, record) => (
-                            <div>{getTrafficStr(record.todayTrafficIn)} / {getTrafficStr(record.todayTrafficOut)}</div>
-                        ),
-                        width: 130
-                    }, {
-                        title: '状态',
-                        key: 'status',
-                        render: (num, record) => {
-                            const online = record.status === 'online';
-                            return (<>
-                                <Tag
-                                    icon={online ? <CheckCircleOutlined /> : <ExclamationCircleOutlined />}
-                                    color={online ? 'green' : 'red'}>
-                                    {online ? '在线' : '离线'}
-                                </Tag>
-                                <div>
-                                    <small>上次启动时间：{record.lastStartTime}</small><br />
-                                    <small>上次离线时间：{record.lastCloseTime || '暂无记录'}</small>
-                                </div>
-                            </>)
-                        },
-                        width: 200
-                    }, {
-                        title: '备注',
-                        dataIndex: 'banner',
-                        key: 'banner',
-                        width: 200
-                    },]} />
-            </Spin>
-
-            <div>
-                <h2>注册须知</h2>
-                <p>这将通过 Frp Client 注册一个 Blackbox 节点到 OpenTDP Blackbox 服务，运行前请确认知晓自己在做什么。 </p><ul><li>目前仅用于测试，请不要在生产环境中使用</li><li>你的节点将分享给其他注册节点的用户</li><li>你将可以使用其他用户注册的节点</li></ul><h2>注册你的节点</h2><p>修改环境变量后运行如下命令，注册你的节点到 OpenTDP Blackbox 服务。</p><p>参数 <b>--publish 9115:9115</b> 并不是必须的，这取决于该节点是否仍需要为其它 Prometheus 提供服务，如果不需要请删除它。</p>
-                <pre><code>
-                    docker run -d \<br />
-                    --name blackbox \<br />
-                    --restart always \<br />
-                    --publish 9115:9115 \<br />
-                    --env "NODE_NAME=your-node-name" \<br />
-                    --env "NODE_OWNER=your-nickname" \<br />
-                    --env "NODE_REGION=your-city" \<br />
-                    --env "NODE_ISP=your-isp" \<br />
-                    --env "NODE_BANNER=your-banner" \<br />
-                    rehiy/blackbox<br />
-                    <br />
-                    # 查看注册日志<br />
-                    docker logs -f blackbox
-                </code></pre>
-                <h2>环境变量说明</h2>
-                <p>请不要在环境变量中添加`;`或其他特殊字符，否则可能导致无法正常运行。</p>
-                <ul>
-                    <li><b>NODE_NAME</b>：以自己英文名开头，仅支持英文小写、短横线、数字（不超过20byte）</li>
-                    <li><b>NODE_OWNER</b>：所有者昵称（utf-8编码，不超过30byte）</li>
-                    <li><b>NODE_REGION</b>：国家或地区/省份/城市（utf-8编码，不超过30byte）</li>
-                    <li><b>NODE_ISP</b>：运营商/云厂商（utf-8编码，不超过30byte）</li>
-                    <li><b>NODE_BANNER</b>：自定义说明（utf-8编码，不超过30byte）</li>
-                </ul>
+                        key: '已添加网站',
+                        href: '#websites',
+                        title: '已添加网站',
+                    },]}
+                />
             </div>
+            <section id="boceNodes">
+                <h1>OpenTDP 开放拨测集群</h1>
+                <div>以下为注册到 OpenTDP Blackbox 服务的节点状态。了解更多请前往<a href="https://blackbox.opentdp.org/" target="_blank">https://blackbox.opentdp.org/</a></div>
+                <Spin spinning={load}>
+                    <Table dataSource={dataSource}
+                        scroll={{
+                            y: '80vh',
+                        }}
+                        columns={[{
+                            title: '节点名',
+                            key: 'name',
+                            render: (num, record) => (
+                                <b>{record.name}</b>
+                            ),
+                            fixed: 'left',
+                            width: 130
+                        }, {
+                            title: '贡献者',
+                            dataIndex: 'owner',
+                            key: 'owner',
+                            width: 130
+                        }, {
+                            title: '所在地',
+                            dataIndex: 'region',
+                            key: 'region',
+                            width: 150
+                        }, {
+                            title: '版本',
+                            key: 'version',
+                            render: (num, record) => ("V" + record.version),
+                            width: 60
+                        }, {
+                            title: '运营商',
+                            dataIndex: 'isp',
+                            key: 'isp',
+                            width: 130
+                        }, {
+                            title: '入/出流量',
+                            key: 'traffic',
+                            render: (num, record) => (
+                                <div>{getTrafficStr(record.todayTrafficIn)} / {getTrafficStr(record.todayTrafficOut)}</div>
+                            ),
+                            width: 130
+                        }, {
+                            title: '状态',
+                            key: 'status',
+                            render: (num, record) => {
+                                const online = record.status === 'online';
+                                return (<>
+                                    <Tag
+                                        icon={online ? <CheckCircleOutlined /> : <ExclamationCircleOutlined />}
+                                        color={online ? 'green' : 'red'}>
+                                        {online ? '在线' : '离线'}
+                                    </Tag>
+                                    <div>
+                                        <small>上次启动时间：{record.lastStartTime}</small><br />
+                                        <small>上次离线时间：{record.lastCloseTime || '暂无记录'}</small>
+                                    </div>
+                                </>)
+                            },
+                            width: 200
+                        }, {
+                            title: '备注',
+                            dataIndex: 'banner',
+                            key: 'banner',
+                            width: 200
+                        },]} />
+                </Spin>
+            </section>
+
+            <section id="websites">
+                <h1>已添加的网站</h1>
+                <Spin spinning={load}>
+                    <Table dataSource={websites}
+                        scroll={{
+                            y: '80vh',
+                        }}
+                        columns={[{
+                            title: '站点名称',
+                            key: 'websiteName',
+                            render: (num, record) => (
+                                <b>{record.labels.project}</b>
+                            ),
+                            fixed: 'left',
+                            width: 130
+                        }, {
+                            title: '网址',
+                            dataIndex: 'websiteUrl',
+                            key: 'websiteUrl',
+                            width: 130,
+                            render: (num, record) => (record.targets.join(', '))
+                        }, {
+                            title: '备注',
+                            dataIndex: 'region',
+                            key: 'region',
+                            width: 150,
+                            render: (num, record) => (record.labels.desc)
+                        },]} />
+                </Spin>
+            </section>
 
         </>
     )

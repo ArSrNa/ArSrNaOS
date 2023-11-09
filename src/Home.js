@@ -21,7 +21,18 @@ export default function Home() {
         git: 'https://github.com/ArSrNa/React-LRCPlayer',
         sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
         demo: '/demo/nodejs/lrcplayer'
-    }]
+    }];
+
+    const appRes = [{
+        img: 'https://www.rehiy.com/usr/uploads/2023/10/2144835887.png',
+        title: 'OpenTDP-云边拨测',
+        description: '这是一个将自己的节点注册到 OpenTDP 云边拨测集群的服务。',
+        actions: [
+            <a onClick={() => navigate('/opentdp/blackbox/')} >节点状态</a>,
+            <a href="https://blackbox.opentdp.org/provide_nodes" target='_blank'><GlobalOutlined /> 注册节点</a>,
+            <a href="https://blackbox.opentdp.org/" target='_blank'><GlobalOutlined /> 了解更多</a>
+        ]
+    },]
 
     return (
         <>
@@ -58,7 +69,10 @@ export default function Home() {
                                 const { img, title, description, git, sourceLink, demo } = res
                                 return (
                                     <Col md={12} lg={8}>
-                                        <Card cover={<img alt={title} src={img} style={{ height: 200, width: '100%', justifyContent: 'center', objectFit: 'scale-down' }} />}
+                                        <Card
+                                            cover={
+                                                <img alt={title} src={img} style={{ height: 200, width: '100%', justifyContent: 'center', objectFit: 'scale-down' }} />
+                                            }
                                             actions={[
                                                 git ? <a href={git} target='_blank'><GithubOutlined /> 源代码</a> : undefined,
                                                 sourceLink ? <a href={sourceLink} target='_blank'><GlobalOutlined /> npm资源</a> : undefined,
@@ -80,7 +94,21 @@ export default function Home() {
 
                     <div id='Apps'>
                         <Title level={2}>应用资源</Title>
-
+                        {appRes.map(res => {
+                            const { img, title, description, actions } = res
+                            return (
+                                <Col md={12} lg={8}>
+                                    <Card cover={<img alt={title} src={img} style={{ height: 200, width: '100%', justifyContent: 'center', objectFit: 'scale-down' }} />}
+                                        actions={actions}
+                                    >
+                                        <Meta
+                                            title={title}
+                                            description={description}
+                                        />
+                                    </Card></Col>
+                            )
+                        }
+                        )}
                     </div>
 
 
