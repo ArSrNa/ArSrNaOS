@@ -28,6 +28,26 @@ export default function BlackBox() {
             .catch(err => { message.error(err) });
     }
 
+    function getTrafficStr(bytes) {
+        if (bytes === 0) return 0;
+        const k = 1024;
+        const sizes = [
+            "B",
+            "KB",
+            "MB",
+            "GB",
+            "TB",
+            "PB",
+            "EB",
+            "ZB",
+            "YB",
+        ];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return (
+            `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
+        );
+    }
+
     useEffect(() => {
         fetchData()
         timer = setInterval(() => {
@@ -41,7 +61,7 @@ export default function BlackBox() {
             <Spin spinning={load}>
                 <Table dataSource={dataSource}
                     scroll={{
-                        y: 500,
+                        y: '80vh',
                     }}
                     columns={[{
                         title: '节点名',
@@ -75,7 +95,7 @@ export default function BlackBox() {
                         title: '入/出流量',
                         key: 'traffic',
                         render: (num, record) => (
-                            <div>{record.todayTrafficIn} / {record.todayTrafficOut}</div>
+                            <div>{getTrafficStr(record.todayTrafficIn)} / {getTrafficStr(record.todayTrafficOut)}</div>
                         ),
                         width: 130
                     }, {
