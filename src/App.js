@@ -94,7 +94,7 @@ function FooterContent() {
           </Space>
         </Col>
       </Row>
-      <div style={{ paddingTop: 20, textAlign: 'center' }}><a href='https://beian.miit.gov.cn/' target='_blank'>琼ICP备2023005694号-1</a></div>
+      <div style={{ paddingTop: 20, textAlign: 'center' }}><a href='https://beian.miit.gov.cn/' target='_blank'>沪ICP备2023039698号-1</a></div>
       <div style={{ textAlign: 'center' }}>Powered by Ar-Sr-Na</div>
     </>
   )
