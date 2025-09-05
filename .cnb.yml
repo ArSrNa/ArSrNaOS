@@ -1,0 +1,61 @@
+$:
+  vscode:
+    - imports:
+        - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
+      runner:
+        cpus: 32
+      docker:
+        image: docker.cnb.cool/arsrna/dev-env/node22
+      services:
+        - vscode
+        - docker
+      stages:
+        - name: install
+          script: pnpm i
+  push:
+    pipeline-1:
+      runner:
+        cpus: 8
+      services:
+        - docker
+      docker:
+        image: docker.cnb.cool/arsrna/dev-env/node22
+        volumes:
+          # 使用缓存，同时更新
+          - /root/.pnpm:cow
+          - /root/.pnpm-store:cow
+          - /workspace/.next:cow
+      stages:
+        - name: sync to github
+          image: tencentcom/git-sync
+          imports:
+            - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
+          settings:
+            target_url: https://github.com/ArSrNa/ArSrNaOS.git
+            auth_type: https
+            username: ${GIT_USERNAME}
+            password: ${GIT_ACCESS_TOKEN}
+            git_email: "root@arsrna.cn"
+    tag_deploy.production:
+      services:
+        - docker
+      docker:
+        image: docker.cnb.cool/arsrna/dev-env/node22
+        volumes:
+          # 使用缓存，同时更新
+          - /root/.pnpm:cow
+          - /root/.pnpm-store:cow
+          - /workspace/.next:cow
+      runner:
+        cpus: 32
+      stages:
+        - name: build
+          script:
+            - npm i -g pnpm
+            - pnpm i
+            - npm run build
+        - name: 部署我的 eo pages 正式环境
+          imports:
+            - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
+          image: tencentcom/deploy-eopages:latest
+          script: edgeone pages deploy ./out -n arsrna-os -t $EO_SECRET
