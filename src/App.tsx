@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import React, { useEffect, useState, lazy, Suspense } from 'react';
 import Error from './error';
 import {
   Layout, Menu, Watermark,
@@ -9,14 +8,13 @@ import {
 import { GithubOutlined, GlobalOutlined } from '@ant-design/icons'
 import { uuid } from './plug';
 import Home from './Home';
-import './App.css';
+import './index.scss';
 import Aegis from 'aegis-web-sdk';
 import { ReactGPDemo } from './demo/nodejs/genshin-progress';
 import { LrcPlayer } from './demo/nodejs/lrcplayer';
 import BlackBox from './opentdp/blackbox';
-const { Header, Content, Footer } = Layout;
-const { TextArea } = Input;
-const { Paragraph, Title } = Typography
+const { Content, Footer } = Layout;
+const { Title } = Typography
 
 
 function Main() {
@@ -27,9 +25,9 @@ function Main() {
       {/* <Watermark content='Ar-Sr-Na 测试版本'> */}
       <Layout style={{ minHeight: '100vh' }}>
         <div className='nav-blur'>
-          <img height="60" src={require('./icon.ico')} style={{ paddingRight: 5 }} alt="logo" />
+          <img height="60" src={'/icon.ico'} style={{ paddingRight: 5 }} alt="logo" />
           <span className='lead'>ArSrNa 资源与应用</span>
-          <Menu mode="horizontal" defaultSelectedKeys="/" style={{ marginLeft: 30, background: 'rgba(0,0,0,0)' }}
+          <Menu mode="horizontal" defaultSelectedKeys={["/"]} style={{ marginLeft: 30, background: 'rgba(0,0,0,0)' }}
             items={[{
               label: '首页',
               key: '/',
@@ -43,7 +41,7 @@ function Main() {
           <Watermark content="ArSrNa 开源中心">
             <Routes>
               <Route path='/' element={<Home />} />
-              <Route path="*" element={<Error />} replace={true} />
+              <Route path="*" element={<Error />} />
               {/* Demos */}
               <Route path='/demo/nodejs/genshin-progress' element={<ReactGPDemo />} />
               <Route path='/demo/nodejs/lrcplayer' element={<LrcPlayer />} />
@@ -111,6 +109,7 @@ function App() {
     spa: true, // spa 应用页面跳转的时候开启 pv 计算
     hostUrl: 'https://rumt-zh.com'
   });
+
   return (
     <Router>
       <Main />

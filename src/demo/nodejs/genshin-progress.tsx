@@ -2,7 +2,6 @@ import { Space, Card, Button, Image, Avatar, Typography, Anchor, Row, Col, Input
 import { GithubOutlined, GlobalOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { GIProgress } from "genshin-progress";
-import '../../App.css';
 import hljs from 'highlight.js'
 import 'highlight.js/styles/vs2015.css';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -27,8 +26,8 @@ export function ReactGPDemo() {
         // 获取到内容中所有的code标签
         const codes = document.querySelectorAll('pre code')
         codes.forEach((el) => {
-            // 让code进行高亮
-            hljs.highlightElement(el)
+            //@ts-ignore 让code进行高亮
+            hljs.highlightElement(el);
         })
     }, [])
 

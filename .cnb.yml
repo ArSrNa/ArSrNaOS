@@ -58,4 +58,4 @@ $:
           imports:
             - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
           image: tencentcom/deploy-eopages:latest
-          script: edgeone pages deploy ./out -n arsrna-os -t $EO_SECRET
+          script: edgeone pages deploy ./build -n arsrna-os -t $EO_SECRET
