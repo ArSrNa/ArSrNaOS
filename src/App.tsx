@@ -11,14 +11,24 @@ import Home from './Home';
 import './index.scss';
 import Aegis from 'aegis-web-sdk';
 import { ReactGPDemo } from './demo/nodejs/genshin-progress';
-import { LrcPlayer } from './demo/nodejs/lrcplayer';
+import LRCPlayerDemo from './demo/nodejs/lrcplayer';
 import BlackBox from './opentdp/blackbox';
+import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { screenWidthState } from './states';
+import { useEffect } from 'react';
+import { throttle, debounce } from 'lodash';
 const { Content, Footer } = Layout;
 const { Title } = Typography
 
 
 function Main() {
   const navigate = useNavigate();
+  const setScreenWidth = useSetRecoilState(screenWidthState);
+
+
+  useEffect(() => {
+    window.onresize = debounce(() => { setScreenWidth(window.innerWidth) }, 100);
+  }, []);
 
   return (
     <>
@@ -44,7 +54,7 @@ function Main() {
               <Route path="*" element={<Error />} />
               {/* Demos */}
               <Route path='/demo/nodejs/genshin-progress' element={<ReactGPDemo />} />
-              <Route path='/demo/nodejs/lrcplayer' element={<LrcPlayer />} />
+              <Route path='/demo/nodejs/lrcplayer' element={<LRCPlayerDemo />} />
               <Route path='/opentdp/blackbox' element={<BlackBox />} />
             </Routes>
           </Watermark>
@@ -111,9 +121,11 @@ function App() {
   });
 
   return (
-    <Router>
-      <Main />
-    </Router>
+    <RecoilRoot>
+      <Router>
+        <Main />
+      </Router>
+    </RecoilRoot>
   );
 }
 

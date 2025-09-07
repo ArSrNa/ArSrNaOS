@@ -15,9 +15,12 @@
     "eslint-plugin-react": "^7.32.2",
     "genshin-progress": "^1.2.2",
     "highlight.js": "^11.8.0",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.2.0",
+    "react-lrcplayer": "3.0.2",
     "react-router-dom": "^6.14.1",
+    "recoil": "^0.7.7",
     "vite": "^7.1.4",
     "vite-tsconfig-paths": "^5.1.4",
     "web-vitals": "^2.1.4"
@@ -27,6 +30,7 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "sass-embedded": "^1.92.0"

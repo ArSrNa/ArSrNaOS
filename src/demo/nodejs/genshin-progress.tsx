@@ -1,17 +1,18 @@
 import { Space, Card, Button, Image, Avatar, Typography, Anchor, Row, Col, Input, InputNumber, Slider, Divider } from 'antd';
-import { GithubOutlined, GlobalOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { GIProgress } from "genshin-progress";
 import hljs from 'highlight.js'
 import 'highlight.js/styles/vs2015.css';
 import javascript from 'highlight.js/lib/languages/javascript';
+import { useRecoilValue } from 'recoil';
+import { screenWidthState } from '@/states';
 hljs.registerLanguage('javascript', javascript);
 const { Meta } = Card;
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input
 
 export function ReactGPDemo() {
-
+    const screenWidth = useRecoilValue(screenWidthState);
     const [progress, setProgress] = useState(0);
     const [width, setWidth] = useState(300);
 
@@ -34,36 +35,36 @@ export function ReactGPDemo() {
     return (
         <Row>
             <Col md={4}>
-                <div className='anchor'>
-                    <Anchor
-                        items={[{
-                            key: '基本使用',
-                            href: '#base',
-                            title: '基本使用',
+                <Anchor
+                    affix={screenWidth > 768}
+                    offsetTop={120}
+                    items={[{
+                        key: '基本使用',
+                        href: '#base',
+                        title: '基本使用',
+                    }, {
+                        key: '尝试一下',
+                        href: '#try',
+                        title: '尝试一下',
+                        children: [{
+                            key: '更改进度',
+                            title: '更改进度',
+                            href: '#changeProgress'
                         }, {
-                            key: '尝试一下',
-                            href: '#try',
-                            title: '尝试一下',
-                            children: [{
-                                key: '更改进度',
-                                title: '更改进度',
-                                href: '#changeProgress'
-                            }, {
-                                key: '改变宽度',
-                                title: '改变宽度',
-                                href: '#changeWidth'
-                            }],
-                        }, {
-                            title: '真实的进度条',
-                            key: '真实的进度条',
-                            href: '#true'
-                        }, {
-                            title: '更真实的进度条',
-                            key: '更真实的进度条',
-                            href: '#true2'
-                        }]}
-                    />
-                </div>
+                            key: '改变宽度',
+                            title: '改变宽度',
+                            href: '#changeWidth'
+                        }],
+                    }, {
+                        title: '真实的进度条',
+                        key: '真实的进度条',
+                        href: '#true'
+                    }, {
+                        title: '更真实的进度条',
+                        key: '更真实的进度条',
+                        href: '#true2'
+                    }]}
+                />
             </Col>
 
             <Col md={20}>
