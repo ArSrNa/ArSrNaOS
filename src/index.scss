@@ -23,10 +23,15 @@ body {
 
 
 .action-link {
+    >img {
+        filter: saturate(0);
+    }
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 22px;
+    gap: 5px;
 }
 
 .para-table {

@@ -81,8 +81,8 @@ export default function Home() {
 
                 <div id='nodejs-resources'>
                     <Title level={2}>nodejs资源</Title>
-                    <img src='https://res.arsrna.cn/images/cnb/griseo.png' style={{ maxWidth: '100%', cursor: 'pointer' }}
-                        onClick={() => window.open('https://cnb.cool/arsrna/', '_blank')} />
+                    {/*  <img src='https://res.arsrna.cn/images/cnb/griseo.png' style={{ maxWidth: '100%', cursor: 'pointer' }}
+                        onClick={() => window.open('https://cnb.cool/arsrna/', '_blank')} /> */}
                     <div className='card-container'>
                         {nodejsRes.map(res => {
                             const { img, title, description, git, sourceLink, demo, cnb } = res
@@ -93,13 +93,14 @@ export default function Home() {
                                         <img alt={title} src={img} className='card-hdpic' />
                                     }
                                     actions={[
-                                        git && <a href={git} target='_blank'><GithubOutlined /></a>,
-                                        cnb && <div onClick={() => window.open(cnb, "_blank")} className='action-link'>
+                                        git ? <a href={git} target='_blank'><GithubOutlined /> Github</a> : undefined,
+                                        cnb ? <div onClick={() => window.open(cnb, "_blank")} className='action-link'>
                                             <img src="https://docs.cnb.cool/images/logo/svg/LogoColorfulIcon.svg" />
-                                        </div>,
-                                        sourceLink && <a href={sourceLink} target='_blank'><GlobalOutlined /> npm</a>,
-                                        demo && <a onClick={() => navigate(demo)}><GlobalOutlined /> Demo</a>,
-                                    ]}
+                                            CNB
+                                        </div> : undefined,
+                                        sourceLink ? <a href={sourceLink} target='_blank'><GlobalOutlined /> npm</a> : undefined,
+                                        demo ? <a onClick={() => navigate(demo)}><GlobalOutlined /> Demo</a> : undefined,
+                                    ].filter(f => f !== void '我永远喜欢爱莉希雅')}
                                 >
                                     <Meta
                                         title={title}
@@ -110,7 +111,7 @@ export default function Home() {
                         }
                         )}
                     </div>
-                </div>
+                </div >
 
 
                 <div id='app-resources'>
@@ -127,7 +128,7 @@ export default function Home() {
                         )}
                     </div>
                 </div>
-            </Space>
+            </Space >
         </>
     )
 }
