@@ -49,20 +49,20 @@ function Main() {
           </Menu>
         </div>
         <Content style={{ padding: '80px 20px 0px 20px' }}>
-          <Watermark content="ArSrNa 开源中心">
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path="*" element={<Error />} />
-              {/* Demos */}
-              <Route path='/demo/nodejs/*'>
-                <Route path='genshin-progress' element={<ReactGPDemo />} />
-                <Route path='lrcplayer' element={<LRCPlayerDemo />} />
-                <Route path='slider' element={<SliderDemo />} />
-                <Route path='cover' element={<CoverDemo />} />
-              </Route>
-              <Route path='/opentdp/blackbox' element={<BlackBox />} />
-            </Routes>
-          </Watermark>
+          {/* <Watermark content="ArSrNa 开源中心"> */}
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path="*" element={<Error />} />
+            {/* Demos */}
+            <Route path='/demo/nodejs/*'>
+              <Route path='genshin-progress' element={<ReactGPDemo />} />
+              <Route path='lrcplayer' element={<LRCPlayerDemo />} />
+              <Route path='slider' element={<SliderDemo />} />
+              <Route path='cover' element={<CoverDemo />} />
+            </Route>
+            <Route path='/opentdp/blackbox' element={<BlackBox />} />
+          </Routes>
+          {/* </Watermark> */}
         </Content>
         <Footer>
           <FooterContent />
