@@ -64,8 +64,6 @@ export default function Home() {
                     <img src='./images/index.jpg' className='hdpic' />
                 </div>
 
-                <img src='https://res.arsrna.cn/images/cnb/griseo.png' style={{ width: '100%', cursor: 'pointer' }}
-                    onClick={() => window.open('https://cnb.cool/arsrna/', '_blank')} />
 
                 <Anchor
                     direction="horizontal"
@@ -83,6 +81,8 @@ export default function Home() {
 
                 <div id='nodejs-resources'>
                     <Title level={2}>nodejs资源</Title>
+                    <img src='https://res.arsrna.cn/images/cnb/griseo.png' style={{ maxWidth: '100%', cursor: 'pointer' }}
+                        onClick={() => window.open('https://cnb.cool/arsrna/', '_blank')} />
                     <div className='card-container'>
                         {nodejsRes.map(res => {
                             const { img, title, description, git, sourceLink, demo, cnb } = res
