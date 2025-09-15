@@ -13,6 +13,7 @@ export default function Home() {
         title: 'React 原神元素进度条',
         description: '使用React与svg，叠层的一个元素进度条',
         git: 'https://github.com/ArSrNa/React-GenshinProgress',
+        cnb: "https://cnb.cool/arsrna/os/React-GenshinProgress",
         sourceLink: 'https://www.npmjs.com/package/genshin-progress',
         demo: '/demo/nodejs/genshin-progress'
     }, {
@@ -20,8 +21,25 @@ export default function Home() {
         title: 'React 带歌词简易播放器',
         description: '实现标题副标题显示，封面展示，原生audio播放器，lrc歌词同步显示（需提前转换为json）',
         git: 'https://github.com/ArSrNa/React-LRCPlayer',
+        cnb: "https://cnb.cool/arsrna/os/React-LRCPlayer",
         sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
         demo: '/demo/nodejs/lrcplayer'
+    }, {
+        img: '/covers/nodejs/slider.png',
+        title: 'React 渐变轮播图',
+        description: 'react渐变图片轮播组件',
+        git: 'https://github.com/ArSrNa/react-fade-slider',
+        cnb: "https://cnb.cool/arsrna/os/react-fade-slider",
+        sourceLink: 'https://www.npmjs.com/package/react-fade-slider',
+        demo: '/demo/nodejs/slider'
+    }, {
+        img: '/covers/nodejs/cover_generator.png',
+        title: 'React 简易封面生成',
+        description: '模仿风格，纯前端效果封面生成',
+        git: 'https://github.com/ArSrNa/cover-generator',
+        cnb: "https://cnb.cool/arsrna/os/cover-generator",
+        sourceLink: 'https://www.npmjs.com/package/poster-generator',
+        demo: '/demo/nodejs/cover'
     }];
 
     const appRes = [{
@@ -46,6 +64,8 @@ export default function Home() {
                     <img src='./images/index.jpg' className='hdpic' />
                 </div>
 
+                <img src='https://res.arsrna.cn/images/cnb/griseo.png' style={{ width: '100%', cursor: 'pointer' }}
+                    onClick={() => window.open('https://cnb.cool/arsrna/', '_blank')} />
 
                 <Anchor
                     direction="horizontal"
@@ -65,7 +85,7 @@ export default function Home() {
                     <Title level={2}>nodejs资源</Title>
                     <div className='card-container'>
                         {nodejsRes.map(res => {
-                            const { img, title, description, git, sourceLink, demo } = res
+                            const { img, title, description, git, sourceLink, demo, cnb } = res
                             return (
                                 <Card
                                     style={{ width: '100%' }}
@@ -73,9 +93,12 @@ export default function Home() {
                                         <img alt={title} src={img} className='card-hdpic' />
                                     }
                                     actions={[
-                                        git ? <a href={git} target='_blank'><GithubOutlined /> 源代码</a> : undefined,
-                                        sourceLink ? <a href={sourceLink} target='_blank'><GlobalOutlined /> npm资源</a> : undefined,
-                                        demo ? <a onClick={() => navigate(demo)}><GlobalOutlined /> Demo</a> : undefined,
+                                        git && <a href={git} target='_blank'><GithubOutlined /></a>,
+                                        cnb && <div onClick={() => window.open(cnb, "_blank")} className='action-link'>
+                                            <img src="https://docs.cnb.cool/images/logo/svg/LogoColorfulIcon.svg" />
+                                        </div>,
+                                        sourceLink && <a href={sourceLink} target='_blank'><GlobalOutlined /> npm</a>,
+                                        demo && <a onClick={() => navigate(demo)}><GlobalOutlined /> Demo</a>,
                                     ]}
                                 >
                                     <Meta

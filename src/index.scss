@@ -21,9 +21,12 @@ body {
     }
 }
 
-body {
-    margin: 0 !important;
-    /* font-family: 'Alibaba'; */
+
+.action-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
 }
 
 .para-table {

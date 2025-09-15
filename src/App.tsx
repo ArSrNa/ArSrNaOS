@@ -10,8 +10,9 @@ import { uuid } from './plug';
 import Home from './Home';
 import './index.scss';
 import Aegis from 'aegis-web-sdk';
-import { ReactGPDemo } from './demo/nodejs/genshin-progress';
-import LRCPlayerDemo from './demo/nodejs/lrcplayer';
+
+import { ReactGPDemo, LRCPlayerDemo, SliderDemo, CoverDemo } from './demo/nodejs';
+
 import BlackBox from './opentdp/blackbox';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { screenWidthState } from './states';
@@ -53,8 +54,12 @@ function Main() {
               <Route path='/' element={<Home />} />
               <Route path="*" element={<Error />} />
               {/* Demos */}
-              <Route path='/demo/nodejs/genshin-progress' element={<ReactGPDemo />} />
-              <Route path='/demo/nodejs/lrcplayer' element={<LRCPlayerDemo />} />
+              <Route path='/demo/nodejs/*'>
+                <Route path='genshin-progress' element={<ReactGPDemo />} />
+                <Route path='lrcplayer' element={<LRCPlayerDemo />} />
+                <Route path='slider' element={<SliderDemo />} />
+                <Route path='cover' element={<CoverDemo />} />
+              </Route>
               <Route path='/opentdp/blackbox' element={<BlackBox />} />
             </Routes>
           </Watermark>
