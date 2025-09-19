@@ -12,19 +12,13 @@ $:
       stages:
         - name: install
           script: pnpm i
+
   push:
-    pipeline-1:
+    sync_to_github:
       runner:
         cpus: 8
       services:
         - docker
-      docker:
-        image: docker.cnb.cool/arsrna/dev-env/node22
-        volumes:
-          # 使用缓存，同时更新
-          - /root/.pnpm:cow
-          - /root/.pnpm-store:cow
-          - /workspace/.next:cow
       stages:
         - name: sync to github
           image: tencentcom/git-sync
@@ -36,7 +30,8 @@ $:
             username: ${GIT_USERNAME}
             password: ${GIT_ACCESS_TOKEN}
             git_email: "root@arsrna.cn"
-    tag_deploy.production:
+
+    eodeploy:
       services:
         - docker
       docker:
@@ -45,13 +40,11 @@ $:
           # 使用缓存，同时更新
           - /root/.pnpm:cow
           - /root/.pnpm-store:cow
-          - /workspace/.next:cow
       runner:
         cpus: 32
       stages:
         - name: build
           script:
-            - npm i -g pnpm
             - pnpm i
             - npm run build
         - name: 部署我的 eo pages 正式环境

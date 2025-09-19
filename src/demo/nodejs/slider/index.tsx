@@ -46,9 +46,7 @@ export default function App() {
         interval: 5000,
         scaleRatio: 1.15,
         style: {
-            height: "50vh",
-            position: "sticky",
-            top: 80,
+            height: "60vh",
             zIndex: 10,
             boxShadow: "0 5px 20px rgba(0,0,0,0.9)"
         }
@@ -58,12 +56,10 @@ export default function App() {
 
     return (
         <>
-
-            <div style={{ position: 'sticky', top: 60, zIndex: 2, background: 'red' }}>
+            <Slider {...props} />
+            <div style={{ position: 'sticky', top: 60, zIndex: 20, background: 'cyan' }}>
                 *注意：默认的素材均为测试使用，版权归原作者所有，禁止用于商业用途！
             </div>
-            <Slider {...props} />
-
             <h1>API</h1>
 
             <div style={{ marginBlock: 30 }}>部分API为对象或jsx，无法使用表单展示，更多API请前往源代码<a href='https://cnb.cool/arsrna/os/react-fade-slider' target='_blank'>https://cnb.cool/arsrna/os/react-fade-slider</a>查看</div>

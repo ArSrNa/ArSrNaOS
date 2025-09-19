@@ -17,7 +17,7 @@ export default function Slider() {
       backgroundPosition: '-69px 5%'
     },
     filter: {
-      mask: `blur(20px) brightness(1.4)`,
+      mask: `blur(20px) brightness(1)`,
       background: ''
     },
     range: [0.2, 0.69],
