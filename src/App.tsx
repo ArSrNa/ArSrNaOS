@@ -85,6 +85,7 @@ function FooterContent() {
             <a target="_blank" href='https://www.arsrna.cn/' rel='noreferrer'><GlobalOutlined /> Ar-Sr-Na 网站</a>
             <a target="_blank" href='https://www.arsrna.cn/communication/' rel='noreferrer'><GlobalOutlined /> 联系我们</a>
             <a target="_blank" href='https://github.com/ArSrNa/' rel='noreferrer'><GithubOutlined /> github</a>
+            <a target="_blank" href='https://cnb.cool/arsrna/' rel='noreferrer'><GlobalOutlined /> CNB</a>
             <a target="_blank" href='https://arsrna.coding.net/public/' rel='noreferrer'><GlobalOutlined /> Coding</a>
           </Space>
         </Col>
@@ -92,9 +93,9 @@ function FooterContent() {
         <Col span={8}>
           <Space direction='vertical'>
             <Title level={4}>开发</Title>
+            <div>强劲构建动力来自<a href='https://cnb.cool/arsrna' target='_blank'>CNB</a></div>
             <a target="_blank" href='https://www.arsrna.cn/app/' rel='noreferrer'>资源与应用中心</a>
             <a target="_blank" href='https://ai.arsrna.cn/' rel='noreferrer'>AI 中心</a>
-            <a target="_blank" href='https://live.arsrna.cn/' rel='noreferrer'>音视频</a>
           </Space>
         </Col>
 
@@ -104,11 +105,18 @@ function FooterContent() {
             <a target="_blank" href='https://www.arsrna.cn/' rel='noreferrer'>Ar-Sr-Na 博客</a>
             <a target="_blank" href='https://www.arsrna.cn/app/esrgan/' rel='noreferrer'>ESRGANUI 超分辨率</a>
             <a target="_blank" href='https://www.arsrna.cn/app/catch/' rel='noreferrer'>异步采集</a>
+            <a target="_blank" href='https://live.arsrna.cn/' rel='noreferrer'>音视频</a>
           </Space>
         </Col>
       </Row>
-      <div style={{ paddingTop: 20, textAlign: 'center' }}><a href='https://beian.miit.gov.cn/' target='_blank'>沪ICP备2023039698号-1</a></div>
-      <div style={{ textAlign: 'center' }}>Powered by Ar-Sr-Na</div>
+
+      <div style={{ paddingTop: 20, textAlign: 'center' }}>
+        <a href='https://beian.miit.gov.cn/' target='_blank'>沪ICP备2023039698号-1</a>
+        <Divider type="vertical" />
+        上海绫中信息技术有限公司
+        <Divider type="vertical" />
+        Powered by Ar-Sr-Na
+      </div>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import { Space, Card, Button, Image, Avatar, Typography, Anchor, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BookOutlined, CloudOutlined, GithubOutlined, GlobalOutlined } from '@ant-design/icons';
+import { BookOutlined, CloudOutlined, DownloadOutlined, GithubOutlined, GlobalOutlined } from '@ant-design/icons';
 import './index.scss';
 import { CNBLogo } from './components';
 const { Meta } = Card;
@@ -44,13 +44,24 @@ export default function Home() {
     }];
 
     const appRes = [{
+        img: '/covers/appres/app-esrgan.png',
+        title: 'ESRGAN超分辨率',
+        description: '基于增强型超分辨率生成对抗网络开发，可实现图像与视频线条连续地提升分辨率',
+        actions: [
+            <CNBLogo link="https://cnb.cool/arsrna/esrgan-app">源代码</CNBLogo>,
+            <a href='https://www.arsrna.cn/app/esrgan' target='_blank'>
+                <DownloadOutlined /> 产品下载</a>,
+            <a href='https://cloud.tencent.com/developer/article/2011313' target='_blank'>
+                <BookOutlined /> 服务器部署</a>,
+        ]
+    }, {
         img: '/covers/appres/cnb-next-eo.png',
         title: 'CNB+Next+EO',
         description: 'Nextjs项目+CNB构建+EOPages自动化部署',
         actions: [
-            <CNBLogo link="https://cnb.cool/arsrna/next-cnb-eo-demo">源代码和文档</CNBLogo>,
+            <CNBLogo link="https://cnb.cool/arsrna/next-cnb-eo-demo">源代码/文档</CNBLogo>,
             <a href='https://cloud.tencent.com/developer/article/2533707' target='_blank'>
-                <BookOutlined /> 构建教程</a>,
+                <BookOutlined /> 教程</a>,
             <a href='https://eo.cnbnb.cn/' target='_blank'>
                 <GlobalOutlined /> Demo</a>
         ]
@@ -59,7 +70,7 @@ export default function Home() {
         title: 'CNB LaTeX编辑器',
         description: '在CNB上使用code-server+LaTeX写论文',
         actions: [
-            <CNBLogo link="https://cnb.cool/arsrna/cnb-latex">源代码和文档</CNBLogo>,
+            <CNBLogo link="https://cnb.cool/arsrna/cnb-latex">源代码/文档</CNBLogo>,
             <a href='https://cloud.tencent.com/developer/article/2535825' target='_blank'>
                 <BookOutlined /> 构建教程</a>
         ]
@@ -70,14 +81,14 @@ export default function Home() {
         actions: [
             <CNBLogo link="https://cnb.cool/arsrna/blender-docker">源代码和文档</CNBLogo>,
             <a href='https://cloud.tencent.com/developer/article/2496407' target='_blank'>
-                <BookOutlined /> 构建教程</a>
+                <BookOutlined /> 教程</a>
         ]
     }, {
         img: '/covers/appres/cnb-comfyui.png',
         title: '云原生ComfyUI',
         description: '在CNB云原生开发环境使用ComfyUI',
         actions: [
-            <CNBLogo link="https://cnb.cool/arsrna/comfyui-cnb">源代码和文档</CNBLogo>
+            <CNBLogo link="https://cnb.cool/arsrna/comfyui-cnb">源代码/文档</CNBLogo>
         ]
     }]
 
