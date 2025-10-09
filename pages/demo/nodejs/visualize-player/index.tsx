@@ -108,8 +108,8 @@ export default function VPDemo() {
                 </div>
             </div>
             <audio ref={audio} src={music} className={style['audio']} controls />
-
-
+            <p>源代码与文档（暂无）请见：<a href='https://cnb.cool/arsrna/visualize-music' target='_blank'>https://cnb.cool/arsrna/visualize-music</a></p>
+            <p>TimeLine组件源代码与文档请见：<a href='https://cnb.cool/arsrna/os/react-timeline' target='_blank'>https://cnb.cool/arsrna/os/react-timeline</a></p>
             <footer>Powered by Ar-Sr-Na www.arsrna.cn<br />仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
         </div>
     );

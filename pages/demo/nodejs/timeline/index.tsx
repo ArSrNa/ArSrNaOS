@@ -39,13 +39,21 @@ export default function TimelineDemo() {
 
     return (
         <>
-            123
             <TimeLine items={[{
                 time: 1,
-                content: '这是第一秒展示的内容'
+                content: '这是第1-13秒展示的内容'
+            }, {
+                time: 13,
+                content: '这是第13-69秒展示的内容'
             }, {
                 time: 69,
-                content: '这是第69秒展示的内容'
+                content: '这是第69-78秒展示的内容'
+            }, {
+                time: 78,
+                content: '这是第78-91秒展示的内容'
+            }, {
+                time: 91,
+                content: '这是第91-最后一秒展示的内容'
             }]}
                 currentTime={currentTime}
                 scale={1}
@@ -55,7 +63,12 @@ export default function TimelineDemo() {
             <TimeLine items={characterItems} currentTime={currentTime} scale={5} totalTime={audio.current?.duration} itemStyle={{
                 color: 'white'
             }} />
+            <p>TimeLine组件源代码与文档请见：<a href='https://cnb.cool/arsrna/os/react-timeline' target='_blank'>https://cnb.cool/arsrna/os/react-timeline</a></p>
             <audio src={music} controls ref={audio} style={{ width: '100%' }} />
+            <footer style={{
+                color: 'gray',
+                textAlign: 'center'
+            }}>Powered by Ar-Sr-Na www.arsrna.cn<br />仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
         </>
     );
 }
