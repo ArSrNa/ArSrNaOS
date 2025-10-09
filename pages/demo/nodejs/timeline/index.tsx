@@ -7,8 +7,8 @@ const TimeLine = dynamic(
 );
 
 
-import { characters, data, order } from './data';
-import { music } from '../visualize-music/assets';
+import { characters, data, order } from '@/demo/nodejs/timeline/data';
+import { music } from '@/demo/nodejs/visualize-player/assets';
 import dynamic from 'next/dynamic';
 
 const items = data.map(m => ({

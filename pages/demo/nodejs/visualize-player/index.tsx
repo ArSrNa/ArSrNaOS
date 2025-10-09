@@ -2,8 +2,8 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type S
 import style from './index.module.scss';
 import Timeline from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css';
-import { characterOrder, characters, lyrics } from './utils';
-import { cover as coverImg, music } from './assets';
+import { characterOrder, characters, lyrics } from '@/demo/nodejs/visualize-player/utils';
+import { cover as coverImg, music } from '@/demo/nodejs/visualize-player/assets';
 
 export default function VPDemo() {
     const [lyric, setLyric] = useState<ReactNode>('');
