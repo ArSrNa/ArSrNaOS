@@ -52,8 +52,8 @@ export default function VPDemo() {
 
     useEffect(() => {
         updateLRC(0);
-        console.log(lyrics)
-        console.log(characterOrder)
+        // console.log(lyrics)
+        // console.log(characterOrder)
     }, []);
 
     return (
@@ -77,7 +77,7 @@ export default function VPDemo() {
                 }} />
 
                 <Timeline
-                    scale={20}
+                    scale={6.9}
                     itemStyle={{
                         color: 'white',
                     }}
