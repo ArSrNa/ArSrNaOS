@@ -40,6 +40,12 @@ export default function Home() {
         sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
         demo: '/demo/nodejs/lrcplayer'
     }, {
+        img: '/covers/nodejs/smpte.png',
+        title: '时码器信号生成',
+        description: '纯前端生成SMPTE时间码（LTC）',
+        sourceLink: 'https://www.npmjs.com/package/smpte-generator',
+        demo: 'https://smpte.arsrna.cn'
+    }, {
         img: '/covers/nodejs/slider.png',
         title: 'React 渐变轮播图',
         description: 'react渐变图片轮播组件',
@@ -149,7 +155,7 @@ export default function Home() {
                                         git ? <a href={git} target='_blank' key={`${title}-github`}><GithubOutlined /> Github</a> : undefined,
                                         cnb ? <CNBLogo link={cnb} key={`${title}-cnb`}>CNB</CNBLogo> : undefined,
                                         sourceLink ? <a href={sourceLink} target='_blank' key={`${title}-npm`}><GlobalOutlined /> npm</a> : undefined,
-                                        demo ? <a onClick={() => navigate(demo)} key={`${title}-demo`}><GlobalOutlined /> Demo</a> : undefined,
+                                        demo ? <a onClick={() => window.open(demo, '_blank')} key={`${title}-demo`}><GlobalOutlined /> Demo</a> : undefined,
                                     ].filter(f => f !== void '我永远喜欢爱莉希雅')}
                                 >
                                     <Meta
