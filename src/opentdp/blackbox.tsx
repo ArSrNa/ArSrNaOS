@@ -13,10 +13,7 @@ export default function BlackBox() {
     let timer;
 
     function fetchData() {
-        axios({
-            url: 'https://blackbox.opentdp.org/api/nodes',
-            type: 'get'
-        }).then(msg => {
+        axios.get('https://blackbox.opentdp.org/api/nodes').then(msg => {
             const lists = [];
             for (let i in msg.data) {
                 lists.push(msg.data[i]);
@@ -26,11 +23,9 @@ export default function BlackBox() {
             .finally(() => {
                 setLoad(false);
             })
-            .catch(err => { message.error(err) });
+            .catch(err => { message.error(err); });
 
-        axios({
-            url: 'https://blackbox.opentdp.org/api/sites',
-        }).then(msg => {
+        axios.get('https://blackbox.opentdp.org/api/sites').then(msg => {
             const lists = [];
             for (let i in msg.data) {
                 lists.push(msg.data[i]);
@@ -41,7 +36,7 @@ export default function BlackBox() {
             .finally(() => {
                 setLoad(false);
             })
-            .catch(err => { message.error(err) });
+            .catch(err => { message.error(err); });
     }
 
     function getTrafficStr(bytes) {
@@ -65,11 +60,11 @@ export default function BlackBox() {
     }
 
     useEffect(() => {
-        fetchData()
+        fetchData();
         timer = setInterval(() => {
             fetchData();
         }, 10000);
-    }, [])
+    }, []);
     return (
         <>
             <div className='anchor'>
@@ -144,7 +139,7 @@ export default function BlackBox() {
                                         <small>上次启动时间：{record.lastStartTime}</small><br />
                                         <small>上次离线时间：{record.lastCloseTime || '暂无记录'}</small>
                                     </div>
-                                </>)
+                                </>);
                             },
                             width: 200
                         }, {
@@ -188,5 +183,5 @@ export default function BlackBox() {
             </section>
 
         </>
-    )
+    );
 }

@@ -31,24 +31,24 @@ $:
             password: ${GIT_ACCESS_TOKEN}
             git_email: "root@arsrna.cn"
 
-    eodeploy:
-      services:
-        - docker
-      docker:
-        image: docker.cnb.cool/arsrna/dev-env/node22
-        volumes:
-          # 使用缓存，同时更新
-          - /root/.pnpm:cow
-          - /root/.pnpm-store:cow
-      runner:
-        cpus: 32
-      stages:
-        - name: build
-          script:
-            - pnpm i
-            - npm run build
-        - name: 部署我的 eo pages 正式环境
-          imports:
-            - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
-          image: tencentcom/deploy-eopages:latest
-          script: edgeone pages deploy ./build -n arsrna-os -t $EO_SECRET
+    # eodeploy:
+    #   services:
+    #     - docker
+    #   docker:
+    #     image: docker.cnb.cool/arsrna/dev-env/node22
+    #     volumes:
+    #       # 使用缓存，同时更新
+    #       - /root/.pnpm:cow
+    #       - /root/.pnpm-store:cow
+    #   runner:
+    #     cpus: 32
+    #   stages:
+    #     - name: build
+    #       script:
+    #         - pnpm i
+    #         - npm run build
+    #     - name: 部署我的 eo pages 正式环境
+    #       imports:
+    #         - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
+    #       image: tencentcom/deploy-eopages:latest
+    #       script: edgeone pages deploy ./build -n arsrna-os -t $EO_SECRET

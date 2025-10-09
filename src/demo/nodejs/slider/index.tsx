@@ -3,21 +3,24 @@ import Slider, { itemProps } from "react-fade-slider";
 import "react-fade-slider/dist/index.css";
 import style from "./index.module.scss";
 
-import src1 from './images/16de7766a642388d21e4c76cacfde801_5165224128247218265.png'
-import src2 from './images/5b60764dabc3bf50c2ad7b5ff8eae80b_2607687582866761407.png'
-import src3 from './images/fa9fc6e9532e4c56c9ad0e5e9548a06a_2258061419554533859.png'
+import src1Img from './images/16de7766a642388d21e4c76cacfde801_5165224128247218265.png';
+import src2Img from './images/5b60764dabc3bf50c2ad7b5ff8eae80b_2607687582866761407.png';
+import src3Img from './images/fa9fc6e9532e4c56c9ad0e5e9548a06a_2258061419554533859.png';
 import { useState } from "react";
 import { ProField, ProForm, ProFormCheckbox, ProFormDigit, ProFormField, ProFormGroup, ProFormList, ProFormSelect, ProFormText, ProFormTextArea } from "@ant-design/pro-components";
 import { uuid } from "@/plug";
 
 export default function App() {
+    const img1 = typeof src1Img === 'string' ? src1Img : (src1Img as any).src;
+    const img2 = typeof src2Img === 'string' ? src2Img : (src2Img as any).src;
+    const img3 = typeof src3Img === 'string' ? src3Img : (src3Img as any).src;
     const item: itemProps[] = [
         {
-            src: src1,
+            src: img1,
             title: "孑遗千星——星之环",
             content: "分野：无存之仪。特性：万有之星、界域共鸣、星影偕行、天渊易位",
         }, {
-            src: src2,
+            src: img2,
             title: "超长文本内容和标题截断示例",
             content: `
                 崩坏三 LV6 粉丝团17<br />
@@ -32,7 +35,7 @@ export default function App() {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt et suscipit repellendus nesciunt nulla eum modi velit sit debitis vel. Beatae exercitationem dolorum vel eos aspernatur voluptates ipsum eum explicabo.
             `,
         }, {
-            src: src3,
+            src: img3,
             title: "孑遗千星——圣遗物",
             content: `推荐理由：兼具输出和辅助的配装。武器提高角色的输出和辅助能力。星之环激活时，全队角色可以通过圣痕三件套获得大量增益效果，进一步提高队伍整体输出。`,
         },
@@ -50,7 +53,7 @@ export default function App() {
             zIndex: 10,
             boxShadow: "0 5px 20px rgba(0,0,0,0.9)"
         }
-    })
+    });
 
 
 
@@ -71,7 +74,7 @@ export default function App() {
                         ...prev,
                         ...e,
                         style: { ...prev.style, ...e.style }
-                    }))
+                    }));
                 }}>
                 <Row gutter={32}>
                     <Col sm={24} xl={12}>
@@ -93,7 +96,7 @@ export default function App() {
                             containerStyle={{ width: "100%" }}
                             name="item"
                             creatorRecord={{
-                                src: src1,
+                                src: img1,
                                 title: "title" + uuid(),
                                 content: "content" + uuid()
                             }}

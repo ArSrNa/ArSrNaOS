@@ -1,4 +1,3 @@
-import "./index.scss"
 export function CNBLogo({ children, link }: {
     children: React.ReactNode
     link: string
