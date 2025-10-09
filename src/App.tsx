@@ -11,7 +11,7 @@ import Home from './Home';
 import './index.scss';
 import Aegis from 'aegis-web-sdk';
 
-import { ReactGPDemo, LRCPlayerDemo, SliderDemo, CoverDemo } from './demo/nodejs';
+import { ReactGPDemo, LRCPlayerDemo, SliderDemo, CoverDemo, VPDemo, TimelineDemo } from './demo/nodejs';
 
 import BlackBox from './opentdp/blackbox';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
@@ -59,6 +59,8 @@ function Main() {
               <Route path='lrcplayer' element={<LRCPlayerDemo />} />
               <Route path='slider' element={<SliderDemo />} />
               <Route path='cover' element={<CoverDemo />} />
+              <Route path='visualize-player' element={<VPDemo />} />
+              <Route path='timeline' element={<TimelineDemo />} />
             </Route>
             <Route path='/opentdp/blackbox' element={<BlackBox />} />
           </Routes>

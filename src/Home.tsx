@@ -18,6 +18,20 @@ export default function Home() {
         sourceLink: 'https://www.npmjs.com/package/genshin-progress',
         demo: '/demo/nodejs/genshin-progress'
     }, {
+        img: '/covers/nodejs/react-av-timeline.png',
+        title: 'React 音视频时间轴',
+        description: 'react音视频时间轴',
+        git: 'https://github.com/ArSrNa/react-timeline',
+        cnb: "https://cnb.cool/arsrna/os/react-timeline",
+        sourceLink: 'https://www.npmjs.com/package/react-av-timeline',
+        demo: '/demo/nodejs/timeline'
+    }, {
+        img: '/covers/nodejs/VPDemo.png',
+        title: 'React 可视化播放器',
+        description: '一个可视化播放器demo（原神生日会《提瓦特民谣》）Timeline+Player',
+        cnb: "https://cnb.cool/arsrna/visualize-music",
+        demo: '/demo/nodejs/visualize-player'
+    }, {
         img: '/covers/nodejs/player.png',
         title: 'React 带歌词简易播放器',
         description: '实现标题副标题显示，封面展示，原生audio播放器，lrc歌词同步显示（需提前转换为json）',
@@ -126,15 +140,16 @@ export default function Home() {
                             const { img, title, description, git, sourceLink, demo, cnb } = res
                             return (
                                 <Card
+                                    key={title}
                                     style={{ width: '100%' }}
                                     cover={
                                         <img alt={title} src={img} className='card-hdpic' />
                                     }
                                     actions={[
-                                        git ? <a href={git} target='_blank'><GithubOutlined /> Github</a> : undefined,
-                                        cnb ? <CNBLogo link={cnb}>CNB</CNBLogo> : undefined,
-                                        sourceLink ? <a href={sourceLink} target='_blank'><GlobalOutlined /> npm</a> : undefined,
-                                        demo ? <a onClick={() => navigate(demo)}><GlobalOutlined /> Demo</a> : undefined,
+                                        git ? <a href={git} target='_blank' key={`${title}-github`}><GithubOutlined /> Github</a> : undefined,
+                                        cnb ? <CNBLogo link={cnb} key={`${title}-cnb`}>CNB</CNBLogo> : undefined,
+                                        sourceLink ? <a href={sourceLink} target='_blank' key={`${title}-npm`}><GlobalOutlined /> npm</a> : undefined,
+                                        demo ? <a onClick={() => navigate(demo)} key={`${title}-demo`}><GlobalOutlined /> Demo</a> : undefined,
                                     ].filter(f => f !== void '我永远喜欢爱莉希雅')}
                                 >
                                     <Meta
@@ -155,7 +170,7 @@ export default function Home() {
                         {appRes.map(res => {
                             const { img, title, description, actions } = res
                             return (
-                                <Card cover={<img alt={title} src={img} className='card-hdpic' />}
+                                <Card key={title} cover={<img alt={title} src={img} className='card-hdpic' />}
                                     actions={actions}
                                 >
                                     <Meta title={title} description={description} /></Card>)
