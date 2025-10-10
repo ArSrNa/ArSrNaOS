@@ -35,13 +35,13 @@
         & {
             position: relative;
             transition: all 0.3s ease-in-out;
-            opacity: 0.5;
-            filter: saturate(0.3) blur(5);
+            opacity: 0.3;
+            filter: saturate(0.3) brightness(0.5);
         }
 
         &-active {
             opacity: 1;
-            filter: saturate(1) blur(0);
+            filter: saturate(1) brightness(1);
         }
 
         >img {
