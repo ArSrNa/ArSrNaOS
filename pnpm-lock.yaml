@@ -42,8 +42,8 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       react-av-timeline:
-        specifier: 1.1.4
-        version: 1.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.2.0
+        version: 1.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
@@ -746,7 +746,7 @@ packages:
     resolution: {integrity: sha512-+chQdDfvscSF1SJqv2gn4SRO2ZyS3xL3r7IW/wWEEzrzLisnOlKiQu5ytC/BVNcS15C39WT2Hg/bjKjDMcu+zg==}
 
   is-extglob@2.1.1:
-    resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
+    resolution: {integrity: sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=}
     engines: {node: '>=0.10.0'}
 
   is-glob@4.0.3:
@@ -1083,8 +1083,8 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
-  react-av-timeline@1.1.4:
-    resolution: {integrity: sha512-dCFba5vgD09UzoFPTQAm4x9E9s5yizVeDS1N44YHOukXGnBvTR5ETfbOzdr8WBbJA5aoDTtncK+OVxOm2n9FeA==}
+  react-av-timeline@1.2.0:
+    resolution: {integrity: sha512-hglEcxpTfww+3arAZolnUN72nW7gWti4A283WRECCTj/+4lzWyLzF7vpFK3zmL/nrmikhMMQz7bX0vu98uV3dg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2557,7 +2557,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  react-av-timeline@1.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-av-timeline@1.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)

@@ -6,7 +6,8 @@ const nextConfig = {
 		'@ant-design/icons',
 		'@ant-design/icons-svg',
 		'antd'
-	]
+	],
+	allowedDevOrigins: ["*.cnb.run"]
 };
 
 module.exports = nextConfig;

@@ -7,7 +7,7 @@ import { cover as coverImg, music } from '@/demo/nodejs/visualize-player/assets'
 
 export default function VPDemo() {
     const [lyric, setLyric] = useState<ReactNode>('');
-    const [current, setCurrent] = useState([]);
+    const [current, setCurrent] = useState<number[]>([]);
     const [currentTime, setCurrentTime] = useState(0);
     const scale = 5;
 
@@ -58,7 +58,10 @@ export default function VPDemo() {
 
     return (
         <div className={style['container']}>
-            <h1>使用横屏设备获得更好体验</h1>
+            <div style={{ marginBottom: 20 }}>
+                <h1 style={{ marginBlock: 0 }}>使用横屏设备获得更好体验</h1>
+                <span>暂不支持移动端，也不支持竖屏。设备太小无法完整显示。</span>
+            </div>
             <div>
                 <div className={style['character-container']}>
                     {characters.map((m, i) => <div key={`img_${m.name}`}
@@ -85,7 +88,7 @@ export default function VPDemo() {
                         const background = m.characters.length === characters.length
                             ? `linear-gradient(90deg, ${characters.map(m => m.color).join(',')})`
                             : `linear-gradient(90deg, ${m.characters.map(m => characters[m].color).join(',')})`;
-                        const content = m.characters.length === characters.length ? "合唱" : m.characters.map(m => characters[m].name + ' ');
+                        const content = m.characters.length === characters.length ? "合唱" : m.characters.map(m => characters[m].name + '');
                         return ({
                             time: m.time,
                             content,

@@ -1,6 +1,12 @@
 {
   "name": "arsrnaos",
-  "version": "1.2.0",
+  "description": "ArSrNa 开源资源中心",
+  "author": {
+    "name": "ArSrNa",
+    "email": "root@arsrna.cn",
+    "url": "https://www.arsrna.cn"
+  },
+  "version": "1.3.0",
   "private": true,
   "dependencies": {
     "@ant-design/cssinjs": "^1.24.0",
@@ -14,14 +20,14 @@
     "lodash": "^4.17.21",
     "poster-generator": "^1.1.0",
     "react": "18.3.1",
-    "react-av-timeline": "1.1.4",
+    "react-av-timeline": "^1.2.0",
     "react-dom": "18.3.1",
     "react-fade-slider": "^1.3.2",
     "react-lrcplayer": "3.0.3",
     "recoil": "^0.7.7"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start"
   },
