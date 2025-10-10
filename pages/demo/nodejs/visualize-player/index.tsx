@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type SyntheticEvent } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import style from './index.module.scss';
 import Timeline from 'react-av-timeline';
+import { Vertical } from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css';
 import { characterOrder, characters, lyrics } from '@/demo/nodejs/visualize-player/utils';
 import { cover as coverImg, music } from '@/demo/nodejs/visualize-player/assets';
@@ -9,8 +10,6 @@ export default function VPDemo() {
     const [lyric, setLyric] = useState<ReactNode>('');
     const [current, setCurrent] = useState<number[]>([]);
     const [currentTime, setCurrentTime] = useState(0);
-    const scale = 5;
-
     const audio = useRef<HTMLAudioElement>(null);
 
     function updateLRC(currentTime: number) {
@@ -37,7 +36,6 @@ export default function VPDemo() {
     function onTimeUpdate() {
         /**带一点动画延迟，所以需要提前0.3s */
         const currentTime = audio.current?.currentTime || 0 + 0.3;
-        const progress = (currentTime / (audio.current?.duration || 1)) * 100;
         setCurrentTime(currentTime);
         updateLRC(currentTime);
         updateCharacter(currentTime);
@@ -58,12 +56,17 @@ export default function VPDemo() {
 
     return (
         <div className={style['container']}>
-            <div style={{ marginBottom: 20 }}>
+            <div style={{ marginBottom: 20, textAlign: 'center' }}>
                 <h1 style={{ marginBlock: 0 }}>使用横屏设备获得更好体验</h1>
                 <span>暂不支持移动端，也不支持竖屏。设备太小无法完整显示。</span>
+                <p>
+                    源代码与文档（暂无）请见：<a href='https://cnb.cool/arsrna/visualize-music' target='_blank'>https://cnb.cool/arsrna/visualize-music</a>
+                    <br />
+                    TimeLine组件源代码与文档请见：<a href='https://cnb.cool/arsrna/os/react-timeline' target='_blank'>https://cnb.cool/arsrna/os/react-timeline</a>
+                </p>
             </div>
             <div>
-                <div className={style['character-container']}>
+                <div className={style['character-container']} style={{ '--bg': characters[current[0]]?.color || 'white' } as CSSProperties}>
                     {characters.map((m, i) => <div key={`img_${m.name}`}
                         className={`${style['character-img']} ${current.includes(i) ? style['character-img-active'] : ''}`}>
                         <img src={m.img} alt={m.name} />
@@ -74,13 +77,13 @@ export default function VPDemo() {
                     </div>)}
                 </div>
                 <div className={style['character-indicator']} style={{
-                    background: current.length === 0
+                    '--bg': current.length === 0
                         ? `linear-gradient(90deg, ${characters.map(m => m.color).join(',')})`
                         : `linear-gradient(90deg, ${current.map(m => characters[m].color).join(',')})`
-                }} />
+                } as CSSProperties} />
 
                 <Timeline
-                    scale={6.9}
+                    scale={9.1}
                     itemStyle={{
                         color: 'white',
                     }}
@@ -88,7 +91,7 @@ export default function VPDemo() {
                         const background = m.characters.length === characters.length
                             ? `linear-gradient(90deg, ${characters.map(m => m.color).join(',')})`
                             : `linear-gradient(90deg, ${m.characters.map(m => characters[m].color).join(',')})`;
-                        const content = m.characters.length === characters.length ? "合唱" : m.characters.map(m => characters[m].name + '');
+                        const content = m.characters.length === characters.length ? "合唱" : m.characters.map(m => characters[m].name + '  ');
                         return ({
                             time: m.time,
                             content,
@@ -111,8 +114,7 @@ export default function VPDemo() {
                 </div>
             </div>
             <audio ref={audio} src={music} className={style['audio']} controls />
-            <p>源代码与文档（暂无）请见：<a href='https://cnb.cool/arsrna/visualize-music' target='_blank'>https://cnb.cool/arsrna/visualize-music</a></p>
-            <p>TimeLine组件源代码与文档请见：<a href='https://cnb.cool/arsrna/os/react-timeline' target='_blank'>https://cnb.cool/arsrna/os/react-timeline</a></p>
+
             <footer>Powered by Ar-Sr-Na www.arsrna.cn<br />仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
         </div>
     );
