@@ -7,14 +7,6 @@ const { Title, Paragraph } = Typography;
 
 export default function Home() {
     const nodejsRes = [{
-        img: '/covers/nodejs/rgp.png',
-        title: 'React 原神元素进度条',
-        description: '使用React与svg，叠层的一个元素进度条',
-        git: 'https://github.com/ArSrNa/React-GenshinProgress',
-        cnb: "https://cnb.cool/arsrna/os/React-GenshinProgress",
-        sourceLink: 'https://www.npmjs.com/package/genshin-progress',
-        demo: '/demo/nodejs/genshin-progress'
-    }, {
         img: '/covers/nodejs/react-av-timeline.png',
         title: 'React 音视频时间轴',
         description: 'react音视频时间轴',
@@ -36,6 +28,14 @@ export default function Home() {
         cnb: "https://cnb.cool/arsrna/os/React-LRCPlayer",
         sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
         demo: '/demo/nodejs/lrcplayer'
+    }, {
+        img: '/covers/nodejs/rgp.png',
+        title: 'React 原神元素进度条',
+        description: '使用React与svg，叠层的一个元素进度条',
+        git: 'https://github.com/ArSrNa/React-GenshinProgress',
+        cnb: "https://cnb.cool/arsrna/os/React-GenshinProgress",
+        sourceLink: 'https://www.npmjs.com/package/genshin-progress',
+        demo: '/demo/nodejs/genshin-progress'
     }, {
         img: '/covers/nodejs/smpte.png',
         title: '时码器信号生成',

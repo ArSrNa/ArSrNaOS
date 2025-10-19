@@ -3,16 +3,75 @@ import { Form, Input, Checkbox, Radio, InputNumber, Button } from "antd";
 import { createLrcObj, LRCPlayer } from "react-lrcplayer";
 import "react-lrcplayer/dist/index.css";
 
-const lrc = createLrcObj(`[00:00.000] 作词 : 三宝 Bao/项柳 Hsiang Liu\n[00:00.368] 作曲 : 李洋 Yang Lee (HOYO-MiX)\n[00:00.736] 编曲 : 李洋 Yang Lee (HOYO-MiX)\n[00:01.104] 制作人 : HOYO-MiX\n[00:01.472] 原声吉他 Acoustic Guitar：尤裴佳 Peijia You (HOYO-MiX)\n[00:01.840] 电吉他 Electric Guitar：尤裴佳 Peijia You (HOYO-MiX)\n[00:02.208] 乐队 Orchestra：国际首席爱乐乐团 International Master Philharmonic Orchestra\n[00:02.576] 合唱指挥 Choir Conductor：齐放 Fang Qi\n[00:02.944] 合唱 Choir：Sfuture艺术团\n[00:03.312] 录音棚 Recording Studio：Studio21A / 九紫天诚录音棚 SKY FIRE STUDIO / Sound Pro Studio\n[00:03.680] 录音师 Recording Engineer：倪涵文 Carol Nee / 董方昱 Fangyu Dong / 曹晓冬 Xiaodong Cao\n[00:04.048] 混音师 Mixing Engineer：周天澈 TC Z. / 徐天鸿 TianHong Xu\n[00:04.416] 母带制作 Mastering Engineer：周天澈 TC Z.\n[00:04.784] 出品 Produced by：HOYO-MiX\n[00:05.160]May the birds soar from their cage\n[00:09.410]Sunbeams filter through the foliage\n[00:13.820]Flames grow with immortal courage\n[00:21.480]And I hope you won't be tainted by fate\n[00:29.070]Nothing to fear\n[00:31.070]So go alone\n[00:39.100]By the grace of pain\n[00:43.850]Hundreds of times you fight in the ruins\n[00:47.960]Your pride will not be slain\n[00:52.960]From the heart to the veins\n[01:00.020]Stay awake don't fall asleep\n[01:04.090]The way is long and the gloom is deep\n[01:08.840]Embers glowing in the hearth still seen\n[01:16.590]And I hope you won't be tainted by fate\n[01:23.960]Nothing to fear\n[01:26.150]Never look back\n[01:29.760]Go ahead\n[01:34.210]Though bones and minds were chained\n[01:38.840]You cut down the thorns again and again\n[01:43.000]Your pride will not be slain\n[01:47.640]From the heart to the veins\n[01:55.210](Nec fatum finire te)\n[01:59.500](Nec tribulatio potest)\n[02:03.870]Flames grow with immortal courage (Haec olim meminisse iuvabit)\n[02:11.590]And your world will never fall away\n[02:19.030]Nothing to fear\n[02:21.490]Beneath the scars\n[02:25.560]You'll never be tainted by fate\n[02:36.890]\n`);
+const lrc = createLrcObj(`[00:00.00] 作词 : Konnie Aoki
+[00:00.41] 作曲 : TeddyLoid
+[00:00.82] 编曲 : TeddyLoid
+[00:01.24]I used to look above at stars, and chase
+[00:05.32]Never had to doubt what I could take
+[00:09.48]Now I've found it's further than it seemed
+[00:13.29]The light gets smaller, my eyes to a closure
+[00:17.52]
+[00:18.41]When did it happen？ Turned away my face
+[00:22.43]When did it happen？ Pain increasing
+[00:26.59]Shadow walk and dealing, truth inside revealing
+[00:30.72]Still, a part of me's seeking that feeling
+[00:33.00]
+[00:33.54]Dreams in the sound that I made for you
+[00:37.76]Go 'round, come returning through me
+[00:42.97]Where this light shines so bright, you showed
+[00:49.82]It's back and now
+[00:51.26]
+[00:51.78]Take your hand out, we can reach
+[00:53.17]Always been there to be freed
+[00:55.35]It's getting loud, on to a scream
+[00:57.31]We're starting this brighter tomorrow
+[01:02.81]Try this
+[01:05.90]Every color shown, bright in the star
+[01:14.75]From here we can find
+[01:19.47]Letting us shine
+[01:23.61]Don't hide your brightness
+[01:24.90]
+[01:26.71]Approval of someone to feel complete
+[01:30.87]Honesty was gone to say the least
+[01:35.05]Many things about us are the same
+[01:38.82]The distance for us is hard to decipher
+[01:43.19]
+[01:43.51]Why did it happen？ I've imagined your face
+[01:48.04]Thinking about this lonely feeling
+[01:52.19]Standing still exceeding, urge and drive increasing
+[01:56.46]I've gotta be by you and speaking
+[01:58.98]
+[01:59.31]A little time has been taken
+[02:03.35]I find it was time we needed
+[02:08.43]When our minds are aligned, we know
+[02:15.31]That star's in view
+[02:16.86]
+[02:17.20]Let's restart it, you and me
+[02:18.75]Walking on our new story
+[02:20.89]I feel your voice, my melodies
+[02:22.83]Don't worry when struggling to follow
+[02:28.32]Find this
+[02:32.49]Allow this
+[02:33.22]
+[02:33.57]Take your hand out, we can reach
+[02:35.33]Always been there to be freed
+[02:37.51]It's getting loud, on to a scream
+[02:39.47]We're starting this brighter tomorrow
+[02:44.99]Try this
+[02:48.17]Every color shown, bright in the star
+[02:56.02]From here we can find
+[03:02.04]Letting us shine
+[03:05.77]Don't hide your brightness
+`);
 
 export default function LRCPlayerDemo() {
     const [form] = Form.useForm();
     const [config, setConfig] = useState<React.ComponentProps<typeof LRCPlayer>>({
         lrc,
-        src: "https://res.arsrna.cn/audios/希林娜依高,HOYO-MiX - 烬火 Emberfire.mp3",
+        src: "https://res.arsrna.cn/audios/内田秀 - stars we chase.mp3",
         cover: "/demo_res/lrcplayer/cover.jpg",
-        title: "希林娜依高,HOYO-MiX - 烬火 Emberfire",
-        subTitle: "《原神》动画短片「烬中歌」插曲",
+        title: "内田秀 - stars we chase",
+        subTitle: "TV动画《Love Live! 虹咲学园校园偶像同好会 第二季》第9集插曲",
         placeholder: "无歌词",
         offset: -0.3,
         animate: { type: "lrcplayer-slide", duration: 8 },
