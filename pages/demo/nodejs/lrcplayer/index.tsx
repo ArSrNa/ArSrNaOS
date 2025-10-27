@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Form, Input, Checkbox, Radio, InputNumber, Button } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Checkbox, Radio, InputNumber } from "antd";
 import { createLrcObj, LRCPlayer } from "react-lrcplayer";
 import "react-lrcplayer/dist/index.css";
 
@@ -76,7 +76,7 @@ export default function LRCPlayerDemo() {
         offset: -0.3,
         animate: { type: "lrcplayer-slide", duration: 8 },
         nextLrc: {
-            display: true,
+            display: false,
             number: 2
         }
     });
@@ -97,7 +97,7 @@ export default function LRCPlayerDemo() {
                     <InputNumber />
                 </Form.Item>
 
-                <Form.Item name={["animate", "type"]} label="animateType（动画类型）">
+                <Form.Item name={["animate", "type"]} label="animate.type（动画类型）">
                     <Radio.Group>
                         <Radio value="lrcplayer-slide">lrcplayer-slide 划出</Radio>
                         <Radio value="lrcplayer-fade">lrcplayer-fade 淡入</Radio>
@@ -105,19 +105,19 @@ export default function LRCPlayerDemo() {
                     </Radio.Group>
                 </Form.Item>
 
-                <Form.Item name={["animate", "duration"]} label="animateDuration（动画时长）">
+                <Form.Item name={["animate", "duration"]} label="animate.duration（动画时长）">
                     <InputNumber />
                 </Form.Item>
 
                 <Form.Item
                     name={["nextLrc", "display"]}
                     valuePropName="checked"
-                    label="nextLrcDisplay（显示下一句）"
+                    label="nextLrc.display（显示下一句）"
                 >
                     <Checkbox />
                 </Form.Item>
 
-                <Form.Item name={["nextLrc", "number"]} label="nextLrcNumber（显示句数）">
+                <Form.Item name={["nextLrc", "number"]} label="nextLrc.number（显示句数）">
                     <InputNumber />
                 </Form.Item>
             </Form>

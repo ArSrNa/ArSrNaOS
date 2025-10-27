@@ -96,9 +96,6 @@ export const characters = [{
 
 export const characterOrder: { time: number, characters: number[]; }[] = createLrcObj(`[00:00.000][]
 [00:10.473][0]
-[00:16.087][0,1]
-[00:20.342][0]
-[00:26.474][0,1]
 [00:30.752][1]
 [00:40.368][0,1,2,3,4,5,6]
 [00:41.777][1]
