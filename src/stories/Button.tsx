@@ -1,3 +1,4 @@
+'use client'; // 关键：确保在客户端运行
 import './button.css';
 
 export interface ButtonProps {

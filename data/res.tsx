@@ -1,0 +1,180 @@
+import { CNBIcon, CNBLogo } from "@/src/components"
+import { BookIcon, DownloadIcon, Link2Icon } from "lucide-react"
+import Link from "next/link"
+
+export interface CardInfo {
+    img: string
+    title: string
+    description: string
+    info?: {
+        lang: string
+    }
+    link: {
+        git?: string
+        cnb?: string
+        sourceLink?: string
+        demo?: string
+    }
+}
+
+export const nodejsRes: CardInfo[] = [{
+    img: '/covers/nodejs/react-av-timeline.png',
+    title: 'React 音视频时间轴',
+    description: 'react音视频时间轴',
+    info: {
+        lang: 'TypeScript',
+    },
+    link: {
+        git: 'https://github.com/ArSrNa/react-timeline',
+        cnb: "https://cnb.cool/arsrna/os/react-timeline",
+        sourceLink: 'https://www.npmjs.com/package/react-av-timeline',
+        demo: '/demo/nodejs/timeline',
+    }
+}, {
+    img: '/covers/nodejs/VPDemo.png',
+    title: 'React 可视化播放器',
+    info: {
+        lang: 'TypeScript',
+    },
+    description: '一个可视化播放器demo（原神生日会《提瓦特民谣》）Timeline+Player',
+    link: {
+        cnb: "https://cnb.cool/arsrna/visualize-music",
+        demo: '/demo/nodejs/visualize-player'
+    }
+}, {
+    img: '/covers/nodejs/player.png',
+    title: 'React 带歌词简易播放器',
+    info: {
+        lang: 'TypeScript',
+    },
+    description: '实现标题副标题显示，封面展示，原生audio播放器，lrc歌词同步显示（需提前转换为json）',
+    link: {
+        git: 'https://github.com/ArSrNa/React-LRCPlayer',
+        cnb: "https://cnb.cool/arsrna/os/React-LRCPlayer",
+        sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
+        demo: '/demo/nodejs/lrcplayer'
+    }
+}, {
+    img: '/covers/nodejs/rgp.png',
+    title: 'React 原神元素进度条',
+    info: {
+        lang: 'TypeScript',
+    },
+    description: '使用React与svg，叠层的一个元素进度条',
+    link: {
+        git: 'https://github.com/ArSrNa/React-GenshinProgress',
+        cnb: "https://cnb.cool/arsrna/os/React-GenshinProgress",
+        sourceLink: 'https://www.npmjs.com/package/genshin-progress',
+        demo: '/demo/nodejs/genshin-progress'
+    }
+}, {
+    img: '/covers/nodejs/smpte.png',
+    title: '时码器信号生成',
+    info: {
+        lang: 'TypeScript',
+    },
+    description: '纯前端生成SMPTE时间码（LTC）',
+    link: {
+        sourceLink: 'https://www.npmjs.com/package/smpte-generator',
+        demo: 'https://smpte.arsrna.cn'
+    }
+}, {
+    img: '/covers/nodejs/slider.png',
+    title: 'React 渐变轮播图',
+    info: {
+        lang: 'TypeScript',
+    },
+    description: 'react渐变图片轮播组件',
+    link: {
+        git: 'https://github.com/ArSrNa/react-fade-slider',
+        cnb: "https://cnb.cool/arsrna/os/react-fade-slider",
+        sourceLink: 'https://www.npmjs.com/package/react-fade-slider',
+        demo: '/demo/nodejs/slider'
+    }
+}, {
+    img: '/covers/nodejs/cover_generator.png',
+    title: 'React 简易封面生成',
+    info: {
+        lang: 'TypeScript',
+    },
+    description: '模仿风格，纯前端效果封面生成',
+    link: {
+        git: 'https://github.com/ArSrNa/cover-generator',
+        cnb: "https://cnb.cool/arsrna/os/cover-generator",
+        sourceLink: 'https://www.npmjs.com/package/poster-generator',
+        demo: '/demo/nodejs/cover'
+    }
+}];
+
+
+export const appRes = [{
+    img: '/covers/appres/app-esrgan.png',
+    title: 'ESRGAN超分辨率',
+    description: '基于增强型超分辨率生成对抗网络开发，可实现图像与视频线条连续地提升分辨率',
+    actions: [{
+        link: "https://cnb.cool/arsrna/esrgan-app",
+        icon: <CNBIcon />,
+        title: "源代码"
+    }, {
+        link: "https://www.arsrna.cn/app/esrgan",
+        icon: <DownloadIcon size={18} />,
+        title: "产品下载"
+    }, {
+        link: "https://cloud.tencent.com/developer/article/2011313",
+        icon: <BookIcon size={18} />,
+        title: "服务器部署"
+    }
+    ]
+}, {
+    img: '/covers/appres/cnb-next-eo.png',
+    title: 'CNB+Next+EO',
+    description: 'Nextjs项目+CNB构建+EOPages自动化部署',
+    actions: [{
+        link: "https://cnb.cool/arsrna/next-cnb-eo-demo",
+        icon: <CNBIcon />,
+        title: "源代码"
+    }, {
+        link: "https://eo.cnbnb.cn/",
+        icon: <Link2Icon size={18} />,
+        title: "Demo"
+    }, {
+        link: "https://cloud.tencent.com/developer/article/2533707",
+        icon: <BookIcon size={18} />,
+        title: "教程"
+    }]
+}, {
+    img: '/covers/appres/cnb-latex.png',
+    title: 'CNB LaTeX编辑器',
+    description: '在CNB上使用code-server+LaTeX写论文',
+    actions: [{
+        link: "https://cnb.cool/arsrna/cnb-latex",
+        icon: <CNBIcon />,
+        title: "源代码"
+    }, {
+        link: "https://cloud.tencent.com/developer/article/2535825",
+        icon: <BookIcon size={18} />,
+        title: "构建教程"
+    }]
+}, {
+    img: '/covers/appres/cnb-blender.png',
+    title: '云原生Blender渲染',
+    description: '在CNB云原生开发环境使用Blender',
+    actions: [{
+        link: "https://cnb.cool/arsrna/blender-docker",
+        icon: <CNBIcon />,
+        title: "源代码"
+    }, {
+        link: "https://cloud.tencent.com/developer/article/2496407",
+        icon: <BookIcon size={18} />,
+        title: "教程"
+    }]
+}, {
+    img: '/covers/appres/cnb-comfyui.png',
+    title: '云原生ComfyUI',
+    description: '在CNB云原生开发环境使用ComfyUI',
+    actions: [{
+        link: "https://cnb.cool/arsrna/comfyui-cnb",
+        icon: <CNBIcon />,
+        title: "源代码 / 文档"
+    }]
+}];

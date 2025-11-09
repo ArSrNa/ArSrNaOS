@@ -36,7 +36,7 @@ master:
             password: ${GIT_ACCESS_TOKEN}
             git_email: "root@arsrna.cn"
 
-    eodeploy:
+    os_eodeploy:
       services:
         - docker
       docker:
@@ -58,3 +58,26 @@ master:
             - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
           image: tencentcom/deploy-eopages:latest
           script: edgeone pages deploy ./out -n arsrna-os -t $EO_SECRET
+
+    # 部署storybook
+    sb_eodeploy:
+      services:
+        - docker
+      docker:
+        image: docker.cnb.cool/arsrna/dev-env/node22
+        volumes:
+          # 使用缓存，同时更新
+          - /root/.pnpm:cow
+          - /root/.pnpm-store:cow
+      runner:
+        cpus: 16
+      stages:
+        - name: build
+          script:
+            - pnpm i
+            - npm run build-storybook
+        - name: 部署eo pages
+          imports:
+            - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
+          image: tencentcom/deploy-eopages:latest
+          script: edgeone pages deploy ./storybook-static -n arsrna-os-storybook -t $EO_SECRET

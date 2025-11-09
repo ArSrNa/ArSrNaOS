@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "strict": false,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "sourceMap": true,
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,

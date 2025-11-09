@@ -84,7 +84,7 @@ const footerSections = [
 
 const Footer = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="mt-20 flex flex-col">
       <div className="grow bg-muted" />
       <footer className="border-t">
         <div className="max-w-(--breakpoint-xl) mx-auto">

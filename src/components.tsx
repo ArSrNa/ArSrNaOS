@@ -7,3 +7,11 @@ export function CNBLogo({ children, link }: {
         {children}
     </div>
 }
+export function CNBIcon({ props }: {
+    props?: React.ComponentProps<"img">
+}) {
+    return <img src="https://docs.cnb.cool/images/logo/svg/LogoColorfulIcon.svg" {...props} style={{
+        ...props?.style,
+        width: 15
+    }} />
+}
