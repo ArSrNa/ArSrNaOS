@@ -126,4 +126,9 @@
     [role="button"]:not(:disabled) {
         cursor: pointer;
     }
+
+    a {
+        cursor: pointer;
+        color: #009178;
+    }
 }

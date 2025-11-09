@@ -57,7 +57,7 @@ export default function VPDemo() {
     return (
         <div className={style['container']}>
             <div style={{ marginBottom: 20, textAlign: 'center' }}>
-                <h1 style={{ marginBlock: 0 }}>使用横屏设备获得更好体验</h1>
+                <h1 className='text-2xl font-bold py-2'>使用横屏设备获得更好体验</h1>
                 <span>暂不支持移动端，也不支持竖屏。设备太小无法完整显示。</span>
                 <p>
                     源代码与文档（暂无）请见：<a href='https://cnb.cool/arsrna/visualize-music' target='_blank'>https://cnb.cool/arsrna/visualize-music</a>
@@ -109,13 +109,13 @@ export default function VPDemo() {
             <div className={style['info']}>
                 <img src={typeof coverImg === 'string' ? coverImg : (coverImg as any).src} />
                 <div>
-                    <h3>提瓦特民谣 - 宴宁 / XY大甘蔗 / 柳知萧 / 闫夜桥 / 陶典 / 孙晔</h3>
-                    <small>游戏《原神》五周年同人曲</small>
+                    <h3 className='text-xl font-bold'>提瓦特民谣 - 宴宁 / XY大甘蔗 / 柳知萧 / 闫夜桥 / 陶典 / 孙晔</h3>
+                    <small className='text-gray-500'>游戏《原神》五周年同人曲</small>
                 </div>
             </div>
             <audio ref={audio} src={music} className={style['audio']} controls />
 
-            <footer>Powered by Ar-Sr-Na www.arsrna.cn<br />仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
+            <footer>仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
         </div>
     );
 }

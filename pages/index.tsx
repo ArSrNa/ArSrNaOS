@@ -14,6 +14,7 @@ import { Pill, PillStatus } from '@/src/components/ui/shadcn-io/pill';
 import { Separator } from '@/components/ui/separator';
 import { appRes, CardInfo, nodejsRes } from '@/data/res';
 import Link from 'next/link';
+import { uuid } from '@/src/plug';
 
 export default function Home() {
     const itemClass = 'grid lg:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-5';
@@ -32,7 +33,7 @@ export default function Home() {
             demo: '演示'
         }
         return Object.keys(link).map((key) => (
-            <Link className={cardBtnClass} href={link[key]} target='_blank'>
+            <Link className={cardBtnClass} href={link[key]} key={uuid()} target='_blank'>
                 {iconEnum[key]} {nameEnum[key]}
             </Link>
         ))
@@ -104,7 +105,7 @@ export default function Home() {
                             </CardContent>
                             <Separator />
                             <CardFooter className={style['card-btn']}>
-                                {actions.map(m => <Link className={cardBtnClass} href={m.link} target='_blank'>
+                                {actions.map(m => <Link className={cardBtnClass} href={m.link} key={m.link} target='_blank'>
                                     {m.icon} {m.title}
                                 </Link>)}
                             </CardFooter>

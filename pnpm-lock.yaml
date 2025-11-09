@@ -69,8 +69,8 @@ importers:
         specifier: ^19.2.0
         version: 19.2.0
       react-av-timeline:
-        specifier: ^1.2.0
-        version: 1.2.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^1.2.2
+        version: 1.2.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
@@ -3474,11 +3474,11 @@ packages:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
 
-  react-av-timeline@1.2.1:
-    resolution: {integrity: sha512-oI9c8t0uknnDQKnK/lRGkHSoJot1U9qnJlVD7lBzR3N/Y8dnlR6PIPQWXpGdtF2mTcqHn/eVQxlHykE4NWpRag==}
+  react-av-timeline@1.2.2:
+    resolution: {integrity: sha512-/MmUMk5EJoF2SL/l3eYF2UXjvZIiHrzmm3GViIDwH8Ol6826BN0v2DkxW3G1yEmSyv0yuKm3W70DZaw7ec8+Mw==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react: '>16'
+      react-dom: '>16'
 
   react-docgen-typescript@2.4.0:
     resolution: {integrity: sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg==}
@@ -7756,11 +7756,10 @@ snapshots:
 
   range-parser@1.2.1: {}
 
-  react-av-timeline@1.2.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-av-timeline@1.2.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
-      typescript: 5.9.3
 
   react-docgen-typescript@2.4.0(typescript@5.9.3):
     dependencies:
