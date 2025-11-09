@@ -8,7 +8,7 @@ import src2Img from './images/5b60764dabc3bf50c2ad7b5ff8eae80b_26076875828667614
 import src3Img from './images/fa9fc6e9532e4c56c9ad0e5e9548a06a_2258061419554533859.png';
 import { useState } from "react";
 import { ProField, ProForm, ProFormCheckbox, ProFormDigit, ProFormField, ProFormGroup, ProFormList, ProFormSelect, ProFormText, ProFormTextArea } from "@ant-design/pro-components";
-import { uuid } from "@/plug";
+import { uuid } from "@/src/plug";
 
 export default function App() {
     const img1 = typeof src1Img === 'string' ? src1Img : (src1Img as any).src;

@@ -17,6 +17,7 @@ $:
         - name: install
           script: pnpm i
 
+master:
   push:
     sync_to_github:
       runner:

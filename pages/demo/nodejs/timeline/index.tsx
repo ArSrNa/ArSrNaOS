@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import Component from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css'
-import { characters, data, order } from '@/demo/nodejs/timeline/data';
+import { characters, data, order } from '@/src/demo/nodejs/timeline/data';
 import { Vertical } from 'react-av-timeline';
-import { music } from '@/demo/nodejs/visualize-player/assets';
+import { music } from '@/src/demo/nodejs/visualize-player/assets';
 
 const items = data.map(m => ({
     time: m.t, content: m.c.trim() === '' ? "无歌词" : m.c

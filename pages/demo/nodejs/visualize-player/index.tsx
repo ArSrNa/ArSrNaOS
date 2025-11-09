@@ -3,8 +3,8 @@ import style from './index.module.scss';
 import Timeline from 'react-av-timeline';
 import { Vertical } from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css';
-import { characterOrder, characters, lyrics } from '@/demo/nodejs/visualize-player/utils';
-import { cover as coverImg, music } from '@/demo/nodejs/visualize-player/assets';
+import { characterOrder, characters, lyrics } from '@/src/demo/nodejs/visualize-player/utils';
+import { cover as coverImg, music } from '@/src/demo/nodejs/visualize-player/assets';
 
 export default function VPDemo() {
     const [lyric, setLyric] = useState<ReactNode>('');

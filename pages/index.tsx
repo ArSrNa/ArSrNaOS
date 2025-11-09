@@ -1,8 +1,6 @@
-import { Space, Card, Button, Image, Avatar, Typography, Anchor, Row, Col } from 'antd';
-import { BookOutlined, CloudOutlined, DownloadOutlined, GithubOutlined, GlobalOutlined } from '@ant-design/icons';
-import { CNBLogo } from '@/components';
-const { Meta } = Card;
-const { Title, Paragraph } = Typography;
+
+import { CNBLogo } from '@/src/components';
+import { BookIcon, DownloadIcon, Link2Icon } from 'lucide-react';
 
 
 export default function Home() {
@@ -67,9 +65,9 @@ export default function Home() {
         actions: [
             <CNBLogo link="https://cnb.cool/arsrna/esrgan-app">源代码</CNBLogo>,
             <a href='https://www.arsrna.cn/app/esrgan' target='_blank'>
-                <DownloadOutlined /> 产品下载</a>,
+                <DownloadIcon /> 产品下载</a>,
             <a href='https://cloud.tencent.com/developer/article/2011313' target='_blank'>
-                <BookOutlined /> 服务器部署</a>,
+                <BookIcon /> 服务器部署</a>,
         ]
     }, {
         img: '/covers/appres/cnb-next-eo.png',
@@ -78,9 +76,9 @@ export default function Home() {
         actions: [
             <CNBLogo link="https://cnb.cool/arsrna/next-cnb-eo-demo">源代码/文档</CNBLogo>,
             <a href='https://cloud.tencent.com/developer/article/2533707' target='_blank'>
-                <BookOutlined /> 教程</a>,
+                <BookIcon /> 教程</a>,
             <a href='https://eo.cnbnb.cn/' target='_blank'>
-                <GlobalOutlined /> Demo</a>
+                <Link2Icon /> Demo</a>
         ]
     }, {
         img: '/covers/appres/cnb-latex.png',
@@ -89,7 +87,7 @@ export default function Home() {
         actions: [
             <CNBLogo link="https://cnb.cool/arsrna/cnb-latex">源代码/文档</CNBLogo>,
             <a href='https://cloud.tencent.com/developer/article/2535825' target='_blank'>
-                <BookOutlined /> 构建教程</a>
+                <BookIcon /> 构建教程</a>
         ]
     }, {
         img: '/covers/appres/cnb-blender.png',
@@ -98,7 +96,7 @@ export default function Home() {
         actions: [
             <CNBLogo link="https://cnb.cool/arsrna/blender-docker">源代码和文档</CNBLogo>,
             <a href='https://cloud.tencent.com/developer/article/2496407' target='_blank'>
-                <BookOutlined /> 教程</a>
+                <BookIcon /> 教程</a>
         ]
     }, {
         img: '/covers/appres/cnb-comfyui.png',
@@ -111,7 +109,7 @@ export default function Home() {
 
     return (
         <>
-            <Space direction='vertical' style={{ width: '100%' }} size="large">
+            <div>
                 <div>
                     <div style={{ zIndex: 1, position: 'absolute', padding: 50, color: 'white' }}>
                         <div className='title' style={{ letterSpacing: 3 }}>ArSrNa 资源与应用</div>
@@ -120,7 +118,7 @@ export default function Home() {
                     <img src='./images/index.jpg' className='hdpic' />
                 </div>
 
-                <Anchor
+                {/* <Anchor
                     direction="horizontal"
                     items={[{
                         key: 'nodejs资源',
@@ -131,13 +129,11 @@ export default function Home() {
                         href: '#app-resources',
                         title: '应用资源',
                     },]}
-                />
+                /> */}
 
 
-                <div id='nodejs-resources'>
-                    <Title level={2}>nodejs资源</Title>
-                    {/*  <img src='https://res.arsrna.cn/images/cnb/griseo.png' style={{ maxWidth: '100%', cursor: 'pointer' }}
-                        onClick={() => window.open('https://cnb.cool/arsrna/', '_blank')} /> */}
+                {/* <div id='nodejs-resources'>
+                    <h2>nodejs资源</h2>
                     <div className='card-container'>
                         {nodejsRes.map(res => {
                             const { img, title, description, git, sourceLink, demo, cnb } = res;
@@ -151,8 +147,8 @@ export default function Home() {
                                     actions={[
                                         git ? <a href={git} target='_blank' key={`${title}-github`}><GithubOutlined /> Github</a> : undefined,
                                         cnb ? <CNBLogo link={cnb} key={`${title}-cnb`}>CNB</CNBLogo> : undefined,
-                                        sourceLink ? <a href={sourceLink} target='_blank' key={`${title}-npm`}><GlobalOutlined /> npm</a> : undefined,
-                                        demo ? <a onClick={() => window.open(demo, '_blank')} key={`${title}-demo`}><GlobalOutlined /> Demo</a> : undefined,
+                                        sourceLink ? <a href={sourceLink} target='_blank' key={`${title}-npm`}><Link2Icon /> npm</a> : undefined,
+                                        demo ? <a onClick={() => window.open(demo, '_blank')} key={`${title}-demo`}><Link2Icon /> Demo</a> : undefined,
                                     ].filter(f => f !== void '我永远喜欢爱莉希雅')}
                                 >
                                     <Meta
@@ -164,10 +160,10 @@ export default function Home() {
                         }
                         )}
                     </div>
-                </div >
+                </div > */}
 
 
-                <div id='app-resources'>
+                {/* <div id='app-resources'>
                     <Title level={2}>应用资源</Title>
                     <div className='card-container'>
                         {appRes.map(res => {
@@ -180,8 +176,8 @@ export default function Home() {
                         }
                         )}
                     </div>
-                </div>
-            </Space >
+                </div> */}
+            </div >
         </>
     );
 }
