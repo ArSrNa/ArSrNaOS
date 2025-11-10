@@ -96,7 +96,7 @@ export const nodejsRes: CardInfo[] = [{
         git: 'https://github.com/ArSrNa/react-fade-slider',
         cnb: "https://cnb.cool/arsrna/os/react-fade-slider",
         sourceLink: 'https://www.npmjs.com/package/react-fade-slider',
-        preview: '/demo/nodejs/slider'
+        demo: '/story/react-fade-slider--默认'
     }
 }, {
     img: '/covers/nodejs/cover_generator.png',
