@@ -60,3 +60,4 @@ export const lrc = createLrcObj(`[00:00.00] 作词 : Konnie Aoki
 [03:02.04]Letting us shine
 [03:05.77]Don't hide your brightness
 `);
+

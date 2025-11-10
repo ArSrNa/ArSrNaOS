@@ -4,8 +4,10 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { Vertical } from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css'
 import { ComponentProps, useEffect, useRef, useState } from 'react';
-import { music } from '@/src/demo/nodejs/visualize-player/assets';
-import { data } from '@/src/demo/nodejs/timeline/data';
+import { defaultInfo } from '@/data/visualize-player/assets';
+import defaultLrc from '@/data/visualize-player/default-music';
+const { music } = defaultInfo;
+const { lyrics: data } = defaultLrc
 
 const common: Partial<ComponentProps<typeof Vertical>> = {
     scale: 10,
