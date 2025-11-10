@@ -16,8 +16,8 @@ const common: ComponentProps<typeof Component> = {
             <div className={style['content-mask']} /><span>CNB</span></div>
     </div>),
     backgroundStyle: {
-        backgroundSize: '110vw',
-        backgroundPosition: '-69px 5%'
+        "backgroundSize": "60vw",
+        "backgroundPosition": "-69% 5%"
     },
     filter: {
         mask: `blur(20px) brightness(1)`,
@@ -68,4 +68,13 @@ type Story = StoryObj<typeof meta>;
 
 export const 默认: Story = {
     args: common,
+};
+
+export const 全屏: Story = {
+    args: {
+        ...common, backgroundStyle: {
+            backgroundSize: '110vw',
+            backgroundPosition: '-69px 5%'
+        }
+    },
 };
