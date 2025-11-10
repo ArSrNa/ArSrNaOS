@@ -63,23 +63,23 @@ importers:
         specifier: ^8.5.6
         version: 8.5.6
       poster-generator:
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.3
+        version: 1.1.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react:
         specifier: ^19.2.0
         version: 19.2.0
       react-av-timeline:
-        specifier: ^1.2.2
-        version: 1.2.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^1.2.4
+        version: 1.2.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
       react-fade-slider:
-        specifier: ^1.3.2
-        version: 1.3.2
+        specifier: ^1.3.4
+        version: 1.3.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-lrcplayer:
-        specifier: 3.0.9
-        version: 3.0.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: 3.0.10
+        version: 3.0.10(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-medium-image-zoom:
         specifier: ^5.4.0
         version: 5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -3426,8 +3426,11 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  poster-generator@1.1.0:
-    resolution: {integrity: sha512-xb+CuY5x+G3t/BuzRG1irpEpXu0MDWhcVyS4x65ciZNNem4daaqr/KpktzvGnE/Vdi60BVEluC3nu/54V2RltQ==}
+  poster-generator@1.1.3:
+    resolution: {integrity: sha512-qsKqhB1DBKKSVBqbZoMicrFoZiLHBCtmH3hPjCnd3mvRzlB3bPzRSFAgNRhucXvh5ZJoh95w4PCOLPsUkWOaUg==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
 
   pretty-error@4.0.0:
     resolution: {integrity: sha512-AoJ5YMAcXKYxKhuJGdcvse+Voc6v1RgnsR3nWcYU7q4t6z0Q6T86sv5Zq8VIRbOWWFpvdGE83LtdSMNd+6Y0xw==}
@@ -3474,8 +3477,8 @@ packages:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
 
-  react-av-timeline@1.2.2:
-    resolution: {integrity: sha512-/MmUMk5EJoF2SL/l3eYF2UXjvZIiHrzmm3GViIDwH8Ol6826BN0v2DkxW3G1yEmSyv0yuKm3W70DZaw7ec8+Mw==}
+  react-av-timeline@1.2.4:
+    resolution: {integrity: sha512-n/8ZeN2MSqrKy9a5/XAivUzULnr8W7mKgfiMBCbKh9gRbixxKifillbALELW0Y0FCl/4Czv67C5zYbZ4hv6b5A==}
     peerDependencies:
       react: '>16'
       react-dom: '>16'
@@ -3503,14 +3506,17 @@ packages:
     peerDependencies:
       react: ^19.2.0
 
-  react-fade-slider@1.3.2:
-    resolution: {integrity: sha512-AVo+gS+3LTrgC7tAwzXLRMJnA3yR1mqC5xYip/+5HbTk+77MjbeTvXFGg+dZSq+RMk5r7DG/HRE/ON+zIXoe9w==}
+  react-fade-slider@1.3.4:
+    resolution: {integrity: sha512-EPTj/EtdEF7EviLEyc4pN8Mu/zBXdt8br5bQ1DgkESqsLxLeOiYpzdT7qBLMz9esH/6r6QjzfxLpIXyNPW/oZQ==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
 
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
-  react-lrcplayer@3.0.9:
-    resolution: {integrity: sha512-84BdyunVdniAqdcV0djBgo3Vzt15kN6yTRjsbavrUJI57v2RsY/obekuftmSkUTYoh5I/KfomRGHcCxAX+j9Tg==}
+  react-lrcplayer@3.0.10:
+    resolution: {integrity: sha512-/UCgnLygOj+gSjT8DdmheTto4OVq/JFRseXjftQC+WOwVceXs/hevquhQO8TPfrq6+bjis8J+dmhAaZxaNEl+Q==}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
@@ -7703,11 +7709,10 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  poster-generator@1.1.0:
+  poster-generator@1.1.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      typescript: 5.9.3
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
 
   pretty-error@4.0.0:
     dependencies:
@@ -7756,7 +7761,7 @@ snapshots:
 
   range-parser@1.2.1: {}
 
-  react-av-timeline@1.2.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-av-timeline@1.2.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
@@ -7806,15 +7811,14 @@ snapshots:
       react: 19.2.0
       scheduler: 0.27.0
 
-  react-fade-slider@1.3.2:
+  react-fade-slider@1.3.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      typescript: 5.9.3
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
 
   react-is@17.0.2: {}
 
-  react-lrcplayer@3.0.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-lrcplayer@3.0.10(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)

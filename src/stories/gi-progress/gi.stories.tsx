@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
+import { useArgs } from 'storybook/preview-api'
 
 import { GIProgress } from "genshin-progress";
 import { ComponentProps, useEffect, useState } from 'react';
@@ -13,9 +14,12 @@ const common: ComponentProps<typeof GIProgress> = {
 }
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-    title: 'React/原神元素进度条',
+    title: 'genshin-progress',
     component: GIProgress,
-    args: common,
+    args: {
+        width: 400,
+        num: 93
+    },
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
         layout: 'centered',
@@ -65,30 +69,37 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const 真实的进度条: Story = {
+export const 默认: Story = {
     args: {
         ...common,
     },
-    render: () => {
-        const [num, setNum] = useState(0);
+};
+
+// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
+export const 实际进度条: Story = {
+    name: '实际进度条',
+    args: {
+        num: 0
+    },
+    render: (args, context) => {
+        const [arg, updateArgs] = useArgs();
         function play() {
-            setNum(0)
-            setTimeout(() => setNum(6), 500);
-            setTimeout(() => setNum(20), 1000);
-            setTimeout(() => setNum(25), 1200);
-            setTimeout(() => setNum(40), 1400);
-            setTimeout(() => setNum(50), 1500);
-            setTimeout(() => setNum(70), 1800);
-            setTimeout(() => setNum(90), 2000);
-            setTimeout(() => setNum(93), 2100);
-            setTimeout(() => setNum(100), 5000);
-        }
+            updateArgs({ num: 0 });
+            setTimeout(() => updateArgs({ num: 6 }), 500);
+            setTimeout(() => updateArgs({ num: 20 }), 1000);
+            setTimeout(() => updateArgs({ num: 25 }), 1200);
+            setTimeout(() => updateArgs({ num: 40 }), 1400);
+            setTimeout(() => updateArgs({ num: 50 }), 1500);
+            setTimeout(() => updateArgs({ num: 70 }), 1800);
+            setTimeout(() => updateArgs({ num: 90 }), 2000);
+            setTimeout(() => updateArgs({ num: 93 }), 2100);
+            setTimeout(() => updateArgs({ num: 100 }), 5000);
+        };
 
         return <div>
-            <button onClick={play} disabled={num !== 100 && num !== 0}>播放</button>
-            num: {num}
-            <GIProgress num={num} width={400} />
+            <button onClick={play} disabled={arg.num !== 100 && arg.num !== 0} > 播放</button>
+            num: {arg.num}
+            <GIProgress {...args} width={400} />
         </div>
     },
     parameters: {
@@ -101,16 +112,16 @@ export const 真实的进度条: Story = {
 };
 
 export const 更真实的进度条: Story = {
-    args: { ...common },
-    render: () => {
-        const [num, setNum] = useState(0);
+    args: { num: 0 },
+    render: (args) => {
+        const [arg, setArgs] = useArgs();
 
         const handleClick = () => {
             var i = 0
             var int = setInterval(() => {
                 if (i >= 100) { clearInterval(int); return }
                 i += 5;
-                setNum(i);
+                setArgs({ num: i });
             }, 300);
         }
 
@@ -128,10 +139,10 @@ export const 更真实的进度条: Story = {
             }
         }
         return (<>
-            <button onClick={handleClick} disabled={num !== 100 && num !== 0}>播放动画</button>
-            传入:{num}
-            <br />实际传入:{mapValue(num)}
-            <GIProgress num={mapValue(num)} width={400} />
+            <button onClick={handleClick} disabled={arg.num !== 100 && arg.num !== 0}>播放动画</button>
+            传入:{arg.num}
+            <br />实际传入:{mapValue(arg.num)}
+            <GIProgress {...args} num={mapValue(arg.num)} />
         </>);
     },
     parameters: {

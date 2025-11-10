@@ -1,20 +1,21 @@
 import { CNBIcon, CNBLogo } from "@/src/components"
 import { BookIcon, DownloadIcon, Link2Icon } from "lucide-react"
-import Link from "next/link"
 
 export interface CardInfo {
     img: string
     title: string
     description: string
-    info?: {
-        lang: string
-    }
-    link: {
-        git?: string
-        cnb?: string
-        sourceLink?: string
-        demo?: string
-    }
+    info?: Partial<{
+        lang: string;
+        framework: string;
+    }>
+    link: Partial<{
+        git: string
+        cnb: string
+        sourceLink: string
+        demo: string;
+        preview: string
+    }>
 }
 
 export const nodejsRes: CardInfo[] = [{
@@ -23,86 +24,93 @@ export const nodejsRes: CardInfo[] = [{
     description: 'react音视频时间轴',
     info: {
         lang: 'TypeScript',
+        framework: 'React Vite'
     },
     link: {
         git: 'https://github.com/ArSrNa/react-timeline',
         cnb: "https://cnb.cool/arsrna/os/react-timeline",
         sourceLink: 'https://www.npmjs.com/package/react-av-timeline',
-        demo: '/demo/nodejs/timeline',
+        demo: '/docs/react-av-timeline',
     }
 }, {
     img: '/covers/nodejs/VPDemo.png',
     title: 'React 可视化播放器',
     info: {
         lang: 'TypeScript',
+        framework: 'React Vite'
     },
     description: '一个可视化播放器demo（原神生日会《提瓦特民谣》）Timeline+Player',
     link: {
         cnb: "https://cnb.cool/arsrna/visualize-music",
-        demo: '/demo/nodejs/visualize-player'
+        preview: '/demo/nodejs/visualize-player'
     }
 }, {
     img: '/covers/nodejs/player.png',
     title: 'React 带歌词简易播放器',
     info: {
         lang: 'TypeScript',
+        framework: 'React Vite'
     },
     description: '实现标题副标题显示，封面展示，原生audio播放器，lrc歌词同步显示（需提前转换为json）',
     link: {
         git: 'https://github.com/ArSrNa/React-LRCPlayer',
         cnb: "https://cnb.cool/arsrna/os/React-LRCPlayer",
         sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
-        demo: '/demo/nodejs/lrcplayer'
+        demo: '/docs/react-lrcplayer'
     }
 }, {
     img: '/covers/nodejs/rgp.png',
     title: 'React 原神元素进度条',
     info: {
         lang: 'TypeScript',
+        framework: 'React TSC'
     },
     description: '使用React与svg，叠层的一个元素进度条',
     link: {
         git: 'https://github.com/ArSrNa/React-GenshinProgress',
         cnb: "https://cnb.cool/arsrna/os/React-GenshinProgress",
         sourceLink: 'https://www.npmjs.com/package/genshin-progress',
-        demo: '/demo/nodejs/genshin-progress'
+        demo: '/docs/genshin-progress'
     }
 }, {
     img: '/covers/nodejs/smpte.png',
     title: '时码器信号生成',
     info: {
         lang: 'TypeScript',
+        framework: 'Vue TSC'
     },
     description: '纯前端生成SMPTE时间码（LTC）',
     link: {
         sourceLink: 'https://www.npmjs.com/package/smpte-generator',
-        demo: 'https://smpte.arsrna.cn'
+        preview: 'https://smpte.arsrna.cn'
     }
 }, {
     img: '/covers/nodejs/slider.png',
     title: 'React 渐变轮播图',
     info: {
         lang: 'TypeScript',
+        framework: 'React Vite'
     },
     description: 'react渐变图片轮播组件',
     link: {
         git: 'https://github.com/ArSrNa/react-fade-slider',
         cnb: "https://cnb.cool/arsrna/os/react-fade-slider",
         sourceLink: 'https://www.npmjs.com/package/react-fade-slider',
-        demo: '/demo/nodejs/slider'
+        preview: '/demo/nodejs/slider'
     }
 }, {
     img: '/covers/nodejs/cover_generator.png',
     title: 'React 简易封面生成',
     info: {
         lang: 'TypeScript',
+        framework: 'React Vite'
     },
     description: '模仿风格，纯前端效果封面生成',
     link: {
         git: 'https://github.com/ArSrNa/cover-generator',
         cnb: "https://cnb.cool/arsrna/os/cover-generator",
         sourceLink: 'https://www.npmjs.com/package/poster-generator',
-        demo: '/demo/nodejs/cover'
+        demo: '/docs/poster-generator'
     }
 }];
 

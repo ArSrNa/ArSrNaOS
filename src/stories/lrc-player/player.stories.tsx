@@ -25,7 +25,7 @@ const common: ComponentProps<typeof LRCPlayer> = {
 }
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-    title: 'React/LRC-Player',
+    title: 'react-lrcplayer',
     component: LRCPlayer,
     args: common,
     parameters: {
