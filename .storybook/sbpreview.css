@@ -1,0 +1,21 @@
+/* 覆盖 storybook-root 的默认样式 */
+/* #storybook-root {
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+} */
+
+/* 可选：如果内容被其他容器包裹，也需要同步修改 */
+/* .storybook-story {
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+} */
+
+#storybook-root {
+    width: 100% !important;
+}
+
+.docs-story>div>div {
+    width: 100% !important;
+}

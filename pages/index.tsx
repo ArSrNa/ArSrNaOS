@@ -1,6 +1,6 @@
 
 import { CNBIcon, CNBLogo } from '@/src/components';
-import { BookIcon, CheckCircleIcon, Code2Icon, DownloadIcon, Github, Link2Icon, XIcon } from 'lucide-react';
+import { BookIcon, CheckCircleIcon, Code2Icon, DownloadIcon, FrameIcon, Github, Link2Icon, PackageIcon, XIcon } from 'lucide-react';
 import {
     Card,
     CardContent,
@@ -15,6 +15,7 @@ import { Separator } from '@/components/ui/separator';
 import { appRes, CardInfo, nodejsRes } from '@/data/res';
 import Link from 'next/link';
 import { uuid } from '@/src/plug';
+import { ImageZoom } from '@/src/components/ui/shadcn-io/image-zoom';
 
 export default function Home() {
     const itemClass = 'grid lg:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-5';
@@ -23,17 +24,25 @@ export default function Home() {
         const iconEnum = {
             git: <Github size={18} />,
             cnb: <CNBIcon />,
-            sourceLink: <Link2Icon size={18} />,
-            demo: <Link2Icon size={18} />
+            sourceLink: <PackageIcon size={18} />,
+            demo: <Link2Icon size={18} />,
+            preview: <Link2Icon size={18} />,
         }
         const nameEnum = {
             git: 'Github',
             cnb: 'CNB',
             sourceLink: 'NPM',
-            demo: '演示'
+            demo: 'Demo',
+            preview: '演示',
         }
-        return Object.keys(link).map((key) => (
-            <Link className={cardBtnClass} href={link[key]} key={uuid()} target='_blank'>
+
+        const linkEnmum = (type: keyof typeof link) => {
+            if (type === 'demo') return 'https://os-demo.arsrna.cn?path=' + link[type];
+            return link[type]
+        }
+
+        return Object.keys(link).map((key: keyof typeof link) => (
+            <Link className={cardBtnClass} href={linkEnmum(key)} key={uuid()} target='_blank'>
                 {iconEnum[key]} {nameEnum[key]}
             </Link>
         ))
@@ -58,20 +67,34 @@ export default function Home() {
                         <Card key={title}>
                             <CardHeader>
                                 <CardTitle>{title}</CardTitle>
-                                <CardDescription>{description}</CardDescription>
+                                <CardDescription className='h-5'>{description}</CardDescription>
                             </CardHeader>
+                            <Separator />
                             <CardContent>
-                                <img
-                                    src={img}
-                                    alt={title}
-                                    className="w-full h-50 object-scale-down" />
-                                {info?.lang && <Pill>
-                                    <PillStatus>
-                                        <Code2Icon className="text-emerald-500" size={12} />
-                                        {info.lang}
-                                    </PillStatus>
-                                    首要语言
-                                </Pill>}
+                                <ImageZoom>
+                                    <img
+                                        src={img}
+                                        alt={title}
+                                        className="w-full h-30 object-scale-down" />
+                                </ImageZoom>
+                                <Separator className='my-2' />
+                                <div className='flex flex-wrap gap-1'>
+                                    {info?.lang && <Pill>
+                                        <PillStatus>
+                                            <Code2Icon className="text-emerald-500" size={12} />
+                                            {info.lang}
+                                        </PillStatus>
+                                        语言
+                                    </Pill>}
+
+                                    {info?.framework && <Pill>
+                                        <PillStatus>
+                                            <FrameIcon className="text-purple-500" size={12} />
+                                            {info.framework}
+                                        </PillStatus>
+                                        构建
+                                    </Pill>}
+                                </div>
 
                             </CardContent>
                             <Separator />
