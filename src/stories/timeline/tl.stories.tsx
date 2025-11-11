@@ -4,11 +4,13 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import Component from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css'
 import { ComponentProps, useEffect, useRef, useState } from 'react';
-import { characters, data, order } from '@/src/demo/nodejs/timeline/data';
-import { music } from '@/src/demo/nodejs/visualize-player/assets';
+import { defaultInfo } from '@/data/visualize-player/assets';
+import defaultLrc from '@/data/visualize-player/default-music';
+const { music } = defaultInfo;
+const { lyrics: data, characterOrder, characters } = defaultLrc
 
 
-const characterItems = order.map(m => ({
+const characterItems = characterOrder.map(m => ({
     time: m.time,
     content: m.characters.length === characters.length ? "合唱" : m.characters.map(c => characters[c].cv).join(' '),
     style: {

@@ -1,15 +1,43 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import style from './index.module.scss';
 import Timeline from 'react-av-timeline';
-import { Vertical } from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css';
-import { characterOrder, characters, lyrics } from '@/src/demo/nodejs/visualize-player/utils';
-import { cover as coverImg, music } from '@/src/demo/nodejs/visualize-player/assets';
+import defaultLyric from '@/data/visualize-player/default-music';
+import starLyric from '@/data/visualize-player/star-music';
+import { defaultInfo, starInfo } from '@/data/visualize-player/assets';
+import { Separator } from '@/components/ui/separator';
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
 
 export default function VPDemo() {
+    return <div className='space-y-10'>
+        <div className='my-10 text-center'>
+            <h1 className='text-2xl font-bold py-2'>使用横屏设备获得更好体验</h1>
+            <span>暂不支持移动端，也不支持竖屏。设备太小无法完整显示。</span>
+            <p>
+                源代码与文档（暂无）请见：<a href='https://cnb.cool/arsrna/visualize-music' target='_blank'>https://cnb.cool/arsrna/visualize-music</a>
+                <br />
+                TimeLine组件源代码与文档请见：<a href='https://cnb.cool/arsrna/os/react-timeline' target='_blank'>https://cnb.cool/arsrna/os/react-timeline</a>
+            </p>
+        </div>
+
+        <Separator />
+        <Default />
+        <Separator />
+        <Star />
+        <footer className='text-center text-gray-500 my-10'>仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
+    </div>
+}
+
+function Default() {
+    const { characterOrder, characters, lyrics } = defaultLyric;
     const [lyric, setLyric] = useState<ReactNode>('');
     const [current, setCurrent] = useState<number[]>([]);
     const [currentTime, setCurrentTime] = useState(0);
+    const { cover: coverImg, music } = defaultInfo;
     const audio = useRef<HTMLAudioElement>(null);
 
     function updateLRC(currentTime: number) {
@@ -55,16 +83,7 @@ export default function VPDemo() {
     }, []);
 
     return (
-        <div className={style['container']}>
-            <div style={{ marginBottom: 20, textAlign: 'center' }}>
-                <h1 className='text-2xl font-bold py-2'>使用横屏设备获得更好体验</h1>
-                <span>暂不支持移动端，也不支持竖屏。设备太小无法完整显示。</span>
-                <p>
-                    源代码与文档（暂无）请见：<a href='https://cnb.cool/arsrna/visualize-music' target='_blank'>https://cnb.cool/arsrna/visualize-music</a>
-                    <br />
-                    TimeLine组件源代码与文档请见：<a href='https://cnb.cool/arsrna/os/react-timeline' target='_blank'>https://cnb.cool/arsrna/os/react-timeline</a>
-                </p>
-            </div>
+        <div className='flex flex-col gap-3 items-center justify-center'>
             <div>
                 <div className={style['character-container']} style={{ '--bg': characters[current[0]]?.color || 'white' } as CSSProperties}>
                     {characters.map((m, i) => <div key={`img_${m.name}`}
@@ -115,7 +134,84 @@ export default function VPDemo() {
             </div>
             <audio ref={audio} src={music} className={style['audio']} controls />
 
-            <footer>仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
         </div>
     );
+}
+
+
+function Star() {
+    const { cover: coverImg, music } = starInfo;
+    const { characterOrder, characters, lyrics } = starLyric;
+    const [current, setCurrent] = useState<number[]>([0]);
+    const [lrc, setLrc] = useState<ReactNode>(<span></span>);
+    const [currentTime, setCurrentTime] = useState(0);
+    const audio = useRef<HTMLAudioElement>(null);
+
+    useGSAP(() => {
+        const tl = gsap.timeline();
+        tl.fromTo(`.${style['layer-lyric']}`, {
+            y: 10,
+            opacity: 0,
+            duration: 0.2
+        }, {
+            opacity: 1,
+            y: 0,
+        });
+    }, [lrc]);
+
+    function updateLRC(currentTime: number) {
+        const currentLyric = lyrics.filter(m => m.t <= currentTime).at(-1);
+        const placeholder = '无歌词';
+        if (!currentLyric) return;
+        const lrc = currentLyric.c.trim();
+        if (lrc === '') {
+            setLrc(<small style={{ color: 'gray' }}>{placeholder}</small>);
+        } else {
+            setLrc(lrc);
+        }
+    }
+
+    function updateCharacter(currentTime: number) {
+        const currentCharacters = characterOrder.filter(m => m.time <= currentTime).at(-1);
+        if (!currentCharacters) {
+            setCurrent([]);
+            return;
+        }
+        setCurrent(currentCharacters.characters);
+    }
+
+    function onTimeUpdate() {
+        /**带一点动画延迟，所以需要提前0.3s */
+        const currentTime = audio.current?.currentTime || 0 + 0.3;
+        setCurrentTime(currentTime);
+        updateLRC(currentTime);
+        updateCharacter(currentTime);
+        requestAnimationFrame(onTimeUpdate);
+    }
+
+    useEffect(() => {
+        if (audio.current === null) return;
+        onTimeUpdate();
+    }, []);
+
+    return (<div className='md:px-20 sm:px-0'>
+        <audio ref={audio} src={music} controls className='w-full' />
+        <div className={style['star-character']}>
+            {characters.map((m, i) => <div key={`img_star_${m.name}`} data-active={current.includes(i)} className={style['img']}>
+                <img src={m.img} alt={m.name} style={{
+                    '--x': m?.position?.[0] + "%",
+                    '--y': m?.position?.[1] + "%",
+                    scale: 1.1,
+                    maskImage: `linear-gradient(${m?.position?.[2] ? "to left" : "to right"}, ${m.color} 50%, transparent 90%)`
+                } as CSSProperties} />
+                <div className={style['layer']} style={{ "--bg": m.color, left: m?.position?.[2] ? "10%" : "80%" } as CSSProperties}>
+                    <div className={style['layer-name']}>{m.name}</div>
+                    <div className={style['layer-cv']}>CV: {m.cv}</div>
+                </div>
+
+                <div className={style['layer-lyric']}>{lrc}</div>
+            </div>)}
+        </div>
+
+    </div>)
 }
