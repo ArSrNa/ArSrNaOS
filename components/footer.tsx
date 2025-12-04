@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import {
+  CodeIcon,
   DribbbleIcon,
   GithubIcon,
   Link2Icon,
@@ -12,6 +13,11 @@ const footerSections = [
   {
     title: "关于",
     links: [
+      {
+        icon: <CodeIcon />,
+        title: "本站源代码",
+        href: "https://cnb.cool/arsrna/websites/os",
+      },
       {
         icon: <Link2Icon />,
         title: "Ar-Sr-Na 网站",
@@ -40,6 +46,10 @@ const footerSections = [
       {
         title: "强势动力来自CNB",
         href: "https://cnb.cool/arsrna",
+      },
+      {
+        title: "腾讯云Edgeone构建支持",
+        href: "https://edgeone.ai",
       },
       {
         title: "Next.js构建",
