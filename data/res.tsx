@@ -20,6 +20,21 @@ export interface CardInfo {
 
 export const nodejsRes: CardInfo[] = [{
     img: '/covers/nodejs/react-av-timeline.png',
+    title: '腾讯财经API',
+    description: '腾讯财经api。仅作为实验和学习研究用途，不提供投资建议。市场有风险，投资需谨慎！',
+    info: {
+        lang: 'TypeScript',
+        framework: 'bun'
+    },
+    link: {
+        git: 'https://github.com/ArSrNa/tencent-stock-api',
+        cnb: "https://cnb.cool/arsrna/os/tencent-stock-api",
+        sourceLink: 'https://www.npmjs.com/package/tencent-stock-api',
+        // demo: '/docs/react-av-timeline',
+        preview: '/demo/tencent-stock-api'
+    }
+}, {
+    img: '/covers/nodejs/react-av-timeline.png',
     title: 'React 音视频时间轴',
     description: 'react音视频时间轴',
     info: {
@@ -42,7 +57,7 @@ export const nodejsRes: CardInfo[] = [{
     description: '一个可视化播放器demo（原神生日会《提瓦特民谣》）Timeline+Player',
     link: {
         cnb: "https://cnb.cool/arsrna/visualize-music",
-        preview: '/demo/nodejs/visualize-player'
+        preview: '/demo/visualize-player'
     }
 }, {
     img: '/covers/nodejs/player.png',

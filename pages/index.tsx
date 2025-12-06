@@ -1,6 +1,6 @@
 
-import { CNBIcon, CNBLogo } from '@/src/components';
-import { BookIcon, CheckCircleIcon, Code2Icon, DownloadIcon, FrameIcon, Github, Link2Icon, PackageIcon, XIcon } from 'lucide-react';
+import { CNBIcon } from '@/src/components';
+import { Code2Icon, CurlyBracesIcon, FrameIcon, Github, Link2Icon, PackageIcon, XIcon } from 'lucide-react';
 import {
     Card,
     CardContent,
@@ -25,7 +25,7 @@ export default function Home() {
             git: <Github size={18} />,
             cnb: <CNBIcon />,
             sourceLink: <PackageIcon size={18} />,
-            demo: <Link2Icon size={18} />,
+            demo: <CurlyBracesIcon size={18} />,
             preview: <Link2Icon size={18} />,
         }
         const nameEnum = {

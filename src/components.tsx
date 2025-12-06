@@ -3,15 +3,15 @@ export function CNBLogo({ children, link }: {
     link: string
 }) {
     return <div onClick={() => window.open(link, "_blank")} className='action-link'>
-        <img src="https://docs.cnb.cool/images/logo/svg/LogoColorfulIcon.svg" />
+        <img src="https://docs.cnb.cool/images/logo/320/Symbol-Color.png" />
         {children}
     </div>
 }
 export function CNBIcon({ props }: {
     props?: React.ComponentProps<"img">
 }) {
-    return <img src="https://docs.cnb.cool/images/logo/svg/LogoColorfulIcon.svg" {...props} style={{
+    return <img src="https://docs.cnb.cool/images/logo/320/Symbol-Color.png" {...props} style={{
         ...props?.style,
-        width: 15
+        width: 20,
     }} />
 }
