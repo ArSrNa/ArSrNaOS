@@ -19,9 +19,9 @@ export interface CardInfo {
 }
 
 export const nodejsRes: CardInfo[] = [{
-    img: '/covers/nodejs/react-av-timeline.png',
+    img: '/covers/nodejs/tencent-stock-api.png',
     title: '腾讯财经API',
-    description: '腾讯财经api。仅作为实验和学习研究用途，不提供投资建议。市场有风险，投资需谨慎！',
+    description: '腾讯财经api。仅作为实验和学习研究用途，非投资建议。',
     info: {
         lang: 'TypeScript',
         framework: 'bun'
