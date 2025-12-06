@@ -16,15 +16,19 @@ export default function Stock() {
     const router = useRouter();
 
     useEffect(() => {
-        if (router.query.stockcode) {
-            setCode(router.query.stockcode as string)
-            GetInfo([code]).then(res => {
+        const code = router.query.stockcode as string;
+        if (code) {
+            setCode(code as string)
+            GetInfo([code as string]).then(res => {
                 setResult(res[0]);
             })
         } else {
             setCode('sh000001');
+            GetInfo(['sh000001']).then(res => {
+                setResult(res[0]);
+            })
         }
-    }, []);
+    }, [router.query.stockcode]);
 
     function changeCode(code: string) {
         router.push({
@@ -32,11 +36,12 @@ export default function Stock() {
             query: {
                 stockcode: code
             }
+        }).then(() => {
+            setCode(code);
+            GetInfo([code]).then(res => {
+                setResult(res[0]);
+            });
         });
-        setCode(code)
-        GetInfo([code]).then(res => {
-            setResult(res[0]);
-        })
     }
 
 
