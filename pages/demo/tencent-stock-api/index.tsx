@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
 import { TriangleIcon } from "lucide-react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import GetInfo, { StockData } from 'tencent-stock-api';
 
@@ -12,34 +13,60 @@ export default function Stock() {
     const [code, setCode] = useState('sh600839');
     const [result, setResult] = useState(null);
 
+    const router = useRouter();
+
     useEffect(() => {
+        if (router.query.stockcode) {
+            setCode(router.query.stockcode as string)
+            GetInfo([code]).then(res => {
+                setResult(res[0]);
+            })
+        } else {
+            setCode('sh000001');
+        }
+    }, []);
+
+    function changeCode(code: string) {
+        router.push({
+            pathname: router.pathname,
+            query: {
+                stockcode: code
+            }
+        });
+        setCode(code)
         GetInfo([code]).then(res => {
             setResult(res[0]);
         })
-    }, []);
+    }
 
 
     return <div className="relative">
+        <div>以<b>交易所+股票代码</b>的形式。例如：
+            <br />
+            上海证券交易所：<a onClick={() => changeCode('sh000001')}>sh000001</a>（上证指数）
+            <br />
+            上海证券交易所：<a onClick={() => changeCode('sh688795')}>sh688795</a>（摩尔线程）
+            <br />
+            深圳证券交易所：<a onClick={() => changeCode('sz399001')}>sz399001</a>（深证成指）
+            <br />
+            香港交易所：<a onClick={() => changeCode('hkHSI')}>hkHSI</a>（恒生指数）
+            <br />
+            纳斯达克交易所：<a onClick={() => changeCode('usIXIC')}>usIXIC</a>（纳斯达克指数）
+        </div>
+
+        <div>
+            文档与源代码请见：<a href="https://cnb.cool/arsrna/os/tencent-stock-api" target="_blank">https://cnb.cool/arsrna/os/tencent-stock-api</a>
+            <br />
+            历史数据（来自CNB）：<a href="https://cnb.cool/xgz/arsrna/stock-history" target="_blank">https://cnb.cool/xgz/arsrna/stock-history</a>
+        </div>
         <div className="flex gap-3 sticky top-[60px] left-0 right-0 bg-white/20 backdrop-blur-lg z-10 p-2 mx-[-15px]">
             <Input placeholder="股票代码" value={code} onChange={e => setCode(e.target.value)} />
-            <Button onClick={() => {
-                GetInfo([code]).then(res => {
-                    console.log(res);
-                    setResult(res[0]);
-                })
-            }}>查询</Button>
+            <Button onClick={() => changeCode(code)}>查询</Button>
         </div>
-        <div>以<b>交易所+股票代码</b>的形式
-            <br />
-            上海证券交易所：sh000001
-            <br />
-            深圳证券交易所：sz390001
-            <br />
-            香港交易所：hkHSI
-            <br />
-            纳斯达克交易所：usAAPL
-        </div>
+        <Textarea className="h-50" value={JSON.stringify(result, null, 2)} />
+        <Separator className="my-2" />
         <Result result={result} />
+
     </div>
 }
 
@@ -52,7 +79,7 @@ function Result({ result }: { result: StockData }) {
     const priceChangeClass = isUp
         ? "text-rose-600"
         : "text-emerald-600"
-    const priceChangeIcon = isUp ? "↑" : "↓";
+    const priceChangeIcon = isUp ? "▲" : "▼";
 
 
     function Statistics({ title, value }: { title: string, value: number }) {
@@ -78,7 +105,7 @@ function Result({ result }: { result: StockData }) {
                             <span>{order.price.toFixed(2)}</span>
                         </div>
                         <div className="ml-auto">
-                            {order.volume.toLocaleString()}
+                            {order.volume.toFixed(2)}
                         </div>
                     </div>
                 </div>
