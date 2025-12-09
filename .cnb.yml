@@ -9,13 +9,16 @@ $:
         volumes:
           - /root/.pnpm:cow
           - /root/.pnpm-store:cow
+          - /root/.bun/install/cache
           - /workspace/.next/cache:cow
       services:
         - vscode
         - docker
       stages:
         - name: install
-          script: pnpm i
+          script:
+            - npm i -g bun
+            - bun i
 
 "**":
   push:
@@ -45,15 +48,17 @@ master:
         image: docker.cnb.cool/arsrna/dev-env/node22
         volumes:
           # 使用缓存，同时更新
-          - /root/.pnpm:cow
+          - /root/.npm:cow
           - /root/.pnpm-store:cow
           - /workspace/.next/cache:cow
+          - /root/.bun/install/cache
       runner:
         cpus: 32
       stages:
         - name: build
           script:
-            - pnpm i
+            - npm i -g bun
+            - bun i
             - npm run build
         - name: 部署我的 eo pages 正式环境
           imports:
