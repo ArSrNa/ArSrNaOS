@@ -106,7 +106,7 @@ function Result({ result }: { result: StockData }) {
                         style={{ width: `${order.volume / refer * 100}%` }} />
                     <div className="flex h-full items-center relative z-1 mx-3">
                         <div className="font-medium grid grid-cols-[20px_auto] items-center">
-                            <TriangleIcon className={`rotate-90 opacity-${refer === order.volume ? 100 : 0}`} size={15} />
+                            <TriangleIcon className={`rotate-90 opacity-${refer <= order.volume ? '1' : '0'}`} size={15} />
                             <span>{order.price.toFixed(2)}</span>
                         </div>
                         <div className="ml-auto">
