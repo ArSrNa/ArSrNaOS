@@ -1,16 +1,25 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+'use client'
+import { use, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import style from './index.module.scss';
 import Timeline from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css';
 import defaultLyric from '@/data/visualize-player/default-music';
-import starLyric from '@/data/visualize-player/star-music';
 import { defaultInfo, starInfo } from '@/data/visualize-player/assets';
 import { Separator } from '@/components/ui/separator';
+import dynamic from 'next/dynamic';
+const LyricPlayer = dynamic(
+    () => import('@applemusic-like-lyrics/react').then((mod) => {
+        return mod.LyricPlayer
+    }),
+    { ssr: false }
+);
+import {
+    parseTTML,
+} from "@applemusic-like-lyrics/lyric";
 
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import '@applemusic-like-lyrics/core/style.css';
 
-gsap.registerPlugin(useGSAP);
+// gsap.registerPlugin(useGSAP);
 
 export default function VPDemo() {
     return <div className='space-y-10'>
@@ -34,23 +43,24 @@ export default function VPDemo() {
 
 function Default() {
     const { characterOrder, characters, lyrics } = defaultLyric;
-    const [lyric, setLyric] = useState<ReactNode>('');
+    const [lyricLines, setLyricLines] = useState([]);
     const [current, setCurrent] = useState<number[]>([]);
     const [currentTime, setCurrentTime] = useState(0);
     const { cover: coverImg, music } = defaultInfo;
     const audio = useRef<HTMLAudioElement>(null);
+    const playerRef = useRef(null);
 
-    function updateLRC(currentTime: number) {
-        const currentLyric = lyrics.filter(m => m.t <= currentTime).at(-1);
-        const placeholder = '无歌词';
-        if (!currentLyric) return;
-        const lrc = currentLyric.c.trim();
-        if (lrc === '') {
-            setLyric(<small className={style['lyric-animate']} key={placeholder} style={{ color: 'gray' }}>{placeholder}</small>);
-        } else {
-            setLyric(<span className={style['lyric-animate']} key={lrc}>{lrc}</span>);
-        }
-    }
+    useEffect(() => {
+        setTimeout(() => {
+            playerRef.current?.lyricPlayer?.calcLayout(true);
+        }, 1500);
+    }, []);
+
+    useEffect(() => {
+        fetch('/demo_res/visualize-player/lrc.txt').then(msg => msg.text()).then(msg => {
+            setLyricLines(parseTTML(msg).lines);
+        })
+    }, []);
 
     function updateCharacter(currentTime: number) {
         const currentCharacters = characterOrder.filter(m => m.time <= currentTime).at(-1);
@@ -63,9 +73,8 @@ function Default() {
 
     function onTimeUpdate() {
         /**带一点动画延迟，所以需要提前0.3s */
-        const currentTime = audio.current?.currentTime || 0 + 0.3;
+        const currentTime = audio.current?.currentTime || 0;
         setCurrentTime(currentTime);
-        updateLRC(currentTime);
         updateCharacter(currentTime);
         requestAnimationFrame(onTimeUpdate);
     }
@@ -73,35 +82,45 @@ function Default() {
     useEffect(() => {
         if (audio.current === null) return;
         onTimeUpdate();
-    }, []);
+        updateCharacter(0);
+        return () => {
+            // cancelAnimationFrame(onTimeUpdate);
+        }
+    }, [audio.current]);
 
+    return (<>
+        <div className='grid lg:grid-cols-[520px_1fr] xs:grid-cols-[1fr] items-center justify-center'>
+            <LyricPlayer
+                style={{
+                    filter: "invert(100%)"
+                }}
+                size={80}
+                ref={playerRef}
+                alignAnchor="center"
+                className='w-full h-full my-2'
+                lyricLines={lyricLines}
+                currentTime={currentTime * 1000}
+            />
+            <div className='flex flex-col gap-2 justify-center items-center'>
+                <div>
+                    <div className={style['character-container']} style={{ '--bg': characters[current[0]]?.color || 'white' } as CSSProperties}>
+                        {characters.map((m, i) => <div key={`img_${m.name}`}
+                            className={`${style['character-img']} ${current.includes(i) ? style['character-img-active'] : ''}`}>
+                            <img src={m.img} alt={m.name} />
+                            <div className={style['layer']} style={{ "--bg": m.color } as CSSProperties}>
+                                <div className={style['layer-name']}>{m.name}</div>
+                                <div className={style['layer-cv']}>CV: {m.cv}</div>
+                            </div>
+                        </div>)}
+                    </div>
+                    <div className={style['character-indicator']} style={{
+                        '--bg': current.length === 0
+                            ? `linear-gradient(90deg, ${characters.map(m => m.color).join(',')})`
+                            : `linear-gradient(90deg, ${current.map(m => characters[m].color).join(',')})`
+                    } as CSSProperties} />
 
-    useEffect(() => {
-        updateLRC(0);
-        // console.log(lyrics)
-        // console.log(characterOrder)
-    }, []);
-
-    return (
-        <div className='flex flex-col gap-3 items-center justify-center'>
-            <div>
-                <div className={style['character-container']} style={{ '--bg': characters[current[0]]?.color || 'white' } as CSSProperties}>
-                    {characters.map((m, i) => <div key={`img_${m.name}`}
-                        className={`${style['character-img']} ${current.includes(i) ? style['character-img-active'] : ''}`}>
-                        <img src={m.img} alt={m.name} />
-                        <div className={style['layer']} style={{ "--bg": m.color } as CSSProperties}>
-                            <div className={style['layer-name']}>{m.name}</div>
-                            <div className={style['layer-cv']}>CV: {m.cv}</div>
-                        </div>
-                    </div>)}
                 </div>
-                <div className={style['character-indicator']} style={{
-                    '--bg': current.length === 0
-                        ? `linear-gradient(90deg, ${characters.map(m => m.color).join(',')})`
-                        : `linear-gradient(90deg, ${current.map(m => characters[m].color).join(',')})`
-                } as CSSProperties} />
-
-                <Timeline
+                {/* <Timeline
                     scale={9.1}
                     itemStyle={{
                         color: 'white',
@@ -121,97 +140,96 @@ function Default() {
                     })}
                     currentTime={currentTime}
                     totalTime={audio.current?.duration || 1}
-                />
-            </div>
-            <div className={style['lyric']}>{lyric}</div>
-
-            <div className={style['info']}>
-                <img src={typeof coverImg === 'string' ? coverImg : (coverImg as any).src} />
-                <div>
-                    <h3 className='text-xl font-bold'>提瓦特民谣 - 宴宁 / XY大甘蔗 / 柳知萧 / 闫夜桥 / 陶典 / 孙晔</h3>
-                    <small className='text-gray-500'>游戏《原神》五周年同人曲</small>
+                /> */}
+                <div className={style['info']}>
+                    <img src={typeof coverImg === 'string' ? coverImg : (coverImg as any).src} />
+                    <div>
+                        <h3 className='text-xl font-bold'>提瓦特民谣 - 宴宁 / XY大甘蔗 / 柳知萧 / 闫夜桥 / 陶典 / 孙晔</h3>
+                        <small className='text-gray-500'>游戏《原神》五周年同人曲</small>
+                    </div>
                 </div>
-            </div>
-            <audio ref={audio} src={music} className={style['audio']} controls />
 
+                <audio ref={audio} src={music} className={style['audio']} controls />
+            </div>
         </div>
-    );
+        {/* <div className={style['lyric']}>{lyric}</div> */}
+    </>);
 }
 
 
-function Star() {
-    const { cover: coverImg, music } = starInfo;
-    const { characterOrder, characters, lyrics } = starLyric;
-    const [current, setCurrent] = useState<number[]>([0]);
-    const [lrc, setLrc] = useState<ReactNode>(<span></span>);
-    const [currentTime, setCurrentTime] = useState(0);
-    const audio = useRef<HTMLAudioElement>(null);
+// function Star() {
+//     const { cover: coverImg, music } = starInfo;
+//     const { characterOrder, characters, lyrics } = starLyric;
+//     const [current, setCurrent] = useState<number[]>([0]);
+//     const [lrc, setLrc] = useState<ReactNode>(<span></span>);
+//     const [currentTime, setCurrentTime] = useState(0);
+//     const audio = useRef<HTMLAudioElement>(null);
 
-    useGSAP(() => {
-        const tl = gsap.timeline();
-        tl.fromTo(`.${style['layer-lyric']}`, {
-            y: 10,
-            opacity: 0,
-            duration: 0.2
-        }, {
-            opacity: 1,
-            y: 0,
-        });
-    }, [lrc]);
+//     useGSAP(() => {
+//         const tl = gsap.timeline();
+//         tl.fromTo(`.${style['layer-lyric']}`, {
+//             y: 10,
+//             opacity: 0,
+//             duration: 0.2
+//         }, {
+//             opacity: 1,
+//             y: 0,
+//         });
+//     }, [lrc]);
 
-    function updateLRC(currentTime: number) {
-        const currentLyric = lyrics.filter(m => m.t <= currentTime).at(-1);
-        const placeholder = '无歌词';
-        if (!currentLyric) return;
-        const lrc = currentLyric.c.trim();
-        if (lrc === '') {
-            setLrc(<small style={{ color: 'gray' }}>{placeholder}</small>);
-        } else {
-            setLrc(lrc);
-        }
-    }
+//     function updateLRC(currentTime: number) {
+//         const currentLyric = lyrics.filter(m => m.t <= currentTime).at(-1);
+//         const placeholder = '无歌词';
+//         if (!currentLyric) return;
+//         const lrc = currentLyric.c.trim();
+//         if (lrc === '') {
+//             setLrc(<small style={{ color: 'gray' }}>{placeholder}</small>);
+//         } else {
+//             setLrc(lrc);
+//         }
+//     }
 
-    function updateCharacter(currentTime: number) {
-        const currentCharacters = characterOrder.filter(m => m.time <= currentTime).at(-1);
-        if (!currentCharacters) {
-            setCurrent([]);
-            return;
-        }
-        setCurrent(currentCharacters.characters);
-    }
+//     function updateCharacter(currentTime: number) {
+//         const currentCharacters = characterOrder.filter(m => m.time <= currentTime).at(-1);
+//         if (!currentCharacters) {
+//             setCurrent([]);
+//             return;
+//         }
+//         setCurrent(currentCharacters.characters);
+//     }
 
-    function onTimeUpdate() {
-        /**带一点动画延迟，所以需要提前0.3s */
-        const currentTime = audio.current?.currentTime || 0 + 0.3;
-        setCurrentTime(currentTime);
-        updateLRC(currentTime);
-        updateCharacter(currentTime);
-        requestAnimationFrame(onTimeUpdate);
-    }
+//     function onTimeUpdate() {
+//         /**带一点动画延迟，所以需要提前0.3s */
+//         const currentTime = audio.current?.currentTime || 0 + 0.3;
+//         setCurrentTime(currentTime);
+//         updateLRC(currentTime);
+//         updateCharacter(currentTime);
+//         requestAnimationFrame(onTimeUpdate);
+//     }
 
-    useEffect(() => {
-        if (audio.current === null) return;
-        onTimeUpdate();
-    }, []);
+//     useEffect(() => {
+//         if (audio.current === null) return;
+//         onTimeUpdate();
+//     }, []);
 
-    return (<div className='md:px-20 sm:px-0'>
-        <audio ref={audio} src={music} controls className='w-full' />
-        <div className={style['star-character']}>
-            {characters.map((m, i) => <div key={`img_star_${m.name}`} data-active={current.includes(i)} className={style['img']}>
-                <img src={m.img} alt={m.name} style={{
-                    '--x': m?.position?.[0] + "%",
-                    '--y': m?.position?.[1] + "%",
-                    scale: 1.1,
-                    maskImage: `linear-gradient(${m?.position?.[2] ? "to left" : "to right"}, ${m.color} 50%, transparent 90%)`
-                } as CSSProperties} />
-                <div className={style['layer']} style={{ "--bg": m.color, left: m?.position?.[2] ? "10%" : "80%" } as CSSProperties}>
-                    <div className={style['layer-name']}>{m.name}</div>
-                    <div className={style['layer-cv']}>CV: {m.cv}</div>
-                </div>
+//     return (<div className='md:px-20 sm:px-0'>
+//         <audio ref={audio} src={music} controls className='w-full' />
+//         <div className={style['star-character']}>
+//             {characters.map((m, i) => <div key={`img_star_${m.name}`} data-active={current.includes(i)} className={style['img']}>
+//                 <img src={m.img} alt={m.name} style={{
+//                     '--x': m?.position?.[0] + "%",
+//                     '--y': m?.position?.[1] + "%",
+//                     scale: 1.1,
+//                     maskImage: `linear-gradient(${m?.position?.[2] ? "to left" : "to right"}, ${m.color} 50%, transparent 90%)`
+//                 } as CSSProperties} />
+//                 <div className={style['layer']} style={{ "--bg": m.color, left: m?.position?.[2] ? "10%" : "80%" } as CSSProperties}>
+//                     <div className={style['layer-name']}>{m.name}</div>
+//                     <div className={style['layer-cv']}>CV: {m.cv}</div>
+//                 </div>
 
-                <div className={style['layer-lyric']}>{lrc}</div>
-            </div>)}
-        </div>
+//                 <div className={style['layer-lyric']}>{lrc}</div>
+//             </div>)}
+//         </div>
 
-    </div>)
-}
+//     </div>)
+// }
