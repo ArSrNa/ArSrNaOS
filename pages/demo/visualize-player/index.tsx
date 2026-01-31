@@ -37,7 +37,9 @@ export default function VPDemo() {
 
         <Separator />
         <DefaultPlayer />
+        <div className='my-20' />
         <Separator />
+        <div className='my-2' />
         <Star />
         <footer className='text-center text-gray-500 my-10'>仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
     </div>
