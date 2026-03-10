@@ -1,6 +1,7 @@
 {
   "name": "arsrnaos",
   "description": "ArSrNa 开源资源中心",
+  "license": "MIT",
   "author": {
     "name": "ArSrNa",
     "email": "root@arsrna.cn",
