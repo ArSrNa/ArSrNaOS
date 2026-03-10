@@ -12,7 +12,7 @@ import {
 import style from './index.module.scss';
 import { Pill, PillStatus } from '@/src/components/ui/shadcn-io/pill';
 import { Separator } from '@/components/ui/separator';
-import { appRes, CardInfo, nodejsRes } from '@/data/res';
+import { CardInfo, res } from '@/data/res';
 import Link from 'next/link';
 import { uuid } from '@/src/plug';
 import { ImageZoom } from '@/src/components/ui/shadcn-io/image-zoom';
@@ -38,6 +38,7 @@ export default function Home() {
 
         const linkEnmum = (type: keyof typeof link) => {
             if (type === 'demo') return 'https://os-demo.arsrna.cn?path=' + link[type];
+            if (type === 'cnb') return 'https://cnb.cool/' + link[type];
             return link[type]
         }
 
@@ -58,11 +59,11 @@ export default function Home() {
                 <img src='./images/index.jpg' className='hdpic' />
             </div>
 
-            <section className='space-y-5'>
-                <h1 className='font-bold text-2xl'>Nodejs开源资源</h1>
+            {Object.keys(res).map(key => (<section key={key} className='space-y-5'>
+                <h1 className='font-bold text-2xl'>{key}</h1>
                 <div className={itemClass}>
-                    {nodejsRes.map(({
-                        title, img, description, link, info
+                    {res[key].map(({
+                        title, img, description, link, info, actions
                     }) => (
                         <Card key={title}>
                             <CardHeader>
@@ -75,7 +76,7 @@ export default function Home() {
                                     <img
                                         src={img}
                                         alt={title}
-                                        className="w-full h-30 object-scale-down" />
+                                        className="w-full h-40 object-scale-down" />
                                 </ImageZoom>
                                 <Separator className='my-2' />
                                 <div className='flex flex-wrap gap-1'>
@@ -96,46 +97,26 @@ export default function Home() {
                                     </Pill>}
                                 </div>
 
+                                {link?.cnb && <div className='mt-2 flex flex-wrap gap-1'>
+                                    <img className='object-scale-down' src={`https://commit.cool/badge/build/pipelines/${link.cnb}`} />
+                                    <img className='object-scale-down' src={`https://commit.cool/badge/license/${link.cnb}`} />
+                                    <img className='object-scale-down' src={`https://commit.cool/badge/commit/recent/${link.cnb}`} />
+                                </div>}
+
                             </CardContent>
                             <Separator />
                             <CardFooter className={style['card-btn']}>
                                 <div className='flex flex-row gap-2 flex-wrap'>
-                                    <FooterAction link={link} />
+                                    {link && <FooterAction link={link} />}
+                                    {actions && actions.map(m => <Link className={cardBtnClass} href={m.link} key={m.link} target='_blank'>
+                                        {m.icon} {m.title}
+                                    </Link>)}
                                 </div>
                             </CardFooter>
                         </Card>
                     ))}
                 </div>
-            </section>
-
-            <section className='space-y-5'>
-                <h1 className='font-bold text-2xl'>应用资源</h1>
-                <div className={itemClass}>
-                    {appRes.map(({
-                        title, img, description, actions
-                    }) => (
-                        <Card key={title}>
-                            <CardHeader>
-                                <CardTitle>{title}</CardTitle>
-                                <CardDescription>{description}</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <img
-                                    src={img}
-                                    alt={title}
-                                    className="w-full h-50 object-scale-down" />
-
-                            </CardContent>
-                            <Separator />
-                            <CardFooter className={style['card-btn']}>
-                                {actions.map(m => <Link className={cardBtnClass} href={m.link} key={m.link} target='_blank'>
-                                    {m.icon} {m.title}
-                                </Link>)}
-                            </CardFooter>
-                        </Card>
-                    ))}
-                </div>
-            </section>
+            </section>))}
         </div>
     );
 }
