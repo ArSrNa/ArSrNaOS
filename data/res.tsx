@@ -1,5 +1,5 @@
 import { CNBIcon, CNBLogo } from "@/src/components"
-import { BookIcon, DownloadIcon, Link2Icon } from "lucide-react"
+import { BookIcon, DownloadIcon, Link2Icon, LinkIcon } from "lucide-react"
 import { JSX } from "react"
 
 export interface CardInfo {
@@ -174,6 +174,10 @@ const application = [{
         icon: <CNBIcon />,
         title: "源代码"
     }, {
+        link: "https://cnb.cool/xilonen/Real-ESRGAN",
+        icon: <CNBIcon />,
+        title: "云原生运行"
+    }, {
         link: "https://www.arsrna.cn/app/esrgan",
         icon: <DownloadIcon size={18} />,
         title: "产品下载"
@@ -183,6 +187,15 @@ const application = [{
         title: "服务器部署"
     }
     ]
+}, {
+    img: 'https://cnb.cool/xilonen/piano_transcription_inference/-/git/raw/main/images/image.png',
+    title: '钢琴扒谱（音频转midi）',
+    description: '原项目（qiuqiangkong/piano_transcription_inference）转换到CNB上的运行环境，打开即可一键运行无需配置。',
+    actions: [{
+        link: "https://cnb.cool/xilonen/piano_transcription_inference",
+        icon: <CNBIcon />,
+        title: "源代码"
+    }]
 }, {
     img: '/covers/appres/cnb-next-eo.png',
     title: 'CNB+Next+EO',
@@ -221,7 +234,11 @@ const application = [{
         link: "https://cloud.tencent.com/developer/article/2496407",
         icon: <BookIcon size={18} />,
         title: "教程"
-    }]
+    }, {
+        link: "https://www.arsrna.cn/app/render",
+        icon: <LinkIcon size={18} />,
+        title: "ArRM介绍"
+    },]
 }, {
     img: '/covers/appres/cnb-comfyui.png',
     title: '云原生ComfyUI',
