@@ -61,7 +61,7 @@ function DefaultPlayer() {
     }, []);
 
     useEffect(() => {
-        fetch('/demo_res/visualize-player/提瓦特民谣.txt').then(msg => msg.text()).then(msg => {
+        fetch('/demo_res/visualize-player/提瓦特民谣.xml').then(msg => msg.text()).then(msg => {
             setLyricLines(parseTTML(msg).lines);
         })
     }, []);
@@ -121,7 +121,7 @@ function DefaultPlayer() {
                     } as CSSProperties} />
 
                 </div>
-                <Timeline
+                {/* <Timeline
                     scale={9.1}
                     itemStyle={{
                         color: 'white',
@@ -141,7 +141,7 @@ function DefaultPlayer() {
                     })}
                     currentTime={currentTime}
                     totalTime={audio.current?.duration || 1}
-                />
+                /> */}
                 <div className={style['info']}>
                     <img src={typeof coverImg === 'string' ? coverImg : (coverImg as any).src} />
                     <div>
@@ -166,7 +166,7 @@ function Star() {
 
 
     useEffect(() => {
-        fetch('/demo_res/visualize-player/提瓦特民谣_星空版.txt').then(msg => msg.text()).then(msg => {
+        fetch('/demo_res/visualize-player/提瓦特民谣_星空版.xml').then(msg => msg.text()).then(msg => {
             setLyricLines(parseTTML(msg).lines);
         })
     }, [])

@@ -132,9 +132,9 @@ const websites = [{
     description: '源代码里面有描述「源代码里面有描述『源代码里面有描述......的源代码』的源代码」的源代码',
     link: {
         cnb: "arsrna/websites/os",
-        demo: 'https://os.arsrna.cn'
+        preview: 'https://os.arsrna.cn'
     }
-}, , {
+}, {
     img: '/covers/music-2025.png',
     title: 'ArSrNa 2025年度歌单',
     info: {
@@ -144,7 +144,7 @@ const websites = [{
     description: '带ttml演出效果、歌单切换与移动端适配的音乐播放器',
     link: {
         cnb: "arsrna/yearly-music/2025",
-        demo: 'https://music-2025.arsrna.cn'
+        preview: 'https://music-2025.arsrna.cn'
     }
 },]
 
