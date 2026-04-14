@@ -1,6 +1,6 @@
 
 import { CNBIcon } from '@/src/components';
-import { Code2Icon, CurlyBracesIcon, FrameIcon, Github, Link2Icon, PackageIcon, XIcon } from 'lucide-react';
+import { ClockIcon, Code2Icon, CurlyBracesIcon, FrameIcon, Github, Link2Icon, PackageIcon, XIcon } from 'lucide-react';
 import {
     Card,
     CardContent,
@@ -63,7 +63,7 @@ export default function Home() {
                 <h1 className='font-bold text-2xl'>{key}</h1>
                 <div className={itemClass}>
                     {res[key].map(({
-                        title, img, description, link, info, actions
+                        title, img, description, link, info, actions, date
                     }) => (
                         <Card key={title}>
                             <CardHeader>
@@ -103,6 +103,10 @@ export default function Home() {
                                     <img className='object-scale-down' src={`https://commit.cool/badge/commit/recent/${link.cnb}`} />
                                 </div>}
 
+                                {date && <div className='flex items-center gap-1 text-[#666]'>
+                                    <ClockIcon size={20} />
+                                    <div>发布时间：{date}</div>
+                                </div>}
                             </CardContent>
                             <Separator />
                             <CardFooter className={style['card-btn']}>

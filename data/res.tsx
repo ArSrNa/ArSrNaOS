@@ -6,6 +6,7 @@ export interface CardInfo {
     img: string
     title: string
     description: string
+    date?: string
     info?: Partial<{
         lang: string;
         framework: string;
@@ -250,9 +251,38 @@ const application = [{
     }]
 }]
 
+const hardware = [{
+    img: '/covers/hardware/ewm_tally.webp',
+    title: 'LoRa 摄像Tally灯（验证中）',
+    description: '基于BC3603国产远距LoRa模块应用而成',
+    date: "2026-04",
+    actions: []
+}, {
+    img: 'https://image.lceda.cn/histories/0f41ae644a66405e9f05cd755a7c84f4.png',
+    title: 'TDA2003带均衡器的功放',
+    description: '将输入的音频信号放大，应用于音响等设备上，还可以对输入信号的各频段进行调整',
+    date: "2021-09",
+    actions: [{
+        link: "https://oshwhub.com/eda_hodtaddn/gflm3915",
+        icon: <LinkIcon size={18} />,
+        title: "项目介绍"
+    }]
+}, {
+    img: 'https://image.lceda.cn/histories/7c2f0bcb2a58421fb2f6a5bfd696e178.png',
+    title: 'LA3600 5段前级均衡器',
+    date: "2021-09",
+    description: '为了让音频各频段饱满，弥补音响缺陷，加了LA3600 五段均衡器芯片 搭配功放使用',
+    actions: [{
+        link: "https://oshwhub.com/eda_hodtaddn/la3600_5",
+        icon: <LinkIcon size={18} />,
+        title: "项目介绍"
+    }]
+}]
+
 export const res: { [key: string]: CardInfo[] } = {
     'UI组件': ui,
     '音视频': av,
+    '硬件、嵌入式': hardware,
     '网站': websites,
     '数据处理': dataProcess,
     '综合应用': application,
