@@ -70,6 +70,19 @@ const ui = [{
 }]
 
 const av = [{
+    img: '/covers/appres/cnb-rife.png',
+    title: 'RIFE视频超帧NPC',
+    description: 'CNB上的视频补帧，可直接在NPC运行，无需打开环境',
+    info: {
+        lang: 'Python',
+        framework: 'NCNN'
+    },
+    link: {
+        git: 'https://cnb.cool/xilonen/RIFE',
+        cnb: "xilonen/RIFE",
+        demo: 'https://cnb.cool/xilonen/RIFE/-/issues/1',
+    },
+}, {
     img: '/covers/react-av-timeline.png',
     title: 'React 音视频时间轴',
     description: 'react音视频时间轴',
