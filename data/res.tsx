@@ -80,7 +80,7 @@ const av = [{
     link: {
         git: 'https://cnb.cool/xilonen/RIFE',
         cnb: "xilonen/RIFE",
-        demo: 'https://cnb.cool/xilonen/RIFE/-/issues/1',
+        preview: 'https://cnb.cool/xilonen/RIFE/-/issues/1',
     },
 }, {
     img: '/covers/react-av-timeline.png',
