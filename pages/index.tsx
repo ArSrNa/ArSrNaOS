@@ -100,7 +100,9 @@ export default function Home() {
                                 {link?.cnb && <div className='mt-2 flex flex-wrap gap-1'>
                                     <img className='object-scale-down' src={`https://commit.cool/badge/build/pipelines/${link.cnb}`} />
                                     <img className='object-scale-down' src={`https://commit.cool/badge/license/${link.cnb}`} />
-                                    <img className='object-scale-down' src={`https://commit.cool/badge/commit/recent/${link.cnb}`} />
+                                    <img className='object-scale-down' src={`https://commit.cool/badge/commits/${link.cnb}`} />
+                                    <img className='object-scale-down' src={`https://commit.cool/badge/build/duration/${link.cnb}`} />
+                                    <img className='object-scale-down' src={`https://cnb.cool/${link.cnb}/-/badge/git/latest/testing/unit/coverage`} />
                                 </div>}
 
                                 {date && <div className='flex items-center gap-1 text-[#666]'>
