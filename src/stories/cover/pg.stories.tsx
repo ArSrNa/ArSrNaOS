@@ -34,10 +34,10 @@ const meta = {
     args: common,
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-        layout: 'centered',
+        layout: 'padded',
         docs: {
             description: {
-                component: '本项目复刻原神加载时的元素进度条，使用React与babel开发，仅在vite、next上通过使用测试。以下是基本使用示例。'
+                component: '（若无法预览请切换到「全屏」的页面预览）本项目复刻原神加载时的元素进度条，使用React与babel开发，仅在vite、next上通过使用测试。以下是基本使用示例。'
             }
         }
     },

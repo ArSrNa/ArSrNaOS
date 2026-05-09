@@ -7,7 +7,7 @@ import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { defaultInfo } from '@/data/visualize-player/assets';
 import defaultLrc from '@/data/visualize-player/default-music';
 const { music } = defaultInfo;
-const { lyrics: data } = defaultLrc
+const { data } = defaultLrc
 
 const common: Partial<ComponentProps<typeof Vertical>> = {
     scale: 10,
@@ -51,7 +51,7 @@ const meta = {
         // layout: 'centered',
         docs: {
             description: {
-                component: '垂直时间线，适用于自动化场景，在过n条后自动消失。'
+                component: '垂直时间线，适用于自动化场景，在过n条后自动消失。和水平不一样，此处Level参数不生效'
             }
         },
     },
@@ -121,10 +121,7 @@ export const 音乐播放: Story = {
         }, [])
         return <div>
             <audio style={{ width: "100%" }} controls ref={audio} src={music} />
-            <Vertical {...args} items={data.map(m => ({
-                time: m.t,
-                content: m.c,
-            }))} currentTime={currentTime} />
+            <Vertical {...args} items={data} currentTime={currentTime} />
         </div>
     }
 }
