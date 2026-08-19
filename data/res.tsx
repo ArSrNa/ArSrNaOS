@@ -202,7 +202,7 @@ const application = [{
     }
     ]
 }, {
-    img: 'https://cnb.cool/xilonen/piano_transcription_inference/-/git/raw/main/images/image.png',
+    img: '/covers/piano_transcription_inference.png',
     title: '钢琴扒谱（音频转midi）',
     description: '原项目（qiuqiangkong/piano_transcription_inference）转换到CNB上的运行环境，打开即可一键运行无需配置。',
     actions: [{
