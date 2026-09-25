@@ -17,6 +17,11 @@ export const NavMenu = (props: ComponentProps<typeof NavigationMenu>) => (
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
+          <Link href="https://os-demo.arsrna.cn" target="_blank">Storybook</Link>
+        </NavigationMenuLink>
+      </NavigationMenuItem >
+      <NavigationMenuItem>
+        <NavigationMenuLink asChild>
           <Link href="https://www.arsrna.cn" target="_blank">主站</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
