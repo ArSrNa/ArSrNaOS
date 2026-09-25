@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { useArgs } from 'storybook/preview-api'
 
 import { GIProgress } from "genshin-progress";
-import { ComponentProps, useEffect, useState } from 'react';
+import { ComponentProps} from 'react';
+import { Button } from '@/components/ui/button';
 
 const common: ComponentProps<typeof GIProgress> = {
     width: 400,
@@ -97,7 +98,8 @@ export const 实际进度条: Story = {
         };
 
         return <div>
-            <button onClick={play} disabled={arg.num !== 100 && arg.num !== 0} > 播放</button>
+            <Button onClick={play} disabled={arg.num !== 100 && arg.num !== 0}>播放</Button>
+            <br />
             num: {arg.num}
             <GIProgress {...args} width={400} />
         </div>
@@ -139,7 +141,7 @@ export const 更真实的进度条: Story = {
             }
         }
         return (<>
-            <button onClick={handleClick} disabled={arg.num !== 100 && arg.num !== 0}>播放动画</button>
+            <Button onClick={handleClick} disabled={arg.num !== 100 && arg.num !== 0}>播放动画</Button>
             传入:{arg.num}
             <br />实际传入:{mapValue(arg.num)}
             <GIProgress {...args} num={mapValue(arg.num)} />

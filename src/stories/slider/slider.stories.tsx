@@ -2,7 +2,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
 import { ComponentProps } from 'react';
-import Slider, { itemProps } from "react-fade-slider";
+import Slider from "react-fade-slider";
 import "react-fade-slider/dist/index.css";
 import { fn } from 'storybook/test';
 import src1Img from './images/16de7766a642388d21e4c76cacfde801_5165224128247218265.png';
@@ -57,7 +57,7 @@ const meta = {
     args: { ...common, onChange: fn() },
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-        layout: 'centered',
+        layout: 'padded',
         docs: {
             description: "*注意：默认的素材均为测试使用，版权归原作者所有，禁止用于商业用途！部分API为对象或jsx，无法使用表单展示，更多API请前往源代码查看"
         }

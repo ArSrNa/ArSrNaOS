@@ -1,106 +1,32 @@
 import { CNBIcon, CNBLogo } from "@/src/components"
-import { BookIcon, DownloadIcon, Link2Icon } from "lucide-react"
+import { BookIcon, DownloadIcon, Link2Icon, LinkIcon } from "lucide-react"
+import { JSX } from "react"
 
 export interface CardInfo {
     img: string
     title: string
     description: string
+    date?: string
     info?: Partial<{
         lang: string;
         framework: string;
     }>
-    link: Partial<{
+    link?: Partial<{
         git: string
         cnb: string
         sourceLink: string
         demo: string;
         preview: string
     }>
+    actions?: {
+        link: string;
+        icon: JSX.Element;
+        title: string;
+    }[];
 }
 
-export const nodejsRes: CardInfo[] = [{
-    img: '/covers/nodejs/tencent-stock-api.png',
-    title: '腾讯财经API',
-    description: '腾讯财经api。仅作为实验和学习研究用途，非投资建议。',
-    info: {
-        lang: 'TypeScript',
-        framework: 'bun'
-    },
-    link: {
-        git: 'https://github.com/ArSrNa/tencent-stock-api',
-        cnb: "https://cnb.cool/arsrna/os/tencent-stock-api",
-        sourceLink: 'https://www.npmjs.com/package/tencent-stock-api',
-        // demo: '/docs/react-av-timeline',
-        preview: '/demo/tencent-stock-api'
-    }
-}, {
-    img: '/covers/nodejs/react-av-timeline.png',
-    title: 'React 音视频时间轴',
-    description: 'react音视频时间轴',
-    info: {
-        lang: 'TypeScript',
-        framework: 'React Vite'
-    },
-    link: {
-        git: 'https://github.com/ArSrNa/react-timeline',
-        cnb: "https://cnb.cool/arsrna/os/react-timeline",
-        sourceLink: 'https://www.npmjs.com/package/react-av-timeline',
-        demo: '/docs/react-av-timeline',
-    }
-}, {
-    img: '/covers/nodejs/VPDemo.png',
-    title: 'React 可视化播放器',
-    info: {
-        lang: 'TypeScript',
-        framework: 'React Vite'
-    },
-    description: '一个可视化播放器demo（原神生日会《提瓦特民谣》）Timeline+Player',
-    link: {
-        cnb: "https://cnb.cool/arsrna/visualize-music",
-        preview: '/demo/visualize-player'
-    }
-}, {
-    img: '/covers/nodejs/player.png',
-    title: 'React 带歌词简易播放器',
-    info: {
-        lang: 'TypeScript',
-        framework: 'React Vite'
-    },
-    description: '实现标题副标题显示，封面展示，原生audio播放器，lrc歌词同步显示（需提前转换为json）',
-    link: {
-        git: 'https://github.com/ArSrNa/React-LRCPlayer',
-        cnb: "https://cnb.cool/arsrna/os/React-LRCPlayer",
-        sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
-        demo: '/docs/react-lrcplayer'
-    }
-}, {
-    img: '/covers/nodejs/rgp.png',
-    title: 'React 原神元素进度条',
-    info: {
-        lang: 'TypeScript',
-        framework: 'React TSC'
-    },
-    description: '使用React与svg，叠层的一个元素进度条',
-    link: {
-        git: 'https://github.com/ArSrNa/React-GenshinProgress',
-        cnb: "https://cnb.cool/arsrna/os/React-GenshinProgress",
-        sourceLink: 'https://www.npmjs.com/package/genshin-progress',
-        demo: '/docs/genshin-progress'
-    }
-}, {
-    img: '/covers/nodejs/smpte.png',
-    title: '时码器信号生成',
-    info: {
-        lang: 'TypeScript',
-        framework: 'Vue TSC'
-    },
-    description: '纯前端生成SMPTE时间码（LTC）',
-    link: {
-        sourceLink: 'https://www.npmjs.com/package/smpte-generator',
-        preview: 'https://smpte.arsrna.cn'
-    }
-}, {
-    img: '/covers/nodejs/slider.png',
+const ui = [{
+    img: '/covers/slider.png',
     title: 'React 渐变轮播图',
     info: {
         lang: 'TypeScript',
@@ -109,12 +35,12 @@ export const nodejsRes: CardInfo[] = [{
     description: 'react渐变图片轮播组件',
     link: {
         git: 'https://github.com/ArSrNa/react-fade-slider',
-        cnb: "https://cnb.cool/arsrna/os/react-fade-slider",
+        cnb: "arsrna/os/react-fade-slider",
         sourceLink: 'https://www.npmjs.com/package/react-fade-slider',
         demo: '/story/react-fade-slider--默认'
     }
 }, {
-    img: '/covers/nodejs/cover_generator.png',
+    img: '/covers/cover_generator.png',
     title: 'React 简易封面生成',
     info: {
         lang: 'TypeScript',
@@ -123,14 +49,137 @@ export const nodejsRes: CardInfo[] = [{
     description: '模仿风格，纯前端效果封面生成',
     link: {
         git: 'https://github.com/ArSrNa/cover-generator',
-        cnb: "https://cnb.cool/arsrna/os/cover-generator",
+        cnb: "arsrna/os/cover-generator",
         sourceLink: 'https://www.npmjs.com/package/poster-generator',
         demo: '/docs/poster-generator'
     }
-}];
+}, {
+    img: '/covers/rgp.png',
+    title: 'React 原神元素进度条',
+    info: {
+        lang: 'TypeScript',
+        framework: 'React TSC'
+    },
+    description: '使用React与svg，叠层的一个元素进度条',
+    link: {
+        git: 'https://github.com/ArSrNa/React-GenshinProgress',
+        cnb: "arsrna/os/React-GenshinProgress",
+        sourceLink: 'https://www.npmjs.com/package/genshin-progress',
+        demo: '/docs/genshin-progress'
+    }
+}]
 
+const av = [{
+    img: '/covers/appres/cnb-rife.png',
+    title: 'RIFE视频超帧NPC',
+    description: 'CNB上的视频补帧，可直接在NPC运行，无需打开环境',
+    info: {
+        lang: 'Python',
+        framework: 'NCNN'
+    },
+    link: {
+        git: 'https://cnb.cool/xilonen/RIFE',
+        cnb: "xilonen/RIFE",
+        preview: 'https://cnb.cool/xilonen/RIFE/-/issues/1',
+    },
+}, {
+    img: '/covers/react-av-timeline.png',
+    title: 'React 音视频时间轴',
+    description: 'react音视频时间轴',
+    info: {
+        lang: 'TypeScript',
+        framework: 'React Vite'
+    },
+    link: {
+        git: 'https://github.com/ArSrNa/react-timeline',
+        cnb: "arsrna/os/react-timeline",
+        sourceLink: 'https://www.npmjs.com/package/react-av-timeline',
+        demo: '/docs/react-av-timeline',
+    }
+}, {
+    img: '/covers/smpte.png',
+    title: 'LTC信号发生器',
+    info: {
+        lang: 'TypeScript',
+        framework: 'Vue+TSC'
+    },
+    description: '纯前端生成SMPTE时间码（LTC）',
+    link: {
+        sourceLink: 'https://www.npmjs.com/package/smpte-generator',
+        preview: 'https://smpte.arsrna.cn'
+    }
+}, {
+    img: '/covers/player.png',
+    title: 'React 带歌词简易播放器',
+    info: {
+        lang: 'TypeScript',
+        framework: 'React Vite'
+    },
+    description: '实现标题副标题显示，封面展示，原生audio播放器，lrc歌词同步显示（需提前转换为json）',
+    link: {
+        git: 'https://github.com/ArSrNa/React-LRCPlayer',
+        cnb: "arsrna/os/React-LRCPlayer",
+        sourceLink: 'https://www.npmjs.com/package/react-lrcplayer',
+        demo: '/docs/react-lrcplayer'
+    }
+}, {
+    img: '/covers/VPDemo.png',
+    title: 'React 可视化播放器',
+    info: {
+        lang: 'TypeScript',
+        framework: 'React Vite'
+    },
+    description: '一个可视化播放器demo（原神生日会《提瓦特民谣》）Timeline+Player',
+    link: {
+        cnb: "arsrna/visualize-music",
+        preview: '/demo/visualize-player'
+    }
+}]
 
-export const appRes = [{
+const websites = [{
+    img: '/images/index.jpg',
+    title: '本站的源代码',
+    info: {
+        lang: 'TypeScript',
+        framework: 'React Vite'
+    },
+    description: '源代码里面有描述「源代码里面有描述『源代码里面有描述......的源代码』的源代码」的源代码',
+    link: {
+        cnb: "arsrna/websites/os",
+        preview: 'https://os.arsrna.cn'
+    }
+}, {
+    img: '/covers/music-2025.png',
+    title: 'ArSrNa 2025年度歌单',
+    info: {
+        lang: 'TypeScript',
+        framework: 'React Vite'
+    },
+    description: '带ttml演出效果、歌单切换与移动端适配的音乐播放器',
+    link: {
+        cnb: "arsrna/yearly-music/2025",
+        preview: 'https://music-2025.arsrna.cn'
+    }
+},]
+
+const dataProcess = [{
+    img: '/covers/tencent-stock-api.png',
+    title: '腾讯财经API',
+    description: '腾讯财经api。仅作为实验和学习研究用途，非投资建议。',
+    info: {
+        lang: 'TypeScript',
+        framework: 'bun'
+    },
+    link: {
+        git: 'https://github.com/ArSrNa/tencent-stock-api',
+        cnb: "arsrna/os/tencent-stock-api",
+        sourceLink: 'https://www.npmjs.com/package/tencent-stock-api',
+        // demo: '/docs/react-av-timeline',
+        preview: '/demo/tencent-stock-api'
+    }
+}]
+
+const application = [{
     img: '/covers/appres/app-esrgan.png',
     title: 'ESRGAN超分辨率',
     description: '基于增强型超分辨率生成对抗网络开发，可实现图像与视频线条连续地提升分辨率',
@@ -138,6 +187,10 @@ export const appRes = [{
         link: "https://cnb.cool/arsrna/esrgan-app",
         icon: <CNBIcon />,
         title: "源代码"
+    }, {
+        link: "https://cnb.cool/xilonen/Real-ESRGAN",
+        icon: <CNBIcon />,
+        title: "云原生运行"
     }, {
         link: "https://www.arsrna.cn/app/esrgan",
         icon: <DownloadIcon size={18} />,
@@ -149,6 +202,15 @@ export const appRes = [{
     }
     ]
 }, {
+    img: '/covers/piano_transcription_inference.png',
+    title: '钢琴扒谱（音频转midi）',
+    description: '原项目（qiuqiangkong/piano_transcription_inference）转换到CNB上的运行环境，打开即可一键运行无需配置。',
+    actions: [{
+        link: "https://cnb.cool/xilonen/piano_transcription_inference",
+        icon: <CNBIcon />,
+        title: "源代码"
+    }]
+}, {
     img: '/covers/appres/cnb-next-eo.png',
     title: 'CNB+Next+EO',
     description: 'Nextjs项目+CNB构建+EOPages自动化部署',
@@ -156,10 +218,6 @@ export const appRes = [{
         link: "https://cnb.cool/arsrna/next-cnb-eo-demo",
         icon: <CNBIcon />,
         title: "源代码"
-    }, {
-        link: "https://eo.cnbnb.cn/",
-        icon: <Link2Icon size={18} />,
-        title: "Demo"
     }, {
         link: "https://cloud.tencent.com/developer/article/2533707",
         icon: <BookIcon size={18} />,
@@ -190,7 +248,11 @@ export const appRes = [{
         link: "https://cloud.tencent.com/developer/article/2496407",
         icon: <BookIcon size={18} />,
         title: "教程"
-    }]
+    }, {
+        link: "https://www.arsrna.cn/app/render",
+        icon: <LinkIcon size={18} />,
+        title: "ArRM介绍"
+    },]
 }, {
     img: '/covers/appres/cnb-comfyui.png',
     title: '云原生ComfyUI',
@@ -200,4 +262,41 @@ export const appRes = [{
         icon: <CNBIcon />,
         title: "源代码 / 文档"
     }]
-}];
+}]
+
+const hardware = [{
+    img: '/covers/hardware/ewm_tally.webp',
+    title: 'LoRa 摄像Tally灯（验证中）',
+    description: '基于BC3603国产远距LoRa模块应用而成',
+    date: "2026-04",
+    actions: []
+}, {
+    img: 'https://image.lceda.cn/histories/0f41ae644a66405e9f05cd755a7c84f4.png',
+    title: 'TDA2003带均衡器的功放',
+    description: '将输入的音频信号放大，应用于音响等设备上，还可以对输入信号的各频段进行调整',
+    date: "2021-09",
+    actions: [{
+        link: "https://oshwhub.com/eda_hodtaddn/gflm3915",
+        icon: <LinkIcon size={18} />,
+        title: "项目介绍"
+    }]
+}, {
+    img: 'https://image.lceda.cn/histories/7c2f0bcb2a58421fb2f6a5bfd696e178.png',
+    title: 'LA3600 5段前级均衡器',
+    date: "2021-09",
+    description: '为了让音频各频段饱满，弥补音响缺陷，加了LA3600 五段均衡器芯片 搭配功放使用',
+    actions: [{
+        link: "https://oshwhub.com/eda_hodtaddn/la3600_5",
+        icon: <LinkIcon size={18} />,
+        title: "项目介绍"
+    }]
+}]
+
+export const res: { [key: string]: CardInfo[] } = {
+    'UI组件': ui,
+    '音视频': av,
+    '硬件、嵌入式': hardware,
+    '网站': websites,
+    '数据处理': dataProcess,
+    '综合应用': application,
+}

@@ -3,11 +3,11 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 
 import { createLrcObj, LRCPlayer } from "react-lrcplayer";
 import 'react-lrcplayer/dist/index.css';
-import { lrc } from '@/data/lrc-player';
+import { stars, creditsEX } from '@/data/lrc-player';
 import { ComponentProps } from 'react';
 
 const common: ComponentProps<typeof LRCPlayer> = {
-    lrc,
+    lrc: stars,
     src: "https://res.arsrna.cn/audios/内田秀 - stars we chase.mp3",
     cover: "/demo_res/lrcplayer/cover.jpg",
     title: "内田秀 - stars we chase",
@@ -49,8 +49,43 @@ type Story = StoryObj<typeof meta>;
 
 export const 默认: Story = {
     args: {
-        ...common,
-    },
+        lrc: stars,
+        src: "https://res.arsrna.cn/audios/内田秀 - stars we chase.mp3",
+        cover: "/demo_res/lrcplayer/stars we chase.jpg",
+        title: "内田秀 - stars we chase",
+        subTitle: "TV动画《Love Live! 虹咲学园校园偶像同好会 第二季》第9集插曲",
+        placeholder: "无歌词",
+        offset: -0.3,
+        animate: {
+            type: "lrcplayer-slide",
+            duration: 8
+        },
+        nextLrc: {
+            display: false,
+            number: 2
+        }
+    }
+}
+
+export const 无动画: Story = {
+    args: {
+        lrc: creditsEX,
+        src: "/demo_res/lrcplayer/Frums - Credits EX.mp3",
+        cover: "/demo_res/lrcplayer/3295236359250897.jpg",
+        title: "Frums - Credits EX",
+        subTitle: "歌词单纯炫技",
+        placeholder: "",
+        offset: 0,
+        animate: {
+            type: "none",
+            duration: 0
+        },
+        nextLrc: {
+            display: false,
+            number: 1
+        },
+        align: 'start'
+    }
 };
 
 export const 不同封面和src: Story = {

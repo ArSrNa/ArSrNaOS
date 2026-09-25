@@ -1,21 +1,28 @@
-/* 覆盖 storybook-root 的默认样式 */
-/* #storybook-root {
-    margin-inline: 0 !important;
-    padding-inline: 0 !important;
-    width: 100% !important;
+/* 确保 html 和 body 在 Canvas 模式下全屏 */
+body.sb-main-fullscreen,
+body.sb-main-padded {
+    margin: 0 !important;
+    padding: 0 !important;
     min-height: 100vh !important;
-} */
-
-/* 可选：如果内容被其他容器包裹，也需要同步修改 */
-/* .storybook-story {
-    margin-inline: 0 !important;
-    padding-inline: 0 !important;
-} */
-
-#storybook-root {
     width: 100% !important;
 }
 
-.docs-story>div>div {
+/* 仅在 Canvas 模式下强制 root 全屏 */
+body.sb-main-fullscreen #storybook-root,
+body.sb-main-padded #storybook-root {
     width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    display: block !important;
+}
+
+/* Docs 模式下的样式优化 */
+.docs-story {
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+/* 确保时间轴等组件在 Docs 中有宽度 */
+.docs-story>div {
+    width: 100%;
 }

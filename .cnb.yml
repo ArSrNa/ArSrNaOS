@@ -5,7 +5,7 @@ $:
       runner:
         cpus: 32
       docker:
-        image: docker.cnb.cool/arsrna/dev-env/node22
+        image: docker.cnb.cool/arsrna/dev-image/nodejs
         volumes:
           - /root/.pnpm:cow
           - /root/.pnpm-store:cow

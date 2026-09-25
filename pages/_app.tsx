@@ -2,7 +2,6 @@
 import { uuid } from '@/src/plug';;
 import './index.scss';
 import '@/src/styles/globals.css'
-import { RecoilRoot } from 'recoil';
 import { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import Navbar from '@/components/navbar';
@@ -37,9 +36,7 @@ function App({ Component, pageProps }: AppProps) {
 
 
     return (
-        <RecoilRoot>
-            <Main Component={Component} pageProps={pageProps} />
-        </RecoilRoot>
+        <Main Component={Component} pageProps={pageProps} />
     );
 }
 
