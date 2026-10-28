@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
 		'@ant-design/icons-svg',
 		'antd'
 	],
-	allowedDevOrigins: ["vlzl6facyt-3000.cnb.run"]
+	allowedDevOrigins: ["i46d4z5elx-3000.cnb.run"]
 };
 
 export default nextConfig;
