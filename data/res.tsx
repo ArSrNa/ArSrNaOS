@@ -70,6 +70,20 @@ const ui = [{
 }]
 
 const av = [{
+    img: '/covers/appres/av-openvod.png',
+    title: 'OpenVOD',
+    description: '集转码、压缩、加密、媒资管理、分发、存储一体的解决方案。AI友好、云原生快速启动部署',
+    info: {
+        lang: 'Go+Typescript',
+        framework: 'Next.js'
+    },
+    link: {
+        git: 'https://cnb.cool/arsrna/media/openvod',
+        cnb: "arsrna/media/openvod",
+        preview: 'https://live.arsrna.cn/public?id=5950183799',
+        sourceLink: "https://www.npmjs.com/package/openvod-jssdk"
+    },
+}, {
     img: '/covers/appres/cnb-rife.png',
     title: 'RIFE视频超帧NPC',
     description: 'CNB上的视频补帧，可直接在NPC运行，无需打开环境',
