@@ -4,9 +4,9 @@ $:
         - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
       runner:
         cpus: 16
-      docker:
+      docker: &docker_node
         image: docker.cnb.cool/arsrna/dev-image/nodejs
-        volumes:
+        volumes: &vol_build
           - /root/.bun/install/cache
           - /workspace/.next/cache:cow
       services:
@@ -21,7 +21,7 @@ $:
   push:
     sync_to_github:
       runner:
-        cpus: 8
+        cpus: 2
       services:
         - docker
       stages:
@@ -41,42 +41,33 @@ master:
     os_eodeploy:
       services:
         - docker
-      docker:
-        image: docker.cnb.cool/arsrna/dev-image/nodejs
-        volumes:
-          - /workspace/.next/cache
-          - /root/.bun/install/cache
-      runner:
-        cpus: 32
-      stages:
-        - name: build
-          script:
-            - bun i
-            - bun run build
-        - name: 部署我的 eo pages 正式环境
-          imports:
-            - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
-          image: tencentcom/deploy-eopages:latest
-          script: edgeone pages deploy ./out -n arsrna-os -t $EO_SECRET
-
-    # 部署storybook
-    sb_eodeploy:
-      services:
-        - docker
-      docker:
-        image: docker.cnb.cool/arsrna/dev-image/nodejs
-        volumes:
-          # 使用缓存，同时更新
-          - /root/.bun/install/cache
+      docker: *docker_node
       runner:
         cpus: 16
       stages:
         - name: build
           script:
             - bun i
+            - bun run build
+        - name: 部署我的 eo pages 正式环境
+          imports: &eo_imports
+            - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
+          image: &eo_image tencentcom/deploy-eopages:latest
+          script: edgeone pages deploy ./out -n arsrna-os -t $EO_SECRET
+
+    # 部署storybook
+    sb_eodeploy:
+      services:
+        - docker
+      docker: *docker_node
+      runner:
+        cpus: 8
+      stages:
+        - name: build
+          script:
+            - bun i
             - bun run build-storybook
         - name: 部署eo pages
-          imports:
-            - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
-          image: tencentcom/deploy-eopages:latest
+          imports: *eo_imports
+          image: *eo_image
           script: edgeone pages deploy ./storybook-static -n arsrna-os-storybook -t $EO_SECRET
