@@ -1,3 +1,16 @@
+# 构建环境：node22 镜像自带 bun，无需额外安装
+x-build-env: &build-env
+  services:
+    - docker
+  docker:
+    image: docker.cnb.cool/arsrna/dev-env/node22
+    volumes:
+      # 使用缓存，同时更新
+      - /root/.pnpm:cow
+      - /root/.pnpm-store:cow
+      - /root/.bun/install/cache
+      - /workspace/.next/cache:cow
+
 $:
   vscode:
     - imports:
@@ -17,29 +30,18 @@ $:
       stages:
         - name: install
           script:
-            - npm i -g bun
             - bun i
 
   # 推送 Tag 后部署正式环境（Tag 名即 package.json 的 version）
   tag_push:
     # 部署 NextJS
     os_eodeploy:
-      services:
-        - docker
-      docker:
-        image: docker.cnb.cool/arsrna/dev-env/node22
-        volumes:
-          # 使用缓存，同时更新
-          - /root/.npm:cow
-          - /root/.pnpm-store:cow
-          - /workspace/.next/cache:cow
-          - /root/.bun/install/cache
+      <<: *build-env
       runner:
         cpus: 32
       stages:
         - name: build
           script:
-            - npm i -g bun
             - bun i
             - npm run build
         - name: 部署我的 eo pages 正式环境
@@ -50,20 +52,12 @@ $:
 
     # 部署storybook
     sb_eodeploy:
-      services:
-        - docker
-      docker:
-        image: docker.cnb.cool/arsrna/dev-env/node22
-        volumes:
-          # 使用缓存，同时更新
-          - /root/.pnpm:cow
-          - /root/.pnpm-store:cow
+      <<: *build-env
       runner:
         cpus: 16
       stages:
         - name: build
           script:
-            - npm i -g bun
             - bun i
             - npm run build-storybook
         - name: 部署eo pages
@@ -97,7 +91,7 @@ $:
   push:
     sync_to_github:
       runner:
-        cpus: 8
+        cpus: 2
       services:
         - docker
       stages:
