@@ -1,11 +1,13 @@
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
+import { useArgs } from 'storybook/preview-api';
 
 import { Vertical } from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css'
 import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { defaultInfo } from '@/data/visualize-player/assets';
 import defaultLrc from '@/data/visualize-player/default-music';
+import { TimeSlider } from './TimeSlider';
 const { music } = defaultInfo;
 const { data } = defaultLrc
 
@@ -20,7 +22,7 @@ const common: Partial<ComponentProps<typeof Vertical>> = {
 }
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-    title: 'react-av-timeline/垂直时间线',
+    title: 'react-av-timeline/垂直时间线（已废弃）',
     component: Vertical,
     args: {
         ...common,
@@ -51,12 +53,12 @@ const meta = {
         // layout: 'centered',
         docs: {
             description: {
-                component: '垂直时间线，适用于自动化场景，在过n条后自动消失。和水平不一样，此处Level参数不生效'
+                component: '**已废弃**：新项目请使用 `TraceWaterfall` 瀑布时间线。垂直时间线适用于自动化场景，在过n条后自动消失。和水平不一样，此处Level参数不生效。'
             }
         },
     },
     // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-    tags: ['autodocs'],
+    tags: ['autodocs', 'deprecated'],
     // More on argTypes: https://storybook.js.org/docs/api/argtypes
     argTypes: {
         currentTime: {
@@ -104,6 +106,15 @@ type Story = StoryObj<typeof meta>;
 export const 默认: Story = {
     args: common,
     tags: ['autodocs'],
+    render: (args) => {
+        const [, updateArgs] = useArgs();
+        return (
+            <>
+                <TimeSlider value={args.currentTime ?? 0} max={args.totalTime ?? 100} onChange={(time) => updateArgs({ currentTime: time })} />
+                <Vertical {...args} />
+            </>
+        );
+    },
 };
 
 export const 音乐播放: Story = {

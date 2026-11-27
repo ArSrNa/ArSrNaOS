@@ -1,11 +1,13 @@
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
+import { useArgs } from 'storybook/preview-api';
 
 import Component from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css'
 import { useEffect, useRef, useState } from 'react';
 import { defaultInfo } from '@/data/visualize-player/assets';
 import defaultLrc from '@/data/visualize-player/default-music';
+import { TimeSlider } from './TimeSlider';
 const { music } = defaultInfo;
 const { data, characterOrder, characters } = defaultLrc
 
@@ -20,7 +22,7 @@ const characterItems = characterOrder.map(m => ({
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-    title: 'react-av-timeline/水平时间线',
+    title: 'react-av-timeline/水平时间线（已废弃）',
     component: Component,
     args: {
         scale: 2,
@@ -46,9 +48,14 @@ const meta = {
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
         layout: 'padded',
+        docs: {
+            description: {
+                component: '**已废弃**：新项目请使用 `TraceWaterfall` 瀑布时间线。该组件仍可正常使用，但不再推荐。',
+            },
+        },
     },
     // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-    tags: ['autodocs'],
+    tags: ['autodocs', 'deprecated'],
     // More on argTypes: https://storybook.js.org/docs/api/argtypes
     argTypes: {
         currentTime: {
@@ -84,6 +91,15 @@ export const 默认: Story = {
         currentTime: 0
     },
     tags: ['autodocs'],
+    render: (args) => {
+        const [, updateArgs] = useArgs();
+        return (
+            <>
+                <TimeSlider value={args.currentTime ?? 0} max={args.totalTime ?? 100} onChange={(time) => updateArgs({ currentTime: time })} />
+                <Component {...args} />
+            </>
+        );
+    },
 };
 
 export const 音乐播放: Story = {
@@ -149,7 +165,9 @@ export const 层叠Level参数: Story = {
         }
     },
     render: (args) => {
+        const [, updateArgs] = useArgs();
         return <div>
+            <TimeSlider value={args.currentTime ?? 0} max={args.totalTime ?? 30} onChange={(time) => updateArgs({ currentTime: time })} />
             <Component {...args}
                 scale={args.scale}
                 totalTime={args.totalTime}

@@ -8,7 +8,7 @@ import "poster-generator/dist/index.css";
 import { ComponentProps } from 'react';
 
 const common: ComponentProps<typeof Component> = {
-    src: '/demo_res/cover-generator/a8ccb573aeb231c14a84a3c7ea7364431550564.jpg',
+    src: '/demo_res/cover-generator/demo.webp',
     height: '350px',
     content: (<div className={style['content']}>
         <h1>强势动力来自</h1>
@@ -16,8 +16,8 @@ const common: ComponentProps<typeof Component> = {
             <div className={style['content-mask']} /><span>CNB</span></div>
     </div>),
     backgroundStyle: {
-        "backgroundSize": "60vw",
-        "backgroundPosition": "-69% 5%"
+        "backgroundSize": "cover",
+        "backgroundPosition": "70% 5%"
     },
     filter: {
         mask: `blur(20px) brightness(1)`,
@@ -73,7 +73,7 @@ export const 默认: Story = {
 export const 全屏: Story = {
     args: {
         ...common, backgroundStyle: {
-            backgroundSize: '110vw',
+            backgroundSize: '110%',
             backgroundPosition: '-69px 5%'
         }
     },

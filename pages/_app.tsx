@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import { ThemeProvider } from '@/components/theme-provider';
 
 function Main({ Component, pageProps }) {
 
@@ -36,7 +37,9 @@ function App({ Component, pageProps }: AppProps) {
 
 
     return (
-        <Main Component={Component} pageProps={pageProps} />
+        <ThemeProvider>
+            <Main Component={Component} pageProps={pageProps} />
+        </ThemeProvider>
     );
 }
 

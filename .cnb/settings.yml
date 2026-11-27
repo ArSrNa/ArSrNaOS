@@ -1,0 +1,6 @@
+# 自动生成 Tag 的来源分支
+# 默认是仓库默认分支（master），会读到 master 上旧的 package.json 版本。
+# 发版在 demo 上走，所以显式指到 demo。
+tag:
+  auto_tag:
+    branch: demo
