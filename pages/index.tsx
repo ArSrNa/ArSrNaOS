@@ -19,7 +19,7 @@ import { ImageZoom } from '@/src/components/ui/shadcn-io/image-zoom';
 
 export default function Home() {
     const itemClass = 'grid lg:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-5';
-    const cardBtnClass = 'flex flex-row gap-2 rounded-md px-2 py-1 border border-gray-300 hover:bg-gray-100 transition-all cursor-pointer items-center text-sm';
+    const cardBtnClass = 'flex flex-row gap-2 rounded-md px-2 py-1 border border-border hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 transition-all cursor-pointer items-center text-sm';
     function FooterAction({ link }: { link: CardInfo['link'] }) {
         const iconEnum = {
             git: <Github size={18} />,
@@ -105,7 +105,7 @@ export default function Home() {
                                     <img className='object-scale-down' src={`https://cnb.cool/${link.cnb}/-/badge/git/latest/testing/unit/coverage`} />
                                 </div>}
 
-                                {date && <div className='flex items-center gap-1 text-[#666]'>
+                                {date && <div className='flex items-center gap-1 text-muted-foreground'>
                                     <ClockIcon size={20} />
                                     <div>发布时间：{date}</div>
                                 </div>}

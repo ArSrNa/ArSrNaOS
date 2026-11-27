@@ -41,7 +41,7 @@ export default function VPDemo() {
         <Separator />
         <div className='my-2' /> */}
         <Star />
-        <footer className='text-center text-gray-500 my-10'>仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
+        <footer className='text-center text-muted-foreground my-10'>仅供学习使用，禁止商业用途，音乐版权归原曲作者所有</footer>
     </div>
 }
 
@@ -146,7 +146,7 @@ function DefaultPlayer() {
                     <img src={typeof coverImg === 'string' ? coverImg : (coverImg as any).src} />
                     <div>
                         <h3 className='text-xl font-bold'>提瓦特民谣 - 宴宁 / XY大甘蔗 / 柳知萧 / 闫夜桥 / 陶典 / 孙晔</h3>
-                        <small className='text-gray-500'>游戏《原神》五周年同人曲</small>
+                        <small className='text-muted-foreground'>游戏《原神》五周年同人曲</small>
                     </div>
                 </div>
 
@@ -190,7 +190,7 @@ function Star() {
             <img src={typeof coverImg === 'string' ? coverImg : (coverImg as any).src} />
             <div>
                 <h3 className='text-xl font-bold'>提瓦特民谣（星空版） - 鹿喑kana / 多多poi / Mace / 陶典 / 孙晔 / 花玲</h3>
-                <small className='text-gray-500'>游戏《原神》五周年同人曲</small>
+                <small className='text-muted-foreground'>游戏《原神》五周年同人曲</small>
             </div>
         </div>
         <LyricPlayer

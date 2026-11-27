@@ -20,7 +20,7 @@ const characterItems = characterOrder.map(m => ({
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-    title: 'react-av-timeline/水平时间线',
+    title: 'react-av-timeline/水平时间线（已废弃）',
     component: Component,
     args: {
         scale: 2,
@@ -46,9 +46,14 @@ const meta = {
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
         layout: 'padded',
+        docs: {
+            description: {
+                component: '**已废弃**：新项目请使用 `TraceWaterfall` 瀑布时间线。该组件仍可正常使用，但不再推荐。',
+            },
+        },
     },
     // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-    tags: ['autodocs'],
+    tags: ['autodocs', 'deprecated'],
     // More on argTypes: https://storybook.js.org/docs/api/argtypes
     argTypes: {
         currentTime: {

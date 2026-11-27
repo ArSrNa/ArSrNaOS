@@ -64,7 +64,7 @@ export default function Stock() {
             <br />
             历史数据（来自CNB）：<a href="https://cnb.cool/xgz/arsrna/stock-history" target="_blank">https://cnb.cool/xgz/arsrna/stock-history</a>
         </div>
-        <div className="flex gap-3 sticky top-[60px] left-0 right-0 bg-white/20 backdrop-blur-lg z-10 p-2 mx-[-15px]">
+        <div className="flex gap-3 sticky top-[60px] left-0 right-0 bg-background/20 backdrop-blur-lg z-10 p-2 mx-[-15px]">
             <Input placeholder="股票代码" value={code} onChange={e => setCode(e.target.value)} />
             <Button onClick={() => changeCode(code)}>查询</Button>
         </div>
@@ -88,8 +88,8 @@ function Result({ result }: { result: StockData }) {
 
 
     function Statistics({ title, value }: { title: string, value: number }) {
-        return <div className="border border-gray-300 px-4 py-2 flex flex-col items-left gap-1 rounded-sm">
-            <h1 className="text-sm font-medium text-slate-500">{title}</h1>
+        return <div className="border border-border px-4 py-2 flex flex-col items-left gap-1 rounded-sm">
+            <h1 className="text-sm font-medium text-muted-foreground">{title}</h1>
             <p className="text-xl font-semibold">{value.toLocaleString()}</p>
         </div>
     }
