@@ -1,105 +1,186 @@
-# 构建环境：镜像自带 bun / node / pnpm，无需额外安装
-.build: &build
-  services:
-    - docker
+# ===========================================================================
+# CNB 流水线
+#
+# 事件分工：
+#   push（任意分支）      → 同步到 GitHub
+#   push（demo / master） → 直推拦截（AI 不许直推，规则见 AGENTS.md）
+#   auto_tag             → 取 package.json 的 version 打 Tag
+#   tag_push             → 构建 + 部署 NextJS / Storybook 到 EdgeOne Pages
+#
+# 字段与语义一律以官方文档为准：
+#   触发规则      https://docs.cnb.cool/zh/build/trigger-rule.md
+#   语法手册      https://docs.cnb.cool/zh/build/grammar.md
+#   环境变量      https://docs.cnb.cool/zh/build/env.md
+#   Tag 自动生成   https://docs.cnb.cool/zh/repo/settings-tag.md
+# ===========================================================================
+
+# 构建环境：镜像自带 bun / node。
+# 锚点里不放 services —— 部署任务不需要 docker，挂上只是白占一份资源。
+.node: &node
   docker:
     image: docker.cnb.cool/arsrna/dev-image/nodejs
-    volumes: &build_cache
+    volumes: &bun_cache
       - /root/.bun/install/cache
-      - /workspace/.next/cache:cow
 
-# eo pages 部署：密钥引入与镜像
-.eo: &eo
+# EdgeOne Pages 部署：密钥 + 部署镜像
+.eo_deploy: &eo_deploy
+  image: tencentcom/deploy-eopages:latest
   imports:
     - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
-  image: tencentcom/deploy-eopages:latest
 
-$:
-  vscode:
-    - imports:
-        - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
-      runner:
-        cpus: 16
-      docker:
-        image: docker.cnb.cool/arsrna/dev-image/nodejs
-        volumes: *build_cache
-      services:
-        - vscode
-        - docker
-      stages:
-        - name: install
-          script:
-            - bun i
-
-  # 推送 Tag 后部署正式环境，Tag 名即 package.json 的 version
-  tag_push:
-    # 部署 NextJS
-    - name: os_eodeploy
-      <<: *build
-      imports:
-        - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
-      runner:
-        cpus: 16
-      stages:
-        - name: build
-          script:
-            - bun i
-            - bun run build
-        - name: 部署我的 eo pages 正式环境
-          <<: *eo
-          script: edgeone pages deploy ./out -n arsrna-os -t $EO_SECRET
-
-    # 部署 Storybook
-    - name: sb_eodeploy
-      <<: *build
-      imports:
-        - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
-      runner:
-        cpus: 8
-      stages:
-        - name: build
-          script:
-            - bun i
-            - bun run build-storybook
-        - name: 部署eo pages
-          <<: *eo
-          script: edgeone pages deploy ./storybook-static -n arsrna-os-storybook -t $EO_SECRET
-
-  # 自动生成 Tag：取 package.json 的 version 作为 Tag 名
+# ---------------------------------------------------------------------------
+# auto_tag
+#
+# 【必须挂在具体分支名下】文档 trigger-rule.md「配置覆盖规则」写得很清楚：
+#   auto_tag 若写在 `$` 下，两边的配置都会保留，但 `$` 下的配置会被忽略。
+# 写在 `$` 下 = 完全不生效，平台会走默认的 cnbcool/git-auto-tag，
+# 那个插件按 Conventional Commits 算下个语义化版本，**根本不读 package.json**。
+# 之前就是这个坑：demo 上 93 个提交里有 BREAKING CHANGE，
+# 于是打出 1.0.0，而 package.json 写的是 1.4.0。
+#
+# 另外 auto_tag 只由「Tag 列表页的自动生成 Tag 按钮」触发，不随 push 自动跑；
+# 取哪个分支的代码由 .cnb/settings.yml 的 tag.auto_tag.branch 决定（已指 demo）。
+# ---------------------------------------------------------------------------
+demo:
   auto_tag:
-    - docker:
-        image: docker.cnb.cool/arsrna/dev-image/nodejs
+    - name: auto_tag
+      <<: *node
       runner:
         cpus: 2
       imports:
         - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
       stages:
-        - name: 从 package.json 读取版本号
-          script: echo "##[set-output version=$(node -p "require('./package.json').version")]"
-          exports:
-            version: VERSION
-        - name: 推送 Tag 并触发部署
+        - name: 读取 package.json 的 version
+          # 用 node 读 JSON，别用 grep/sed 抠字符串
           script: |
-            TAG="$VERSION"
-            if [ -z "$TAG" ]; then
-              echo "✗ package.json 里没有读出 version"
+            set -e
+            VERSION="$(node -p "require('./package.json').version")"
+            if [ -z "$VERSION" ] || [ "$VERSION" = "undefined" ]; then
+              echo "✗ package.json 里没读到 version"
               exit 1
             fi
-            if git ls-remote --tags origin "refs/tags/$TAG" | grep -q .; then
-              echo "✗ Tag $TAG 已存在。先升 package.json 的 version 再自动打 Tag"
-              exit 1
-            fi
-            git tag -a "$TAG" -m "Release $TAG"
-            git push origin "$TAG"
-            echo "✓ 已创建并推送 Tag $TAG，tag_push 流水线将接手部署"
+            echo "package.json version = $VERSION"
+            echo "##[set-output version=$VERSION]"
+          exports:
+            version: PKG_VERSION
 
+        - name: 推送 Tag
+          # Tag 已存在就失败，不重复打、不覆盖。
+          # auto_tag 是可信事件，CNB_TOKEN 有写权限，git push 可以直接推。
+          script: |
+            set -e
+            TAG="$PKG_VERSION"
+            echo "目标 Tag: $TAG"
+
+            if git ls-remote --tags origin "refs/tags/$TAG" | grep -q .; then
+              echo "✗ Tag $TAG 已存在。要发新版本请先改 package.json 的 version"
+              exit 1
+            fi
+
+            git config user.name  "$CNB_BUILD_USER"
+            git config user.email "$CNB_BUILD_USER_EMAIL"
+            git tag -a "$TAG" -m "Release $TAG"
+            git push origin "refs/tags/$TAG"
+
+            echo "✓ 已推送 Tag $TAG，tag_push 流水线接手部署"
+
+  # 分支 push 兜底：拦截 AI 直推
+  push:
+    guard_no_direct_push: &guard_no_direct_push
+      runner:
+        cpus: 2
+      stages:
+        - name: 拦截 AI 直推
+          script: |
+            NAME="$(git log -1 --pretty=%an)"
+            EMAIL="$(git log -1 --pretty=%ae)"
+            echo "本次提交: $NAME <$EMAIL>"
+            case "$NAME$EMAIL" in
+              *npc*|*NPC*|*bot*|*Bot*|*ai@*|*codebuddy*|*CodeBuddy*|*claude*|*Claude*)
+                echo ""
+                echo "✗ 检测到 AI 直推 $CNB_BRANCH"
+                echo "  AGENTS.md：AI 的变更必须从 demo 切 agent/* 分支，开 PR 合入"
+                echo "  修复：把提交搬到 agent/* 分支开 PR，再回退本次直推"
+                exit 1
+                ;;
+            esac
+            echo "✓ 人类提交，放行"
+
+master:
+  push:
+    guard_no_direct_push: *guard_no_direct_push
+
+# ---------------------------------------------------------------------------
+# tag_push：任何 Tag 推上来就构建并部署。
+#
+# 挂在 `$` 下兜底 —— 文档 trigger-rule.md「Tag 事件」：tag_push 支持精确 Tag 名、
+# glob 和 `$` 兜底。之前写的是 `demo.tag_push`，而 CNB_BRANCH 在 Tag 事件里是
+# **Tag 名**（不是分支名），Tag 叫 1.0.0 就永远匹配不到 `demo` 这一节，
+# 部署流程等于没挂上。
+# ---------------------------------------------------------------------------
+$:
+  tag_push:
+    # ---- NextJS 站点 ----
+    - name: os_eodeploy
+      <<: *node
+      runner:
+        cpus: 16
+      imports:
+        - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
+      stages:
+        - name: build
+          script:
+            - bun i
+            - bun run build
+        - name: 部署 eo pages
+          <<: *eo_deploy
+          script: edgeone pages deploy ./out -n arsrna-os -t $EO_SECRET
+        - name: 创建 Release
+          type: git:release
+          options:
+            title: $CNB_BRANCH
+            description: "发布 $CNB_BRANCH"
+
+    # ---- Storybook ----
+    - name: sb_eodeploy
+      <<: *node
+      runner:
+        cpus: 8
+      imports:
+        - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
+      stages:
+        - name: build
+          script:
+            - bun i
+            - bun run build-storybook
+        - name: 部署 eo pages
+          <<: *eo_deploy
+          script: edgeone pages deploy ./storybook-static -n arsrna-os-storybook -t $EO_SECRET
+
+  # 云原生开发环境
+  vscode:
+    - <<: *node
+      runner:
+        cpus: 16
+      services:
+        - vscode
+        - docker
+      imports:
+        - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
+      stages:
+        - name: install
+          script: bun i
+
+# ---------------------------------------------------------------------------
+# 任意分支 push → 同步到 GitHub
+# `"**"` 匹配所有分支（文档 trigger-rule.md「常用匹配规则」）。
+# push_tags: true 让 Tag 也跟着同步，Tag 建完之后不用另开一条流水线。
+# ---------------------------------------------------------------------------
 "**":
   push:
     sync_to_github:
       runner:
-        cpus: 8
-      services:
-        - docker
+        cpus: 2
       stages:
         - name: sync to github
           image: tencentcom/git-sync
@@ -111,36 +192,4 @@ $:
             username: ${GIT_USERNAME}
             password: ${GIT_ACCESS_TOKEN}
             git_email: "root@arsrna.cn"
-
-# ---------------------------------------------------------------------------
-# 分支保护：禁止 AI 直接向 demo / master 提交
-# 规则说明见 AGENTS.md。AI 的提交必须经 PR 合入。
-# 平台侧「仅 PR 合入 + 分支保护」才是硬防线，这里是兜底。
-# ---------------------------------------------------------------------------
-.guard_no_direct_push: &guard_no_direct_push
-  runner:
-    cpus: 2
-  stages:
-    - name: 拦截 AI 直推
-      script: |
-        COMMITTER_EMAIL=$(git log -1 --pretty=%ae)
-        COMMITTER_NAME=$(git log -1 --pretty=%an)
-        echo "本次提交: ${COMMITTER_NAME} <${COMMITTER_EMAIL}>"
-        case "$COMMITTER_EMAIL$COMMITTER_NAME" in
-          *npc*|*bot*|*Bot*|*ai@*|*codebuddy*|*CodeBuddy*|*claude*|*Claude*)
-            echo ""
-            echo "✗ 检测到 AI 直推 ${CNB_BRANCH}。"
-            echo "  AGENTS.md 规定：AI 的变更必须从 demo 切新分支，开 PR 合入。"
-            echo "  修复方式：把提交搬到 agent/* 分支，开 PR 到 demo，并回退本次直推。"
-            exit 1
-            ;;
-        esac
-        echo "✓ 人类提交，放行"
-
-demo:
-  push:
-    guard_no_direct_push: *guard_no_direct_push
-
-master:
-  push:
-    guard_no_direct_push: *guard_no_direct_push
+            push_tags: true
