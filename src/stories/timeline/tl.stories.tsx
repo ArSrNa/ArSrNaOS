@@ -1,11 +1,13 @@
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
+import { useArgs } from 'storybook/preview-api';
 
 import Component from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css'
 import { useEffect, useRef, useState } from 'react';
 import { defaultInfo } from '@/data/visualize-player/assets';
 import defaultLrc from '@/data/visualize-player/default-music';
+import { TimeSlider } from './TimeSlider';
 const { music } = defaultInfo;
 const { data, characterOrder, characters } = defaultLrc
 
@@ -89,6 +91,15 @@ export const 默认: Story = {
         currentTime: 0
     },
     tags: ['autodocs'],
+    render: (args) => {
+        const [, updateArgs] = useArgs();
+        return (
+            <>
+                <TimeSlider value={args.currentTime ?? 0} max={args.totalTime ?? 100} onChange={(time) => updateArgs({ currentTime: time })} />
+                <Component {...args} />
+            </>
+        );
+    },
 };
 
 export const 音乐播放: Story = {
@@ -154,7 +165,9 @@ export const 层叠Level参数: Story = {
         }
     },
     render: (args) => {
+        const [, updateArgs] = useArgs();
         return <div>
+            <TimeSlider value={args.currentTime ?? 0} max={args.totalTime ?? 30} onChange={(time) => updateArgs({ currentTime: time })} />
             <Component {...args}
                 scale={args.scale}
                 totalTime={args.totalTime}

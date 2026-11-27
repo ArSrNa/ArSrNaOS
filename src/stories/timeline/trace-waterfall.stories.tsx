@@ -8,9 +8,12 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { defaultInfo } from '@/data/visualize-player/assets';
 import defaultLrc from '@/data/visualize-player/default-music';
+import { TimeSlider } from './TimeSlider';
 
 const { music } = defaultInfo;
 const { data } = defaultLrc;
+
+const musicDuration = 217.466667;
 
 const tracks: TimelineTrack[] = [
     { index: 0, name: '歌词 1' },
@@ -145,11 +148,16 @@ export const 默认: Story = {
     tags: ['autodocs'],
     render: (args) => {
         const [, updateArgs] = useArgs();
+        const currentTime = args.currentTime ?? 0;
+        const max = (args.viewStart ?? 0) + (args.viewDuration ?? 45);
         return (
-            <TraceWaterfall
-                {...args}
-                onCurrentTimeChange={(time) => updateArgs({ currentTime: time })}
-            />
+            <>
+                <TimeSlider value={currentTime} max={max} onChange={(time) => updateArgs({ currentTime: time })} />
+                <TraceWaterfall
+                    {...args}
+                    onCurrentTimeChange={(time) => updateArgs({ currentTime: time })}
+                />
+            </>
         );
     },
 };
@@ -210,6 +218,7 @@ export const 固定播放头与首行跟随: Story = {
 
         return (
             <div>
+                <TimeSlider value={currentTime} max={end} onChange={setCurrentTime} />
                 <Button onClick={() => setPlaying((v) => !v)}>{playing ? '暂停' : '播放'}</Button>
                 <TraceWaterfall
                     {...args}
@@ -234,13 +243,15 @@ export const 音乐播放: Story = {
         followMode: 'scroll',
         keepRowsAbove: 1,
         currentTime: 0,
+        viewDuration: musicDuration,
+        defaultZoom: 8,
         formatTime: { type: 'clock', millisecond: true },
     },
     tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
-                story: '使用 `sequence` 平铺布局，固定播放头在 30% 位置，跟随模式下保留目标行上方 1 条片段。',
+                story: '使用 `sequence` 平铺布局，固定播放头在 30% 位置，跟随模式下保留目标行上方 1 条片段。视图时长为整首歌的 217.466667s，默认缩放 8 倍。',
             },
         },
     },
@@ -310,6 +321,17 @@ export const SMPTE时间码: Story = {
                 story: '`formatTime` 传入 `{ type: "smpte", fps }` 可使用 SMPTE 时间码；`clock` 可配合 `offset` 做时区偏移。',
             },
         },
+    },
+    render: (args) => {
+        const [, updateArgs] = useArgs();
+        const currentTime = args.currentTime ?? 0;
+        const max = (args.viewStart ?? 0) + (args.viewDuration ?? 45);
+        return (
+            <>
+                <TimeSlider value={currentTime} max={max} onChange={(time) => updateArgs({ currentTime: time })} />
+                <TraceWaterfall {...args} />
+            </>
+        );
     },
 };
 

@@ -1,11 +1,13 @@
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
+import { useArgs } from 'storybook/preview-api';
 
 import { Vertical } from 'react-av-timeline';
 import 'react-av-timeline/dist/index.css'
 import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { defaultInfo } from '@/data/visualize-player/assets';
 import defaultLrc from '@/data/visualize-player/default-music';
+import { TimeSlider } from './TimeSlider';
 const { music } = defaultInfo;
 const { data } = defaultLrc
 
@@ -104,6 +106,15 @@ type Story = StoryObj<typeof meta>;
 export const 默认: Story = {
     args: common,
     tags: ['autodocs'],
+    render: (args) => {
+        const [, updateArgs] = useArgs();
+        return (
+            <>
+                <TimeSlider value={args.currentTime ?? 0} max={args.totalTime ?? 100} onChange={(time) => updateArgs({ currentTime: time })} />
+                <Vertical {...args} />
+            </>
+        );
+    },
 };
 
 export const 音乐播放: Story = {
