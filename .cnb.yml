@@ -3,12 +3,10 @@ $:
     - imports:
         - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
       runner:
-        cpus: 32
+        cpus: 16
       docker:
         image: docker.cnb.cool/arsrna/dev-image/nodejs
         volumes:
-          - /root/.pnpm:cow
-          - /root/.pnpm-store:cow
           - /root/.bun/install/cache
           - /workspace/.next/cache:cow
       services:
@@ -17,7 +15,6 @@ $:
       stages:
         - name: install
           script:
-            - npm i -g bun
             - bun i
 
 "**":
@@ -45,21 +42,17 @@ master:
       services:
         - docker
       docker:
-        image: docker.cnb.cool/arsrna/dev-env/node22
+        image: docker.cnb.cool/arsrna/dev-image/nodejs
         volumes:
-          # 使用缓存，同时更新
-          - /root/.npm:cow
-          - /root/.pnpm-store:cow
-          - /workspace/.next/cache:cow
+          - /workspace/.next/cache
           - /root/.bun/install/cache
       runner:
         cpus: 32
       stages:
         - name: build
           script:
-            - npm i -g bun
             - bun i
-            - npm run build
+            - bun run build
         - name: 部署我的 eo pages 正式环境
           imports:
             - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
@@ -71,18 +64,17 @@ master:
       services:
         - docker
       docker:
-        image: docker.cnb.cool/arsrna/dev-env/node22
+        image: docker.cnb.cool/arsrna/dev-image/nodejs
         volumes:
           # 使用缓存，同时更新
-          - /root/.pnpm:cow
-          - /root/.pnpm-store:cow
+          - /root/.bun/install/cache
       runner:
         cpus: 16
       stages:
         - name: build
           script:
-            - pnpm i
-            - npm run build-storybook
+            - bun i
+            - bun run build-storybook
         - name: 部署eo pages
           imports:
             - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml

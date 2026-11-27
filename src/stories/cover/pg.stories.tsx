@@ -8,7 +8,7 @@ import "poster-generator/dist/index.css";
 import { ComponentProps } from 'react';
 
 const common: ComponentProps<typeof Component> = {
-    src: '/demo_res/cover-generator/a8ccb573aeb231c14a84a3c7ea7364431550564.jpg',
+    src: '/demo_res/cover-generator/demo.webp',
     height: '350px',
     content: (<div className={style['content']}>
         <h1>强势动力来自</h1>

@@ -56,7 +56,7 @@ export default function Home() {
                     <div className='title' style={{ letterSpacing: 3 }}>ArSrNa 资源与应用</div>
                     <span className='lead'>开源资源中心</span>
                 </div>
-                <img src='./images/index.jpg' className='hdpic' />
+                <img src='/images/index.webp' className='hdpic' />
             </div>
 
             {Object.keys(res).map(key => (<section key={key} className='space-y-5'>

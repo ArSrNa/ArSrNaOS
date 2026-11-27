@@ -9,7 +9,7 @@ import { ComponentProps } from 'react';
 const common: ComponentProps<typeof LRCPlayer> = {
     lrc: stars,
     src: "https://res.arsrna.cn/audios/内田秀 - stars we chase.mp3",
-    cover: "/demo_res/lrcplayer/cover.jpg",
+    cover: "/demo_res/lrcplayer/stars-we-chase.webp",
     title: "内田秀 - stars we chase",
     subTitle: "TV动画《Love Live! 虹咲学园校园偶像同好会 第二季》第9集插曲",
     placeholder: "无歌词",
@@ -51,7 +51,7 @@ export const 默认: Story = {
     args: {
         lrc: stars,
         src: "https://res.arsrna.cn/audios/内田秀 - stars we chase.mp3",
-        cover: "/demo_res/lrcplayer/stars we chase.jpg",
+        cover: "/demo_res/lrcplayer/stars-we-chase.webp",
         title: "内田秀 - stars we chase",
         subTitle: "TV动画《Love Live! 虹咲学园校园偶像同好会 第二季》第9集插曲",
         placeholder: "无歌词",
@@ -71,7 +71,7 @@ export const 无动画: Story = {
     args: {
         lrc: creditsEX,
         src: "/demo_res/lrcplayer/Frums - Credits EX.mp3",
-        cover: "/demo_res/lrcplayer/3295236359250897.jpg",
+        cover: "/demo_res/lrcplayer/credits-ex.webp",
         title: "Frums - Credits EX",
         subTitle: "歌词单纯炫技",
         placeholder: "",

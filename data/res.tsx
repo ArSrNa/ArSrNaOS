@@ -26,7 +26,7 @@ export interface CardInfo {
 }
 
 const ui = [{
-    img: '/covers/slider.png',
+    img: '/covers/ui/react-fade-slider.webp',
     title: 'React 渐变轮播图',
     info: {
         lang: 'TypeScript',
@@ -40,7 +40,7 @@ const ui = [{
         demo: '/story/react-fade-slider--默认'
     }
 }, {
-    img: '/covers/cover_generator.png',
+    img: '/covers/ui/cover-generator.webp',
     title: 'React 简易封面生成',
     info: {
         lang: 'TypeScript',
@@ -54,7 +54,7 @@ const ui = [{
         demo: '/docs/poster-generator'
     }
 }, {
-    img: '/covers/rgp.png',
+    img: '/covers/ui/react-genshin-progress.webp',
     title: 'React 原神元素进度条',
     info: {
         lang: 'TypeScript',
@@ -70,7 +70,7 @@ const ui = [{
 }]
 
 const av = [{
-    img: '/covers/appres/av-openvod.png',
+    img: '/covers/av/openvod.webp',
     title: 'OpenVOD',
     description: '集转码、压缩、加密、媒资管理、分发、存储一体的解决方案。AI友好、云原生快速启动部署',
     info: {
@@ -84,7 +84,7 @@ const av = [{
         sourceLink: "https://www.npmjs.com/package/openvod-jssdk"
     },
 }, {
-    img: '/covers/appres/cnb-rife.png',
+    img: '/covers/av/rife-video-interpolation.webp',
     title: 'RIFE视频超帧NPC',
     description: 'CNB上的视频补帧，可直接在NPC运行，无需打开环境',
     info: {
@@ -97,7 +97,7 @@ const av = [{
         preview: 'https://cnb.cool/xilonen/RIFE/-/issues/1',
     },
 }, {
-    img: '/covers/react-av-timeline.png',
+    img: '/covers/av/react-av-timeline.webp',
     title: 'React 音视频时间轴',
     description: 'react音视频时间轴',
     info: {
@@ -111,7 +111,7 @@ const av = [{
         demo: '/docs/react-av-timeline',
     }
 }, {
-    img: '/covers/smpte.png',
+    img: '/covers/av/ltc-generator.webp',
     title: 'LTC信号发生器',
     info: {
         lang: 'TypeScript',
@@ -123,7 +123,7 @@ const av = [{
         preview: 'https://smpte.arsrna.cn'
     }
 }, {
-    img: '/covers/player.png',
+    img: '/covers/av/react-lrcplayer.webp',
     title: 'React 带歌词简易播放器',
     info: {
         lang: 'TypeScript',
@@ -137,7 +137,7 @@ const av = [{
         demo: '/docs/react-lrcplayer'
     }
 }, {
-    img: '/covers/VPDemo.png',
+    img: '/covers/av/react-visualize-player.webp',
     title: 'React 可视化播放器',
     info: {
         lang: 'TypeScript',
@@ -151,7 +151,7 @@ const av = [{
 }]
 
 const websites = [{
-    img: '/images/index.jpg',
+    img: '/covers/website/website-source.webp',
     title: '本站的源代码',
     info: {
         lang: 'TypeScript',
@@ -163,7 +163,7 @@ const websites = [{
         preview: 'https://os.arsrna.cn'
     }
 }, {
-    img: '/covers/music-2025.png',
+    img: '/covers/website/music-2025.webp',
     title: 'ArSrNa 2025年度歌单',
     info: {
         lang: 'TypeScript',
@@ -177,7 +177,7 @@ const websites = [{
 },]
 
 const dataProcess = [{
-    img: '/covers/tencent-stock-api.png',
+    img: '/covers/data/tencent-stock-api.webp',
     title: '腾讯财经API',
     description: '腾讯财经api。仅作为实验和学习研究用途，非投资建议。',
     info: {
@@ -194,7 +194,7 @@ const dataProcess = [{
 }]
 
 const application = [{
-    img: '/covers/appres/app-esrgan.png',
+    img: '/covers/application/esrgan.webp',
     title: 'ESRGAN超分辨率',
     description: '基于增强型超分辨率生成对抗网络开发，可实现图像与视频线条连续地提升分辨率',
     actions: [{
@@ -216,7 +216,7 @@ const application = [{
     }
     ]
 }, {
-    img: '/covers/piano_transcription_inference.png',
+    img: '/covers/application/piano-transcription-inference.webp',
     title: '钢琴扒谱（音频转midi）',
     description: '原项目（qiuqiangkong/piano_transcription_inference）转换到CNB上的运行环境，打开即可一键运行无需配置。',
     actions: [{
@@ -225,7 +225,7 @@ const application = [{
         title: "源代码"
     }]
 }, {
-    img: '/covers/appres/cnb-next-eo.png',
+    img: '/covers/application/cnb-next-eo.webp',
     title: 'CNB+Next+EO',
     description: 'Nextjs项目+CNB构建+EOPages自动化部署',
     actions: [{
@@ -238,7 +238,7 @@ const application = [{
         title: "教程"
     }]
 }, {
-    img: '/covers/appres/cnb-latex.png',
+    img: '/covers/application/cnb-latex.webp',
     title: 'CNB LaTeX编辑器',
     description: '在CNB上使用code-server+LaTeX写论文',
     actions: [{
@@ -251,7 +251,7 @@ const application = [{
         title: "构建教程"
     }]
 }, {
-    img: '/covers/appres/cnb-blender.png',
+    img: '/covers/application/cnb-blender.webp',
     title: '云原生Blender渲染',
     description: '在CNB云原生开发环境使用Blender',
     actions: [{
@@ -268,7 +268,7 @@ const application = [{
         title: "ArRM介绍"
     },]
 }, {
-    img: '/covers/appres/cnb-comfyui.png',
+    img: '/covers/application/cnb-comfyui.webp',
     title: '云原生ComfyUI',
     description: '在CNB云原生开发环境使用ComfyUI',
     actions: [{
@@ -279,7 +279,7 @@ const application = [{
 }]
 
 const hardware = [{
-    img: '/covers/hardware/ewm_tally.webp',
+    img: '/covers/hardware/lora-tally-light.webp',
     title: 'LoRa 摄像Tally灯（验证中）',
     description: '基于BC3603国产远距LoRa模块应用而成',
     date: "2026-04",
