@@ -20,27 +20,9 @@ $:
             - npm i -g bun
             - bun i
 
-"**":
-  push:
-    sync_to_github:
-      runner:
-        cpus: 8
-      services:
-        - docker
-      stages:
-        - name: sync to github
-          image: tencentcom/git-sync
-          imports:
-            - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
-          settings:
-            target_url: https://github.com/ArSrNa/ArSrNaOS.git
-            auth_type: https
-            username: ${GIT_USERNAME}
-            password: ${GIT_ACCESS_TOKEN}
-            git_email: "root@arsrna.cn"
-
-master:
-  push:
+  # 推送 Tag 后部署正式环境（Tag 名即 package.json 的 version）
+  tag_push:
+    # 部署 NextJS
     os_eodeploy:
       services:
         - docker
@@ -81,10 +63,51 @@ master:
       stages:
         - name: build
           script:
-            - pnpm i
+            - npm i -g bun
+            - bun i
             - npm run build-storybook
         - name: 部署eo pages
           imports:
             - https://cnb.cool/arsrna/env/-/blob/main/tencent.yml
           image: tencentcom/deploy-eopages:latest
           script: edgeone pages deploy ./storybook-static -n arsrna-os-storybook -t $EO_SECRET
+
+  # 自动生成 Tag：取 package.json 的 version 作为 Tag 名
+  auto_tag:
+    - stages:
+        - name: 从 package.json 读取版本号
+          script:
+            - VERSION=$(node -p "require('./package.json').version")
+            - echo "当前版本: $VERSION"
+            - echo "##[set-output tag=$VERSION]"
+          exports:
+            tag: AUTO_TAG
+        # 自动生成的 Tag 不会触发 tag_push，需要在这里手动推 Tag 以触发部署
+        - name: 推送 Tag
+          script:
+            - |
+              if git ls-remote --tags origin "refs/tags/$AUTO_TAG" | grep -q .; then
+                echo "Tag $AUTO_TAG 已存在，跳过"
+              else
+                git tag -a "$AUTO_TAG" -m "Release $AUTO_TAG"
+                git push origin "$AUTO_TAG"
+              fi
+
+"**":
+  push:
+    sync_to_github:
+      runner:
+        cpus: 8
+      services:
+        - docker
+      stages:
+        - name: sync to github
+          image: tencentcom/git-sync
+          imports:
+            - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
+          settings:
+            target_url: https://github.com/ArSrNa/ArSrNaOS.git
+            auth_type: https
+            username: ${GIT_USERNAME}
+            password: ${GIT_ACCESS_TOKEN}
+            git_email: "root@arsrna.cn"
