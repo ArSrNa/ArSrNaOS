@@ -1,6 +1,7 @@
-# 自动生成 Tag 的来源分支
-# 默认是仓库默认分支（master），会读到 master 上旧的 package.json 版本。
-# 发版在 demo 上走，所以显式指到 demo。
+# Tag 自动生成：auto_tag 流水线取哪个分支的代码。
+# 不配时默认是仓库默认分支（master）；本仓库在 demo 上发版，
+# 而 master 上的 package.json 版本号会落后，所以显式指到 demo。
+# 文档：https://docs.cnb.cool/zh/repo/settings-tag.md
 tag:
   auto_tag:
     branch: demo
