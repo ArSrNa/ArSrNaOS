@@ -97,7 +97,7 @@ $:
   push:
     sync_to_github:
       runner:
-        cpus: 2
+        cpus: 8
       services:
         - docker
       stages:
@@ -144,29 +144,3 @@ demo:
 master:
   push:
     guard_no_direct_push: *guard_no_direct_push
-
-# ---------------------------------------------------------------------------
-# Tag 推送 → CI 状态同步
-# tag_push 按 Tag 名精确匹配，没有 "**" 兜底（"**" 只匹配分支名），
-# 所以每个 Tag 都要在这里单独挂一条 sync_to_github。
-# 目前「自动生成 Tag」只会在 demo 上跑（见 .cnb/settings.yml），
-# 等 demo 发版流程稳定后，改成 master 把这两块一起挪过去。
-# ---------------------------------------------------------------------------
-demo:
-  tag_push:
-    sync_to_github:
-      runner:
-        cpus: 2
-      services:
-        - docker
-      stages:
-        - name: sync to github
-          image: tencentcom/git-sync
-          imports:
-            - https://cnb.cool/arsrna/env/-/blob/main/git.yaml
-          settings:
-            target_url: https://github.com/ArSrNa/ArSrNaOS.git
-            auth_type: https
-            username: ${GIT_USERNAME}
-            password: ${GIT_ACCESS_TOKEN}
-            git_email: "root@arsrna.cn"
