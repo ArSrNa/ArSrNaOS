@@ -71,3 +71,29 @@ master:
           imports: *eo_imports
           image: *eo_image
           script: edgeone pages deploy ./storybook-static -n arsrna-os-storybook -t $EO_SECRET
+
+# ---------------------------------------------------------------------------
+# 分支保护：禁止 AI 直接向 demo / master 提交
+# 规则说明见 AGENTS.md。AI -authored 的提交必须经 PR 合入。
+# ---------------------------------------------------------------------------
+demo:
+  push:
+    guard_no_direct_push:
+      runner:
+        cpus: 2
+      stages:
+        - name: 拦截 AI 直推
+          script: |
+            COMMITTER_EMAIL=$(git log -1 --pretty=%ae)
+            COMMITTER_NAME=$(git log -1 --pretty=%an)
+            echo "本次提交: ${COMMITTER_NAME} <${COMMITTER_EMAIL}>"
+            case "$COMMITTER_EMAIL$COMMITTER_NAME" in
+              *npc*|*bot*|*Bot*|*ai@*|*codebuddy*|*CodeBuddy*|*claude*|*Claude*)
+                echo ""
+                echo "✗ 检测到 AI 直推 demo / master。"
+                echo "  AGENTS.md 规定：AI 的变更必须从 demo 切新分支，开 PR 合入。"
+                echo "  修复方式：把提交搬到 agent/* 分支，开 PR 到 demo，并回退本次直推。"
+                exit 1
+                ;;
+            esac
+            echo "✓ 人类提交，放行"
