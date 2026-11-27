@@ -25,7 +25,7 @@ export interface CardInfo {
     }[];
 }
 
-const ui = [{
+const ui: CardInfo[] = [{
     img: '/covers/ui/react-fade-slider.webp',
     title: 'React 渐变轮播图',
     info: {
@@ -69,7 +69,7 @@ const ui = [{
     }
 }]
 
-const av = [{
+const av: CardInfo[] = [{
     img: '/covers/av/openvod.webp',
     title: 'OpenVOD',
     description: '集转码、压缩、加密、媒资管理、分发、存储一体的解决方案。AI友好、云原生快速启动部署',
@@ -78,7 +78,7 @@ const av = [{
         framework: 'Next.js'
     },
     link: {
-        git: 'https://cnb.cool/arsrna/media/openvod',
+        git: 'https://github.com/ArSrNa/openvod',
         cnb: "arsrna/media/openvod",
         preview: 'https://live.arsrna.cn/public?id=5950183799',
         sourceLink: "https://www.npmjs.com/package/openvod-jssdk"
@@ -150,7 +150,7 @@ const av = [{
     }
 }]
 
-const websites = [{
+const websites: CardInfo[] = [{
     img: '/covers/website/website-source.webp',
     title: '本站的源代码',
     info: {
@@ -176,7 +176,7 @@ const websites = [{
     }
 },]
 
-const dataProcess = [{
+const dataProcess: CardInfo[] = [{
     img: '/covers/data/tencent-stock-api.webp',
     title: '腾讯财经API',
     description: '腾讯财经api。仅作为实验和学习研究用途，非投资建议。',
@@ -193,8 +193,12 @@ const dataProcess = [{
     }
 }]
 
-const application = [{
+const application: CardInfo[] = [{
     img: '/covers/application/esrgan.webp',
+    info: {
+        lang: "Rust",
+        framework: "Tauri"
+    },
     title: 'ESRGAN超分辨率',
     description: '基于增强型超分辨率生成对抗网络开发，可实现图像与视频线条连续地提升分辨率',
     actions: [{
@@ -278,7 +282,7 @@ const application = [{
     }]
 }]
 
-const hardware = [{
+const hardware: CardInfo[] = [{
     img: '/covers/hardware/lora-tally-light.webp',
     title: 'LoRa 摄像Tally灯（验证中）',
     description: '基于BC3603国产远距LoRa模块应用而成',
