@@ -80,7 +80,7 @@ const av: CardInfo[] = [{
     link: {
         git: 'https://github.com/ArSrNa/openvod',
         cnb: "arsrna/media/openvod",
-        preview: 'https://live.arsrna.cn/public?id=5950183799',
+        preview: 'https://live.arsrna.cn/vod?id=48063902',
         sourceLink: "https://www.npmjs.com/package/openvod-jssdk"
     },
 }, {
